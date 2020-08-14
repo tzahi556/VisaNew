@@ -1,0 +1,1086 @@
+﻿html
+{
+	overflow: hidden;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+
+
+body
+{
+	overflow: hidden;
+	overflow-y: hidden;
+	overflow-x: hidden;
+
+	background: url(Images/bg-main.png);
+	font-family: Tahoma;
+}
+
+#dialog .ui-widget-header { 
+  background: purple; 
+} 
+
+.dvTopBar
+{
+    text-align: center;
+    
+    color: white;
+  
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#555555), to(#000000));
+    background: -webkit-linear-gradient(#555555,#000000);
+    background: -moz-linear-gradient(#555555,#000000);
+    background: -ms-linear-gradient(#555555,#000000);
+    background: -o-linear-gradient(#555555,#000000);
+    background: linear-gradient(#555555,#000000);
+    -pie-background: linear-gradient(#555555,#000000);
+   
+    behavior: url(../../PIE.htc);
+}
+
+.dvRoundAndBg
+{
+	padding: 10px;
+    text-align: center;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -pie-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: #666 0px 0px 15px 10px;
+    -moz-box-shadow: #666 0px 0px 15px 10px;
+    box-shadow: #666 0px 0px 15px 10px;
+    position:relative;
+	z-index: 0;
+  
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#EEEEEE), to(#CBCBCB));
+    background: -webkit-linear-gradient(#EEEEEE,#CBCBCB);
+    background: -moz-linear-gradient(#EEEEEE,#CBCBCB);
+    background: -ms-linear-gradient(#EEEEEE,#CBCBCB);
+    background: -o-linear-gradient(#EEEEEE,#CBCBCB);
+    background: linear-gradient(#EEEEEE,#CBCBCB);
+    -pie-background: linear-gradient(#EEEEEE,#CBCBCB);
+   
+    behavior: url(../../PIE.htc);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.dvNoRoundAndBg
+{
+	padding: 10px;
+    text-align: center;
+    -webkit-box-shadow: #666 0px 0px 15px 10px;
+    -moz-box-shadow: #666 0px 0px 15px 10px;
+    box-shadow: #666 0px 0px 15px 10px;
+  
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#EEEEEE), to(#EDEDED));
+    background: -webkit-linear-gradient(#EEEEEE,#EDEDED);
+    background: -moz-linear-gradient(#EEEEEE,#EDEDED);
+    background: -ms-linear-gradient(#EEEEEE,#EDEDED);
+    background: -o-linear-gradient(#EEEEEE,#EDEDED);
+    background: linear-gradient(#EEEEEE,#EDEDED);
+    -pie-background: linear-gradient(#EEEEEE,#EDEDED);
+   
+    behavior: url(../../PIE.htc);
+}
+
+.dvRoundAndBgContent
+{
+}
+
+.dvMain
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+.dvMain #dvMainContainer {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+}
+
+.dvMain #dvIframeContainer {
+	position: absolute;
+	width: 100%;
+	top: 35px;
+	bottom: 0px;
+}
+
+.dvIframeBg
+{
+    text-align: center;
+    
+}
+
+
+.dvRoundAndBgMenu
+{
+    padding: 5px;
+    border-radius: 0px 0px 0px 0px;
+    -webkit-box-shadow: #666 0px 2px 2px;
+    -moz-box-shadow: #666 0px 2px 2px;
+    -pie-box-shadow: #666 0px 2px 2px;
+    -pie-border-radius: 0px 0px 0px 0px;
+    box-shadow: #666 0px 2px 2px;
+   
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#6e6e6e), to(#2a2a2a));
+    background: -webkit-linear-gradient(#6e6e6e, #2a2a2a);
+    background: -moz-linear-gradient(#6e6e6e, #2a2a2a);
+    background: -ms-linear-gradient(#6e6e6e, #2a2a2a);
+    background: -o-linear-gradient(#6e6e6e, ##2a2a2a);
+    background: linear-gradient(#6e6e6e, #2a2a2a);
+    -pie-background: linear-gradient(#6e6e6e, #2a2a2a);
+    behavior: url(../../PIE.htc);
+    height:280px;
+}
+
+.dvRoundAndBgPopup
+{
+	position: relative;
+	padding: 10px;
+    text-align: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -pie-border-radius: 5px;    
+    border: 1px solid #888888;
+  
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#EEEEEE), to(#EDEDED));
+    background: -webkit-linear-gradient(#EEEEEE,#EDEDED);
+    background: -moz-linear-gradient(#EEEEEE,#EDEDED);
+    background: -ms-linear-gradient(#EEEEEE,#EDEDED);
+    background: -o-linear-gradient(#EEEEEE,#EDEDED);
+    background: linear-gradient(#EEEEEE,#EDEDED);
+    -pie-background: linear-gradient(#EEEEEE,#EDEDED);
+   
+    behavior: url(../../PIE.htc);
+}
+
+
+
+.dvRoundAndBgPopupBlue
+{
+	position: relative;
+	padding: 10px;
+    
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -pie-border-radius: 5px;    
+    border: 1px solid #888888;
+  
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#006CA6), to(#006CA6));
+    background: -webkit-linear-gradient(#006CA6,#006CA6);
+    background: -moz-linear-gradient(#006CA6,#006CA6);
+    background: -ms-linear-gradient(#006CA6,#006CA6);
+    background: -o-linear-gradient(#006CA6,#006CA6);
+    background: linear-gradient(#006CA6,#006CA6);
+    -pie-background: linear-gradient(#006CA6,#006CA6);
+   
+    behavior: url(../../PIE.htc);
+}
+
+
+
+.dvReportTitle
+{
+    position:relative;
+    border: solid 4px #385D8A;
+    width: 93%;
+    padding: 3px;
+    font-weight: bold;
+    color: white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -pie-border-radius: 5px;    
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#E38482), to(#84100A));
+    background: -webkit-linear-gradient(#E38482,#84100A);
+    background: -moz-linear-gradient(#E38482,#84100A);
+    background: -ms-linear-gradient(#E38482,#84100A);
+    background: -o-linear-gradient(#E38482,#84100A);
+    background: linear-gradient(#E38482,#84100A);
+    -pie-background: linear-gradient(#E38482,#84100A);
+    behavior: url(../../PIE.htc);
+}
+
+
+
+
+
+.dvRoundMultiSelect
+{
+	
+	
+	padding: 10px;
+  text-align:left;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -pie-border-radius: 5px;    
+    border: 1px solid #888888;
+  
+   background:#99CCFF;
+   font-weight:bold;
+  
+    z-index: 9999;
+    behavior: url(../../PIE.htc);
+}
+
+
+
+
+
+.popupHtml {
+	overflow: auto;
+	overflow-y: auto;
+}
+
+.popupBody {
+	
+	background: white;
+	padding: 10px;
+	overflow: auto;
+	overflow-y: auto;
+}
+
+.popupBody input[type=text] {
+	
+	font-size: 12px;
+}
+
+.popupBody select {
+	
+	font-size: 12px;
+}
+
+.popupBody .dk_toggle {
+	
+	font-size: 12px;
+}
+
+.popupBody #dk_container_ddlCompany .dk_toggle {
+	
+	width: 300px;
+}
+
+.popupBody td {
+	
+	font-size: 12px;
+}
+
+.popupBody fieldset {
+	
+	border:  1px solid #888888;
+	margin-bottom: 10px;
+}
+
+.popupBody fieldset legend {
+	
+	font-size: 14px;
+	margin-left: 10px;
+}
+
+#dvAccordion li
+{
+	padding: 10px;
+	border-top: 1px solid #cccccc;
+}
+
+.dvMenuTitle
+{
+    cursor: pointer;
+    text-align: center;
+    box-shadow: #666 0px 2px 2px;
+ 
+    border-radius: 0px 90px 0px 0px;
+    -pie-border-radius: 0px 90px 0px 0px;
+    -webkit-box-shadow: #666 0px 2px 2px;
+    -moz-box-shadow: #666 0px 2px 2px;
+   
+    background: #FFFFFF;
+    behavior: url(../../PIE.htc);
+  
+    font-weight: bold;
+}
+
+ul
+{
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+
+li
+{
+    color: Black;
+    text-align: left;
+}
+
+
+
+li:hover
+{
+    
+    cursor: default;
+
+    background:#0098e7;
+	color: white;
+}
+
+
+#accordion .ui-accordion-content
+{
+    padding:0px;
+    
+}
+
+
+
+.ui-accordion-header
+{
+    behavior: url(../../PIE.htc);
+}
+
+*
+{
+    padding: 0;
+    margin: 0;
+}
+
+h1
+{
+    font: bold 32px Times;
+    color: #666;
+    text-align: center;
+    padding: 20px 0;
+}
+#container
+{
+    width: 700px;
+    margin: 10px auto;
+}
+
+
+.mGrid
+{
+    width: 100%;
+    background-color: #fff;
+    margin: 0px 0 0px 0;
+    border: solid 1px #525252;
+    border-collapse: collapse;
+    border:solid 1px gray;
+}
+
+
+.mGrid td
+{
+    padding: 2px;
+    border: solid 1px #c1c1c1;
+    color: #717171;
+}
+.mGrid th
+{
+    padding: 4px 2px;
+    background: #fcfcfc url(grd_alt.png) repeat-x top;
+    border-left: solid 1px #525252;
+    font-size: 0.9em;
+}
+.mGrid .alt
+{
+    background: #fcfcfc;
+}
+.mGrid .pgr
+{
+    background: silver;
+}
+.mGrid .pgr table
+{
+    margin: 5px 0;
+}
+.mGrid .pgr td
+{
+    border-width: 0;
+    padding: 0 6px;
+    border-left: solid 1px #666;
+    font-weight: bold;
+    color: #fff;
+    line-height: 12px;
+}
+.mGrid .pgr a
+{
+    color: #666;
+    text-decoration: none;
+}
+.mGrid .pgr a:hover
+{
+    color: #000;
+    text-decoration: none;
+}
+
+
+/*
+.ui-corner-all
+{
+    border-radius: 4px;
+    behavior: url(../../PIE.htc);
+}
+*/
+
+.ui-button-text
+{
+    display: table;
+    line-height: 0;
+    font-size: smaller;
+    padding: 0px;
+}
+
+
+/*button
+{
+    padding: 4px;
+    border: 1px solid #a9c3cd;
+    text-align: center;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    background: #009FF1;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#009FF1), to(#006CA6));
+    background: -webkit-linear-gradient(#009FF1, #006CA6);
+    background: -moz-linear-gradient(#009FF1, #006CA6);
+    background: -ms-linear-gradient(#009FF1, #006CA6);
+    background: -o-linear-gradient(#009FF1, #006CA6);
+    background: linear-gradient(#009FF1, #006CA6);
+    -pie-background: linear-gradient(#009FF1, #006CA6);
+    behavior: url(../../PIE.htc);
+    cursor: hand;
+    color: white;
+}
+
+button:hover
+{
+
+}
+*/
+
+#table-container
+{
+    position: relative;
+    width: auto;
+    height: 200px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+
+.myGrid tr:hover
+{
+	background:#aed5ed;
+}
+
+
+.myGrid th
+{
+   /*background:url(../../App_Themes/Theme1/Images/grd_head.png);*/
+   height:20px;
+   font-size:15px;
+  
+ 
+}
+
+.myGrid .MainCheckbox
+{
+
+}
+
+.myGridInTabs th
+{
+    
+   /*background:url(../../App_Themes/Theme1/Images/grd_head.png);*/
+   height:20px;
+   font-size:13px;
+}
+
+.gridSortUp 
+{
+   background: transparent url(../../App_Themes/Theme1/Images/Up1.png) 98% no-repeat !important;
+ 
+}
+
+.gridSortDown 
+{
+   background: transparent url(../../App_Themes/Theme1/Images/Down1.png) 98% no-repeat !important;
+ 
+}
+
+.myGrid A:LINK
+{
+    color:black;
+    text-decoration:none;
+}
+
+.myGrid td
+{
+    border:solid 1px gray;
+}
+
+.myGrid th
+{
+    border:solid 1px gray;
+}
+
+
+.tdPadding td
+{
+    padding:5px;
+}
+.myGridInTabs
+{
+ font-size:11px !important;
+}
+
+.myGrid 
+{
+   font-size:13px;
+    border:solid 1px gray;
+}
+
+
+
+
+fieldset
+{
+    background: transparent;
+    text-align:left;
+   
+}
+
+legend
+{
+ color:Black; 
+    text-align:left;
+}
+
+
+.spStaticsTitle
+{
+ 
+ 
+  color:Blue;
+  margin-right:10px;    
+
+}
+
+.spStastic
+{
+  font-weight:bold;
+  color:Gray;
+  padding-right:10px;
+   
+}
+
+#dvLogin {
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    width: 30em;
+    height: 18em;
+   
+    margin-top: -10em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+    background-color: #f3f3f3;
+}
+
+#dvLogin .abs-left { position: absolute; left: 0px; width: 50%; height: 100%; padding-left: 50px; }
+#dvLogin .abs-top { position: absolute; top: 10px; height: 50px; }
+#dvLogin .abs-middle { position: absolute; top: 0px; bottom: 50px; }
+#dvLogin .abs-bottom { position: absolute; width: 100%; bottom: 0px; height: 50px; }
+#dvLogin .abs-right { position: absolute; left: 50%; width: 50%; height: 100%; }
+#dvLogin #lblMsg { font-size: 12px; padding: 0.5em; }
+
+#btnLogin { font-size: 12px; text-transform:uppercase; }
+
+.spToolBar:hover
+{
+     color:White;
+     cursor:default;
+}
+
+.menuButton {
+
+	padding: 10px;
+    text-align: center;
+    
+    color: white;
+    
+    margin: 0px;
+    border: 0px;
+    width: 100%;
+    
+    text-transform: uppercase;
+    font-weight: bold;
+  
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#00A0F2), to(#006CA6));
+    background: -webkit-linear-gradient(#00A0F2,#006CA6);
+    background: -moz-linear-gradient(#00A0F2,#006CA6);
+    background: -ms-linear-gradient(#00A0F2,#006CA6);
+    background: -o-linear-gradient(#00A0F2,#006CA6);
+    background: linear-gradient(#00A0F2,#006CA6);
+    -pie-background: linear-gradient(#00A0F2,#006CA6);
+   
+    behavior: url(../../PIE.htc);
+}
+
+.screenTitle {
+
+	padding: 10px;
+	text-align: center;
+	
+	color: white;
+	font-size: 12px;
+	font-weight: bold;
+	
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#6A685F), to(#312D29));
+    background: -webkit-linear-gradient(#6A685F,#312D29);
+    background: -moz-linear-gradient(#6A685F,#312D29);
+    background: -ms-linear-gradient(#6A685F,#312D29);
+    background: -o-linear-gradient(#6A685F,#312D29);
+    background: linear-gradient(#6A685F,#312D29);
+    -pie-background: linear-gradient(#6A685F,#312D29);
+   
+    behavior: url(../../PIE.htc);
+}
+
+input[type=text], input[type=password] {
+
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -pie-border-radius: 8px;
+    border-radius: 8px;
+    
+    background: #ffffff;
+    
+	-webkit-box-shadow: inset 0px 1px 3px 0px rgba(50, 50, 50, 1);
+	box-shadow: inset 0px 1px 3px 0px rgba(50, 50, 50, 1);    
+	
+    /*behavior: url(../../PIE.htc);*/
+    padding: 8px;
+    
+    border: 1px solid #cccccc;
+}
+
+.ui-tabs {
+	position: relative;
+	zoom: 1;
+	font-size: 14px; !important;
+}
+
+.ui-tabs .ui-tabs-nav {
+	margin-left: 30px;
+	padding: .2em .2em 0;
+}
+
+.ui-tabs .ui-tabs-nav li {
+	list-style: none;
+	float: left;
+	position: relative;
+	top: 1px;
+	margin: 0 0.5em 1px 0;
+	border-bottom: 0 !important;
+	padding: 0;
+	white-space: nowrap;
+}
+
+.tab-container .ui-widget-content {
+	border: 0px;
+	background: transparent;
+	color: #222222;
+}
+
+.tab-container .ui-widget-header {
+	border: 0px;
+	background: transparent;
+	color: #222222;
+	font-weight: bold;
+}
+
+
+
+
+.blueButton .ui-state-default {
+
+   -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -pie-border-radius: 5px;    
+
+	color: white;
+
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#00A0F2), to(#006CA6));
+    background: -webkit-linear-gradient(#00A0F2,#006CA6);
+    background: -moz-linear-gradient(#00A0F2,#006CA6);
+    background: -ms-linear-gradient(#00A0F2,#006CA6);
+    background: -o-linear-gradient(#00A0F2,#006CA6);
+    background: linear-gradient(#00A0F2,#006CA6);
+    -pie-background: linear-gradient(#00A0F2,#006CA6);
+   
+    behavior: url(../../PIE.htc);
+}
+
+.blueButton .ui-state-active {
+
+     -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -pie-border-radius: 5px;    
+
+
+	color: white;
+
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#006CA6), to(#006CA6));
+    background: -webkit-linear-gradient(#006CA6,#006CA6);
+    background: -moz-linear-gradient(#006CA6,#006CA6);
+    background: -ms-linear-gradient(#006CA6,#006CA6);
+    background: -o-linear-gradient(#006CA6,#006CA6);
+    background: linear-gradient(#006CA6,#006CA6);
+    -pie-background: linear-gradient(#006CA6,#006CA6);
+   
+    behavior: url(../../PIE.htc);
+}
+
+
+
+
+
+
+
+
+.redButton .ui-state-default {
+
+ 
+  
+   
+ 
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -pie-border-radius: 5px;    
+
+
+
+
+
+	color: white;
+
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#E38482), to(#84100A));
+    background: -webkit-linear-gradient(#E38482,#84100A);
+    background: -moz-linear-gradient(#E38482,#84100A);
+    background: -ms-linear-gradient(#E38482,#84100A);
+    background: -o-linear-gradient(#E38482,#84100A);
+    background: linear-gradient(#E38482,#84100A);
+    -pie-background: linear-gradient(#E38482,#84100A);
+    behavior: url(../../PIE.htc);
+}
+
+.redButton .ui-state-active {
+
+
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -pie-border-radius: 5px;    
+
+
+	color: white;
+
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#84100A), to(#84100A));
+    background: -webkit-linear-gradient(#84100A,#84100A);
+    background: -moz-linear-gradient(#84100A,#84100A);
+    background: -ms-linear-gradient(#84100A,#84100A);
+    background: -o-linear-gradient(#84100A,#84100A);
+    background: linear-gradient(#84100A,#84100A);
+    -pie-background: linear-gradient(#84100A,#84100A);
+   
+    behavior: url(../../PIE.htc);
+}
+
+#tabHeader {
+	position: relative;
+	z-index: 1;
+}
+
+.dvTabContent
+{
+	padding: 15px;
+    text-align: center;
+    -webkit-box-shadow: #666 0px 5px 5px 5px;
+    -moz-box-shadow: #666 0px 5px 5px 5px;
+    box-shadow: #666 0px 0px 5px 5px;
+    
+    margin-top: -5px;
+  
+    background: white;
+    position: relative;
+    z-index: 0;
+}
+
+.ui-draggable .ui-dialog-titlebar {
+	cursor: move;
+	text-align: center;
+}
+
+.ui-dialog .ui-dialog-title {
+	float: none;
+	margin: .1em 16px .1em 0;
+	color: white;
+}
+
+.ui-dialog .ui-widget-header {
+
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#00A0F2), to(#006CA6));
+    background: -webkit-linear-gradient(#00A0F2,#006CA6);
+    background: -moz-linear-gradient(#00A0F2,#006CA6);
+    background: -ms-linear-gradient(#00A0F2,#006CA6);
+    background: -o-linear-gradient(#00A0F2,#006CA6);
+    background: linear-gradient(#00A0F2,#006CA6);
+    -pie-background: linear-gradient(#00A0F2,#006CA6);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#00A0F2', EndColorStr='#006CA6');
+    text-align: center;
+   
+    behavior: url(../../PIE.htc);
+}
+
+.ui-dialog .ui-widget-header .span {
+	margin: auto;
+	color: white;
+}
+
+.section-head {
+	
+	position: absolute;
+	font-size: 10px;
+	color: white;
+	background: #999999;
+	font-weight: bold;
+	top: 0px;
+	left: 12px;
+	padding: 2px;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+.gridCoumnName{
+
+    text-align:left;
+    padding-left :9px;
+
+}
+
+
+
+.dvRoundAndBgForReg {
+  
+    width: 1000px;
+    margin:20px;
+    background-color: #f3f3f3;
+    padding: 10px;
+   text-align:left;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -pie-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: #666 0px 0px 15px 10px;
+    -moz-box-shadow: #666 0px 0px 15px 10px;
+    box-shadow: #666 0px 0px 15px 10px;
+   
+  
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#EEEEEE), to(#CBCBCB));
+    background: -webkit-linear-gradient(#EEEEEE,#CBCBCB);
+    background: -moz-linear-gradient(#EEEEEE,#CBCBCB);
+    background: -ms-linear-gradient(#EEEEEE,#CBCBCB);
+    background: -o-linear-gradient(#EEEEEE,#CBCBCB);
+    background: linear-gradient(#EEEEEE,#CBCBCB);
+    -pie-background: linear-gradient(#EEEEEE,#CBCBCB);
+   
+    behavior: url(../../PIE.htc);
+   
+}
+
+.spTitle{
+    color: #025482;
+    padding:3px;
+    font-size:23px;
+
+}
+
+.tblDetalis td {
+    padding:5px;
+   
+
+}
+
+.txtRegister{
+     font-size:19px;
+
+}
+
+.spRed{
+    color:red;
+   float:right;
+   font-size:25px;
+   width:20px;
+   margin-top:10px;
+}
+
+.spRedFam{
+ color:red;
+ padding-right:2px;
+
+}
+
+.spRedDoc{
+    color:red;
+  
+   font-size:25px;
+   width:10px;
+   margin-top:10px;
+}
+
+/*input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    background: red;
+    cursor: inherit;
+    display: block;
+}*/
+
+
+.dvNavigate{
+
+    text-align:right;
+   
+
+}
+
+
+.dvSteps{
+    height:480px;
+
+}
+
+.tdFamHeader{
+
+    background:#4472C4;
+    font-size:14px;
+    color:white;
+    font-weight:bold;
+    text-align:center;
+    padding:2px;
+}
+
+.tdFamData{
+
+    background:white;
+    font-size:14px;
+   
+    
+    text-align:center;
+    padding:5px;
+}
+
+.tblFamaly{
+
+     border-collapse: separate; 
+     border-spacing: 3px; 
+   
+
+}
+
+.txtFamely{
+
+    width:90%;
+
+}
+
+.txtFamelyNumber{
+
+     width:70%;
+}
+
+.txtFamelyDate{
+     width:70%;
+
+}
+
+.tdUpload{
+
+    width:33%;
+    text-align:center;
+
+}
+
+
+.dvFilesUpload{
+   
+    width:75%;
+    height:300px;
+    background:white;
+
+     -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -pie-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: #666 0px 0px 15px 10px;
+    -moz-box-shadow: #666 0px 0px 15px 10px;
+    box-shadow: #666 0px 0px 15px 10px;
+
+      behavior: url(../../PIE.htc);
+
+     
+}
+
+.dvDownloadExpert{
+
+    float:left;
+    padding:3px;
+    
+    margin-top:7px;
+    
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#00A0F2), to(#006CA6)) !important;
+    background: -webkit-linear-gradient(#00A0F2,#006CA6) !important;
+    background: -moz-linear-gradient(#00A0F2,#006CA6) !important;
+    background: -ms-linear-gradient(#00A0F2,#006CA6) !important;
+    background: -o-linear-gradient(#00A0F2,#006CA6) !important;
+    background: linear-gradient(#00A0F2,#006CA6) !important;
+   
+
+}
+
+.dvDownloadExpert a {
+    color:white !important;
+    font-weight:bold;
+    font-size:12px;
+}
+

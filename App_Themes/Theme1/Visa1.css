@@ -1,0 +1,130 @@
+﻿
+ 
+
+.ui-corner-all
+{
+    border-radius: 4px;
+    behavior: url(HTTP://localhost/Visa/PIE.htc);
+}
+
+
+
+
+button:hover
+{
+    border: solid 2px gray;
+    padding: 3px;
+}
+
+
+#table-container
+{
+    position: relative;
+    width: auto;
+    height: 200px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+
+
+.myGrid tr:hover
+{
+    background:#E6ECE0;
+   
+}
+
+
+.myGrid th
+{
+   background:url(../../App_Themes/Theme1/Images/grd_head.png);
+   height:20px;
+   font-size:15px;
+   
+ 
+}
+
+.myGridInTabs th
+{
+    
+  background:url(../../App_Themes/Theme1/Images/grd_head.png);
+   height:20px;
+   font-size:13px;
+}
+
+
+.gridSortUp 
+{
+   background: transparent url(../../App_Themes/Theme1/Images/Up.png) 98% no-repeat !important;
+ 
+}
+
+.gridSortDown 
+{
+   background: transparent url(../../App_Themes/Theme1/Images/Down.png) 98% no-repeat !important;
+ 
+}
+
+.myGrid A:LINK
+{
+    color:black;
+    text-decoration:none;
+}
+
+.myGrid td
+{
+    border:solid 1px gray;
+}
+
+.myGrid th
+{
+    border:solid 1px gray;
+}
+
+
+
+.myGridInTabs
+{
+ font-size:11px !important;
+}
+
+.myGrid 
+{
+   font-size:13px;
+    border:solid 1px gray;
+}
+
+
+
+
+fieldset
+{
+    background: transparent;
+    text-align:center;
+}
+
+.spStastic
+{
+  font-weight:bold;
+  color:Gray;
+  padding-right:10px;
+   
+}
+
+#dvLogin {
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    width:30em;
+   
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+}
+
+.spToolBar:hover
+{
+     color:White;
+     cursor:default;
+}
