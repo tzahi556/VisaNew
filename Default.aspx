@@ -19,9 +19,9 @@
    
         var dialog;
         var retVal = false;
-      
+        var retValCompanyId = "";
 
-
+    
         function Confirm() {
             dialog = $("<div id='dialog' title='Confirmation Required'>Are you sure about this?</div>");
             dialog.dialog({
@@ -56,7 +56,7 @@
                 width: Width,
                 height: Height,
                 position: 'top',
-                close: function (ev, ui) { $('#ifMain').get(0).contentWindow.ReturnValueFromModal(retVal) }
+                close: function (ev, ui) { $('#ifMain').get(0).contentWindow.ReturnValueFromModal(retVal, retValCompanyId) }
 
             });
 
@@ -210,7 +210,7 @@
             }
         }
 		
-	</script>
+    </script>
 </head>
 <body style="background: #F2F2FC;">
     <form id="form1" runat="server">

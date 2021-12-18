@@ -69,6 +69,8 @@ public partial class Pages_PopUp_editCustomer : System.Web.UI.Page
         ddlCompany.DataValueField = "CompanyId";
         ddlCompany.DataBind();
 
+        ddlCompany.SelectedValue = CompanyId;
+
         if (!IsMultiple)
         {
             ddlParents.DataSource = Dal.ExeSp("GetCompanyExpertCombobox", ExpertId, CompanyId);

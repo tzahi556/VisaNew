@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using System.Text;
 
 public partial class Pages_Report : System.Web.UI.Page
 {
@@ -173,6 +174,7 @@ public partial class Pages_Report : System.Web.UI.Page
         {
             if (key.IndexOf("ch_") != -1)
             {
+
 
                 string first = key.Replace("ch_", "");
                 int lastIndex = first.LastIndexOf("_");
@@ -360,31 +362,31 @@ public partial class Pages_Report : System.Web.UI.Page
             DataTable dt = Dal.GetDataTable(sql);
 
 
-            // dt = city.GetAllCity();//your datatable
-            string attachment = "attachment; filename=Report" + DateTime.Now.ToString() + ".xls";
-            Response.ClearContent();
-            Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1255");
-            Response.AddHeader("content-disposition", attachment);
-            Response.ContentType = "application/vnd.ms-excel";
-            string tab = "";
-            foreach (DataColumn dc in dt.Columns)
-            {
-                Response.Write(tab + dc.ColumnName);
-                tab = "\t";
-            }
-            Response.Write("\n");
-            int i;
-            foreach (DataRow dr in dt.Rows)
-            {
-                tab = "";
-                for (i = 0; i < dt.Columns.Count; i++)
-                {
-                    Response.Write(tab + dr[i].ToString());
-                    tab = "\t";
-                }
-                Response.Write("\n");
-            }
-            Response.End();
+            ExportTOCSV(dt, "Report" + DateTime.Now.ToString() + ".csv");
+            //string attachment = "attachment; filename=Report" + DateTime.Now.ToString() + ".xls";
+            //Response.ClearContent();
+            //Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1255");
+            //Response.AddHeader("content-disposition", attachment);
+            //Response.ContentType = "application/vnd.ms-excel";
+            //string tab = "";
+            //foreach (DataColumn dc in dt.Columns)
+            //{
+            //    Response.Write(tab + dc.ColumnName);
+            //    tab = "\t";
+            //}
+            //Response.Write("\n");
+            //int i;
+            //foreach (DataRow dr in dt.Rows)
+            //{
+            //    tab = "";
+            //    for (i = 0; i < dt.Columns.Count; i++)
+            //    {
+            //        Response.Write(tab + dr[i].ToString());
+            //        tab = "\t";
+            //    }
+            //    Response.Write("\n");
+            //}
+            //Response.End();
 
 
 
@@ -392,11 +394,66 @@ public partial class Pages_Report : System.Web.UI.Page
         }
     }
 
+
+
+    public void ExportTOCSV(DataTable dt, string reportName)
+    {
+        try
+        {
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.Buffer = true;
+            HttpContext.Current.Response.ContentType = "text/csv";
+            HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1255");
+
+            HttpContext.Current.Response.AppendHeader("Content-Disposition",
+            string.Format("attachment; filename={0}", reportName));
+
+            StringBuilder sb = new StringBuilder();
+
+            string[] columnNames = dt.Columns.Cast<DataColumn>().
+            Select(column => column.ColumnName).
+            ToArray();
+            sb.AppendLine(string.Join(",", columnNames));
+
+            HttpContext.Current.Response.Output.Write(sb.ToString());
+
+            foreach (DataRow row in dt.Rows)
+            {
+                sb = null;
+                sb = new StringBuilder();
+                IEnumerable<string> fields = row.ItemArray.Select(field =>
+                string.Concat("\"", field.ToString().Replace("\"", "\"\""), "\""));
+                string[] arr = fields.ToArray();
+                sb.AppendLine(string.Join(",", arr));
+
+                HttpContext.Current.Response.Output.Write(sb.ToString());
+            }
+
+            //File.WriteAllText("testReport.csv", sb.ToString());
+            //HttpContext.Current.Response.Output.Write(sb.ToString());
+
+            sb = null;
+            HttpContext.Current.Response.Flush();
+            HttpContext.Current.Response.End();
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
+
     private string GetSQLField(string field, bool IsQuery)
     {
         string prev = "";
         string next = "";
 
+        if (field == "Application ref")
+        {
+            field = "Applicationref";
+            prev = "e.";
+            next = " as [Application ref]";
+        }
 
         if (field == "Expert Name")
         {

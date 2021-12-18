@@ -484,6 +484,9 @@
                                     </div>
                                 </td>
                             </tr>
+                            
+                            
+                            
                             <tr>
                                 <td>
                                     <div class="dvDrag">
@@ -494,6 +497,7 @@
                                         Approval Submission</div>
                                 </td>
                             </tr>
+
                             <tr>
                                 <td>
                                     <div class="dvDrag">
@@ -505,6 +509,24 @@
                                     </div>
                                 </td>
                             </tr>
+
+
+                             <tr>
+                                <td>
+                                    <div class="dvDrag">
+                                        Application ref</div>
+                                </td>
+                                <td>
+                                   <%-- <div class="dvDrag">
+                                        Approval Submission</div>--%>
+                                </td>
+                            </tr>
+
+
+
+
+
+
                             <tr>
                                 <td>
                                     <div class="dvDrag">

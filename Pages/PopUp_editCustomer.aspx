@@ -43,6 +43,19 @@
             parent.dialog.dialog('close');
         }
 
+        function RedirectToCompany() {
+
+
+           // parent.ChooseCompany();
+            var CompanyId = $('#<%= ddlCompany.ClientID %>').val();
+            //parent.dialog.ChooseCompany(CompanyId);
+            parent.retValCompanyId = CompanyId;
+            closeDialog();
+
+        }
+
+
+
         function ClientScriptOnSave() {
             parent.retVal = true;
         }
@@ -83,6 +96,8 @@
 
             $("#btnSave").button();
             $("#btnCancel").button();
+            $("#btnGoTo").button();
+
             $("select").dropkick();
 
             $("#dk_container_ddlCompany .dk_toggle").css("width", "200px");
@@ -464,6 +479,14 @@
                                 <img src="../App_Themes/Theme1/Images/close.png" width="16" height="16" style="display: none" />
                                 Close
                             </button>
+                             <span class="blueButton" style="float:right">
+                              <button id="btnGoTo" type="button" onclick="RedirectToCompany();" >
+                                <img src="../App_Themes/Theme1/Images/save1.jpg"  height="16" style="display: none" />
+                                Go To Company Experts
+                            </button>
+                                 </span>
+
+
                         </div>
                     </div>
                 </div>

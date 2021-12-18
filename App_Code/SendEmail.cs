@@ -6,6 +6,8 @@ using System.Data;
 using System.Net.Mail;
 using System.Text;
 using System.Collections;
+using System.ComponentModel;
+using System.Net;
 
 /// <summary>
 /// Summary description for SendEmail
@@ -23,8 +25,8 @@ public class SendEmail
     {
 
 
-        dtMailList = Dal.ExeSp("GetEmailList",Date);
-       
+        dtMailList = Dal.ExeSp("GetEmailList", Date);
+
         dtUsers = Dal.ExeSp("GetUsersTable");
 
         DataRow[] result = dtUsers.Select("IsEmail=True And Email<>'' And Email Is Not Null");
@@ -63,7 +65,7 @@ public class SendEmail
     private void BuildOfficeEmailMessageCompany()
     {
 
-      
+
         string body = "";
         string ContactManEmail = "";
         string CompanyIsEmail = "";
@@ -89,7 +91,7 @@ public class SendEmail
             string CompanyName = row["CompanyName"].ToString();
             string Level = row["LevelId"].ToString();
             string Wating = row["Wating"].ToString();
-            string IsMonthly = (row["IsMonthly"].ToString()=="True")?"Yes":"";
+            string IsMonthly = (row["IsMonthly"].ToString() == "True") ? "Yes" : "";
             //CompanyIsEmail = row["CompanyIsEmail"].ToString();
             //ContactMan = row["ContactMan"].ToString();
             //ContactManEmail = row["ContactManEmail"].ToString();
@@ -109,8 +111,8 @@ public class SendEmail
                     + "<tr style='height:27px;'><td colspan='8' style='font-weight:bold;color:white;background:#4F81BD;text-align:center'>" + ar[2] + "</td></tr>"
                     + "<tr style='height:27px;font-weight:bold;background: #D3DFEE;'>"
                         + "<td  align='left'>&nbsp</td>"
-                        + "<td  align='left'>Surname</td>" 
-                        + "<td align='left'>Name</td>" 
+                        + "<td  align='left'>Surname</td>"
+                        + "<td align='left'>Name</td>"
                         + "<td align='left'>Passport Number</td>"
                         + "<td align='left'>Company Name</td>"
                         + "<td align='left'>Level</td>"
@@ -126,21 +128,21 @@ public class SendEmail
 
 
 
-            body += "<tr style='height:25px;background:white;'>" 
+            body += "<tr style='height:25px;background:white;'>"
                        + "<td style='border-bottom:solid 1px #D3DFEE' align='center'><b>" + counter.ToString() + "</b>&nbsp;</td>"
                        + "<td align='left' style='border-bottom:solid 1px #D3DFEE'><div style='text-overflow: ellipsis; overflow: hidden; width: 80px; height: 1.2em; white-space: nowrap;'>" + Surname + "</div></td>"
                        + "<td style='border-bottom:solid 1px #D3DFEE' align='left'>" + Name + "</td>"
-                       + "<td style='border-bottom:solid 1px #D3DFEE' align='left'>"+ Passport + "</td>"
+                       + "<td style='border-bottom:solid 1px #D3DFEE' align='left'>" + Passport + "</td>"
                        + "<td style='border-bottom:solid 1px #D3DFEE' align='left' ><div style='text-overflow: ellipsis; overflow: hidden; width: 160px; height: 1.2em; white-space: nowrap;'>" + CompanyName + "</div></td>"
                        + "<td style='border-bottom:solid 1px #D3DFEE' align='left'>" + Level + "</td>"
-                       + "<td style='border-bottom:solid 1px #D3DFEE' align='left'>"+IsMonthly+"</td>"
-                       + " <td style='border-bottom:solid 1px #D3DFEE' align='left'><b>" + Wating.ToString() + "</b></td>" 
-                   +"</tr>";
+                       + "<td style='border-bottom:solid 1px #D3DFEE' align='left'>" + IsMonthly + "</td>"
+                       + " <td style='border-bottom:solid 1px #D3DFEE' align='left'><b>" + Wating.ToString() + "</b></td>"
+                   + "</tr>";
 
             counter++;
 
-           // ar.Add(" Office Data");
-           // ar.Add("This Experts Not Start Any Steps:");
+            // ar.Add(" Office Data");
+            // ar.Add("This Experts Not Start Any Steps:");
             //ar.Add("Experts List");
             //ar.Add("B-1 VISA Invitation Issue date");
             //ar.Add("<br><br>" + GetInviteSubText());
@@ -238,9 +240,9 @@ public class SendEmail
                     subtable = subtable.Replace("their Passports", "his Passport").Replace("Experts", "Expert");
                 }
 
-               // string FollowingTitle =(result.Length ==1) ? (ar[1].ToString().Replace("Experts", "Expert")):ar[1].ToString();
+                // string FollowingTitle =(result.Length ==1) ? (ar[1].ToString().Replace("Experts", "Expert")):ar[1].ToString();
 
-                subject = CompanyName +" - "+ ar[0].ToString();
+                subject = CompanyName + " - " + ar[0].ToString();
                 header = "Dear <b>" + CompanyName + "</b>. <br><br>" + FollowingTitle
                     + "<br><br><table cellspacing='0' cellpadding='0' style='border-collapse: collapse;border:solid 1px #D3DFEE' width='85%'>"
                     + "<tr style='height:27px;'><td colspan='7' style='font-weight:bold;color:white;background:#4F81BD;text-align:center'>" + ar[2] + "</td></tr>"
@@ -273,6 +275,9 @@ public class SendEmail
 
         if (!string.IsNullOrEmpty(header)) //להוסיף במקרה של משלוח אוטמטי לחברות //&& CompanyIsEmail == "True" && !string.IsNullOrEmpty(ContactManEmail))
         {
+
+          
+
             Send(subject, header + body + "</table>" + subtable, ContactManEmail);
         }
 
@@ -419,7 +424,7 @@ public class SendEmail
         return ar;
 
     }
-    
+
     private string GetInviteSubText()
     {
         StringBuilder sb = new StringBuilder();
@@ -505,31 +510,64 @@ public class SendEmail
     public void Send(string Subject, string Body, string To)
     {
 
-        try
+        // System.Threading.Thread.Sleep(30000);
+        //  
+        //System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+        using (SmtpClient client = new SmtpClient("smtp.office365.com", 587))
         {
-            Body = GetHeader() + Body + GetFooter();
-            SmtpClient client = new SmtpClient("smtp.office365.com", 25);
-            client.Credentials = new System.Net.NetworkCredential("dglaw@dgtracking.co.il", "But60041");
-            client.EnableSsl = true;
             MailMessage actMSG = new MailMessage();
-            actMSG.IsBodyHtml = true;
-
-            actMSG.Subject = Subject;
-            actMSG.Body = String.Format("{0}", Body);
-            actMSG.From = new MailAddress("dglaw@dgtracking.co.il");
-            //  actMSG.To.Add("yossi@louk.com");
-            //  actMSG.To.Add("tzahi556@gmail.com");
-            if (!string.IsNullOrEmpty(officeMails))
+            try
             {
-                actMSG.To.Add(officeMails);
+              
+                Body = GetHeader() + Body + GetFooter();
+                          // client.UseDefaultCredentials = false;
+                          // client.Credentials = new System.Net.NetworkCredential("dglaw@dgtracking.co.il", "Zux74633"); //
+
+                client.Credentials = new System.Net.NetworkCredential("dglaw@dgtracking.co.il", "Zux74633"); //
+                client.EnableSsl = true;
+
+                // client.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+                actMSG.IsBodyHtml = true;
+
+                actMSG.Subject = Subject;
+                actMSG.Body = String.Format("{0}", Body);
+                actMSG.From = new MailAddress("dglaw@dgtracking.co.il");
+
+                //   actMSG.To.Add("tzahi556@gmail.com");
+
+
+                // client.SendCompleted += new SendCompletedEventHandler(SendCompletedCallback);
+
+                if (!string.IsNullOrEmpty(officeMails))
+                {
+                    actMSG.To.Add(officeMails);
+                }
+
+                //string userState = "test message1";
+
+                client.Send(actMSG);
+
+                Dal.ExecuteNonQuery("Insert Into LogAuto ([Subject], Error, [To]) values(N'" + Subject + "','','" + officeMails + "') ");
+
+              //  actMSG.Dispose();
+
+            }
+            catch (Exception ex)
+            {
+                Dal.ExecuteNonQuery("Insert Into LogAuto ([Subject], Error, [To]) values(N'" + Subject + "',N'" + ex.Message.ToString() + ' ' + ex.InnerException.ToString() + "','" + officeMails + "') ");
+                // actMSG.Dispose();
+
+                System.Threading.Thread.Sleep(1000);
+                Send(Subject, Body, To);
+               // HttpContext.Current.Response.Write(ex.Message);
             }
 
-            client.Send(actMSG);
+
         }
-        catch (Exception ex)
-        {
-            HttpContext.Current.Response.Write(ex.Message);
-        }
+
+
+
 
 
         // Body = GetHeader() + Body + GetFooter();
@@ -575,8 +613,42 @@ public class SendEmail
 
     }
 
+    private void SendCompletedCallback(object sender, AsyncCompletedEventArgs e)
+    {
+        // Get the unique identifier for this asynchronous operation.
+        String token = (string)e.UserState;
 
 
+        string[] tokenList = token.Split('|');
+        string Subject = tokenList[0];
+        string EmailList = "";
+        if (tokenList.Length > 1)
+        {
+            EmailList = tokenList[1];
+
+        }
+
+        //if (e.Cancelled)
+        //{
+        //    Console.WriteLine("[{0}] Send canceled.", token);
+        //}
+        if (e.Error != null)
+        {
+
+            // Console.WriteLine("[{0}] {1}", token, e.Error.ToString());
+            Dal.ExecuteNonQuery("Insert Into LogAuto ([Subject], Error, [To]) values(N'" + Subject + "',N'" + e.Error + "','" + EmailList + "') ");
+
+        }
+        else
+        {
+            Dal.ExecuteNonQuery("Insert Into LogAuto ([Subject], Error, [To]) values(N'" + Subject + "','','" + EmailList + "') ");
+        }
+
+
+
+
+
+    }
 
     private string GetHeader()
     {

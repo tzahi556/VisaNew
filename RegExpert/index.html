@@ -1,18 +1,938 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title></title>
-    <link rel="stylesheet" href="style.css" />
-    <script data-require="jquery" data-semver="3.1.1" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="script.js"></script>
+    <meta charset="utf-8">
+    <title>FormWizard_v9</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="colorlib.com">
+
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.css">
+
+    <!-- DATE-PICKER -->
+    <link rel="stylesheet" href="vendor/date-picker/css/datepicker.min.css">
+
+   
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+   
+    <script src="js/script.js"></script>
+   
+
+    <script>
+
+
+        $(document).ready(function () {
+
+            if ($(window).width() >= 767) {
+                $(".formobile").hide();
+            }
+
+
+            $("#secChilds").hide();
+            $("#secSoup").hide();
+            $("#aSaveStart").hide();
+
+
+            //$("#fileuploader").uploadFile({
+            //    url: "YOUR_FILE_UPLOAD_URL",
+            //    fileName: "myfile"
+            //});
+        });
+
+
+
+        function SwitchFamily(data) {
+
+            if (data == "secSoup") {
+                $("#secSoup").hide();
+                $("#secChilds").show();
+
+            } else {
+                $("#secChilds").hide();
+                $("#secSoup").show();
+
+            }
+
+
+
+
+
+        }
+        function changeYesNo() {
+            var res = $('input[name=yesno]:checked').val();
+
+            if (res == "yes") {
+                // $("#secStart").hide();
+                $("#secSoup").show();
+
+                $("#aSaveStart").show();
+
+            } else {
+
+
+                $("#secChilds").hide();
+                $("#secSoup").hide();
+                $("#aSaveStart").hide();
+
+
+
+            }
+
+        }
+
+
+
+
+    </script>
+
+
 </head>
 <body>
-    <input id="myInput" type="file" multiple style="display:none" />
+    <div class="wrapper">
 
-    <button id="myButton" type="button" style="border-radius: 5px; background-color: #fff; color: green;">+ Add Files</button>
-    <button id="mySubmitButton" type="button" style="border-radius: 5px; background-color: #fff; color: green;">Send Files</button>
+      
 
-    <div id="myFiles"></div>
+
+        <form method="POST" id="wizard" class="" enctype="multipart/form-data">
+            <!--<form action="" id="wizard">-->
+            <!-- SECTION 0 -->
+            <h4></h4>
+            <section style="text-align:center">
+                <h3>
+                    Welcome To DG Law
+                    <br />
+
+
+
+                </h3>
+                <br />
+
+                <img src="../App_Themes/Theme1/Images/login.png" alt="" width="365px" height="300px" />
+
+                <h1>
+                    This page is created for "Colombostile S.p.A"
+                    experts for B1 work permit.
+
+
+                </h1>
+                <br />
+
+                <div class="disabled">
+
+                    please, click next to start fill form
+
+                </div>
+
+
+
+
+                <!--<div id="fileuploader">Upload</div>-->
+                <!--<div class="col-sm-3">
+        <div class="input-group dvUploadPublic" style="margin-top: 10px">
+            <span class="input-group-btn">
+                <span class="btn btn-primary btn-file">
+                    Logo
+                    <input id="fileUpload1" type="file" />
+                </span>
+            </span>
+            <input type="text" id="txtUploadFile1" class="form-control" readonly>
+        </div>
+    </div>
+    <div class="col-sm-3 dvUploadPublic">
+        <button type="button" class="btn btn-success btn-circle" onclick="UploadFile(this,'1')">
+            Upload
+        </button>
+        <button type="button" class="btn btn-info btn-circle" onclick="DeleteFile('1')">
+            Delete
+        </button>
+        <button type="button" class="btn btn-warning btn-circle" onclick="WatchFile('1')">
+            Watch
+        </button>
+    </div>-->
+
+
+
+            </section>
+            <!-- SECTION 1 -->
+            <h4></h4>
+            <section>
+
+                <div class="form-row" style="margin-bottom:0px">
+                    <div class="form-col">
+
+                        <h3>
+                            Expert Details
+                        </h3>
+
+                    </div>
+
+                    <div class="form-col" style="text-align:right">
+                        <a onclick="alert()" class="saveLink">Save</a>
+                    </div>
+                </div>
+
+
+
+
+
+                <div>
+
+                    ***** if you register once please insert your passport first
+                </div>
+                <br />
+
+                <div class="form-row">
+                    <div class="form-col">
+
+                        <label for="">
+                            Passport
+                        </label>
+                        <div class="form-holder">
+                            <div class="form-group">
+                                <i class="zmdi zmdi-account-o"></i>
+                                <input type="text" name="txtPassport" id="txtPassport" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-col">
+
+                        <label for="">
+                            Surname
+                        </label>
+                        <div class="form-holder">
+                            <div class="form-group">
+                                <i class="zmdi zmdi-account-o"></i>
+                                <input type="text" name="txtSurname" id="txtSurname" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <label for="">
+                            Name
+                        </label>
+                        <div class="form-holder">
+                            <i class="zmdi zmdi-account-o"></i>  <!--zmdi-edit-->
+                            <input type="text" name="txtName" id="txtName" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="">
+                            Passport Issue Date
+                        </label>
+                        <div class="form-holder">
+                            <i class="zmdi zmdi-calendar"></i>
+                            <input type="text" name="txtPassportIssueDate" id="txtPassportIssueDate" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy" id="dp1">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <label for="">
+                            Passport Exp Date
+                        </label>
+                        <div class="form-holder">
+                            <i class="zmdi zmdi-calendar"></i>
+                            <input type="text" name="txtPassportExpDate" id="txtPassportExpDate" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy" id="dp2">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <label for="">
+                            Date Birth
+                        </label>
+                        <div class="form-holder">
+                            <i class="zmdi zmdi-calendar"></i>
+                            <input type="text" name="txtDateofBirth" id="txtDateofBirth" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy" id="dp3">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="">
+                            Phone
+                        </label>
+                        <div class="form-holder">
+                            <i class="zmdi zmdi-smartphone-android"></i>
+                            <input type="text" name="txtPhone" id="txtPhone" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <label for="">
+                            Email
+                        </label>
+                        <div class="form-holder">
+                            <i class="zmdi zmdi-email"></i>
+                            <input type="email" name="txtEmail" id="txtEmail" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-col">
+                        <label for="">
+                            Job
+                        </label>
+                        <div class="form-holder">
+                            <i class="zmdi zmdi-edit"></i>  <!--zmdi-edit-->
+                            <input type="text" name="txtJob" id="txtJob" class="form-control">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="">
+                            Street and house no.
+                        </label>
+                        <div class="form-holder">
+                            <i class="zmdi zmdi-edit"></i>
+                            <input type="text" name="txtStreet" id="txtStreet" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <label for="">
+                            Town
+                        </label>
+                        <div class="form-holder">
+                            <i class="zmdi zmdi-edit"></i>
+                            <input type="text" name="txtTown" id="txtTown" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-col">
+                        <label for="">
+                            Country
+                        </label>
+                        <div class="form-holder">
+                            <i class="zmdi zmdi-edit"></i>  <!--zmdi-edit-->
+                            <input type="text" name="txtCountry" id="txtCountry" class="form-control">
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- SECTION 2 -->
+            <h4></h4>
+            <section>
+
+
+                <div id="secStart">
+                    <div class="form-row" style="margin-bottom:0px">
+                        <div class="form-col">
+                            <h3>
+                                Family
+                            </h3>
+                        </div>
+
+                        <div class="form-col" style="text-align:right" id="aSaveStart">
+
+                            <a onclick="alert()" class="saveLink">Save</a>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="form-col" style="width:auto">
+
+                            Is your family will be traveling with you or plan to sty in Israel?
+
+
+                        </div>
+
+
+                        <div class="">
+
+
+                            <label class="label"><input type="radio" name="yesno" onchange="changeYesNo()" value="yes">Yes</label>
+                            <label class="label"><input type="radio" name="yesno" onchange="changeYesNo()" value="no">No</label>
+
+
+
+
+
+                            <!--<label class="Radio" for="sex-female">
+                            <input type="radio" id="yesno-yes" onchange="changeYesNo()" name="yesno" value="yes" />
+                            Yes
+                        </label>
+
+                        <label class="Radio" for="sex-male">
+                            <input type="radio" id="yesno-no" onchange="changeYesNo()" name="yesno" value="no" />
+                            No
+                        </label>-->
+                        </div>
+
+
+
+
+
+
+                    </div>
+
+
+                </div>
+
+                <div id="secSoup">
+
+
+
+                    <h1>Soup</h1>
+
+
+                    <div class="form-row">
+                        <div class="form-col">
+
+                            <label for="">
+                                Family name
+                            </label>
+
+                            <div class="form-holder">
+                                <i class="zmdi zmdi-account-o"></i>
+                                <input type="text" name="txtSoupFamilyname" id="txtSoupFamilyname" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="">
+                                Given name
+                            </label>
+                            <div class="form-holder">
+                                <i class="zmdi zmdi-account-o"></i>
+                                <input type="text" name="txtSoupGivenname" id="txtSoupGivenname" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="">
+                                Maiden name
+                            </label>
+                            <div class="form-holder">
+                                <i class="zmdi zmdi-account-o"></i>
+                                <input type="text" name="txtSoupMaidenname" id="txtSoupMaidenname" class="form-control">
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="form-row">
+
+                        <div class="form-col">
+                            <label for="">
+                                Father’s name
+                            </label>
+                            <div class="form-holder">
+                                <i class="zmdi zmdi-account-o"></i>
+                                <input type="text" name="txtSoupFathersname" id="txtSoupFathersname" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="">
+                                Place of Birth
+                            </label>
+                            <div class="form-holder">
+                                <i class="zmdi zmdi-account-o"></i>
+                                <input type="text" name="txtSoupPlaceofBirth" id="txtSoupPlaceofBirth" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-col">
+                            <label for="">
+                                Date of Birth
+                            </label>
+                            <div class="form-holder">
+                                <i class="zmdi zmdi-calendar"></i>
+                                <input type="text" name="txtSoupDateofBirth" id="txtSoupDateofBirth" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy" id="dp3">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-col">
+                            <label for="">
+                                Passport
+                            </label>
+                            <div class="form-holder">
+                                <i class="zmdi zmdi-account-o"></i>
+                                <input type="text" name="txtSoupPassport" id="txtSoupPassport" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="">
+                                Passport Issue Date
+                            </label>
+                            <div class="form-holder">
+                                <i class="zmdi zmdi-calendar"></i>
+                                <input type="text" name="txtSoupPassportIsueDate" id="txtSoupPassportIsueDate" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy">
+                            </div>
+                        </div>
+
+                        <div class="form-col">
+                            <label for="">
+                                Passport Exp Date
+                            </label>
+                            <div class="form-holder">
+                                <i class="zmdi zmdi-calendar"></i>
+                                <input type="text" name="txtSoupPassportExpDate" id="txtSoupPassportExpDate" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy" id="dp3">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-col">
+
+                        </div>
+                        <div class="form-col">
+
+                        </div>
+
+                        <div class="form-col" style="text-align:right">
+                            <a href="#" style="text-decoration:underline" onclick="SwitchFamily('secSoup')">Switch to add children</a>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div id="secChilds">
+                    <!--<div class="form-row" style="margin-bottom:0px">
+                    <div class="form-col">
+                        <h3>
+                            Family
+                        </h3>
+                    </div>
+
+
+
+                    <div class="form-col" style="text-align:right">
+                        <a onclick="alert()" class="saveLink">Save</a>
+                    </div>
+                </div>-->
+
+
+
+
+
+                    <h1>Children under the age of 18</h1>
+                    <br />
+
+                    <div class="form-row">
+
+                        <div class="form-col">
+                            <label for="">
+                                Given name
+                            </label>
+
+                            <div class="form-holder">
+                                <input type="text" name="txtChild1Givenname" style="padding-left:1px" placeholder="1." id="txtChild1Givenname" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="">
+                                Country of birth
+                            </label>
+
+                            <div class="form-holder">
+                                <input type="text" name="txtChild1Countryofbirth" style="padding-left:1px" placeholder="1." id="txtChild1Countryofbirth" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="">
+                                Date of Birth
+                            </label>
+
+                            <div class="form-holder">
+                                <input type="text" name="txtChild1DateofBirth" style="padding-left:1px" placeholder="1." id="txtChild1DateofBirth" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy" id="dp3">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="">
+                                Passport
+                            </label>
+
+                            <div class="form-holder">
+                                <input type="text" name="txtChild1Passport" style="padding-left:1px" placeholder="1." id="txtChild1Passport" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="">
+                                Issue Date
+                            </label>
+
+                            <div class="form-holder">
+                                <input type="text" name="txtChild1PassportIsueDate" style="padding-left:1px" placeholder="1." id="txtChild1PassportIsueDate" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy" id="dp3">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="">
+                                Exp Date
+                            </label>
+
+                            <div class="form-holder">
+                                <input type="text" name="txtChild1PassportExpDate" style="padding-left:1px" placeholder="1." id="txtChild1PassportExpDate" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy" id="dp3">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                2. Given name
+                            </label>
+
+                            <div class="form-holder">
+                                <input type="text" name="txtChild2Givenname" style="padding-left:1px" placeholder="2." id="txtChild2Givenname" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                2.Country of birth
+                            </label>
+                            <div class="form-holder">
+                                <input type="text" name="txtChild2Countryofbirth" style="padding-left:1px" placeholder="2." id="txtChild2Countryofbirth" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                2.Date of Birth
+                            </label>
+                            <div class="form-holder">
+                                <input type="text" name="txtChild2DateofBirth" style="padding-left:1px" placeholder="2." id="txtChild2DateofBirth" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy" id="dp3">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                2. Passport
+                            </label>
+                            <div class="form-holder">
+                                <input type="text" name="txtChild2Passport" style="padding-left:1px" placeholder="2." id="txtChild2Passport" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                2. Passport Issue Date
+                            </label>
+                            <div class="form-holder">
+                                <input type="text" name="txtChild2PassportIsueDate" style="padding-left:1px" placeholder="2." id="txtChild2PassportIsueDate" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy" id="dp3">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                2. Passport Exp Date
+                            </label>
+                            <div class="form-holder">
+                                <input type="text" name="txtChild2PassportExpDate" style="padding-left:1px" placeholder="2." id="txtChild2PassportExpDate" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy" id="dp3">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                3. Given name
+                            </label>
+
+                            <div class="form-holder">
+                                <input type="text" name="txtChild3Givenname" style="padding-left:1px" placeholder="3." id="txtChild3Givenname" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                3.Country of birth
+                            </label>
+
+                            <div class="form-holder">
+                                <input type="text" name="txtChild3Countryofbirth" style="padding-left:1px" placeholder="3." id="txtChild3Countryofbirth" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                3.Date of Birth
+                            </label>
+                            <div class="form-holder">
+                                <input type="text" name="txtChild3DateofBirth" style="padding-left:1px" placeholder="3." id="txtChild3DateofBirth" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy" id="dp3">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                3. Passport
+                            </label>
+                            <div class="form-holder">
+                                <input type="text" name="txtChild3Passport" style="padding-left:1px" placeholder="3." id="txtChild3Passport" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                3. Passport Issue Date
+                            </label>
+                            <div class="form-holder">
+                                <input type="text" name="txtChild3PassportIsueDate" style="padding-left:1px" placeholder="3." id="txtChild3PassportIsueDate" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy" id="dp3">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                3. Passport Exp Date
+                            </label>
+                            <div class="form-holder">
+                                <input type="text" name="txtChild3PassportExpDate" style="padding-left:1px" placeholder="3." id="txtChild3PassportExpDate" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy" id="dp3">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                4. Given name
+                            </label>
+                            <div class="form-holder">
+                                <input type="text" name="txtChild4Givenname" style="padding-left:1px" placeholder="4." id="txtChild4Givenname" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                4.Country of birth
+                            </label>
+                            <div class="form-holder">
+                                <input type="text" name="txtChild4Countryofbirth" style="padding-left:1px" placeholder="4." id="txtChild4Countryofbirth" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                4.Date of Birth
+                            </label>
+                            <div class="form-holder">
+                                <input type="text" name="txtChild4DateofBirth" style="padding-left:1px" placeholder="4." id="txtChild4DateofBirth" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy" id="dp3">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                4. Passport
+                            </label>
+                            <div class="form-holder">
+                                <input type="text" name="txtChild4Passport" style="padding-left:1px" placeholder="4." id="txtChild1Passport" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                4. Passport Issue Date
+                            </label>
+                            <div class="form-holder">
+                                <input type="text" name="txtChild4PassportIsueDate" style="padding-left:1px" placeholder="4." id="txtChild4PassportIsueDate" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy" id="dp3">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="" class="formobile">
+                                4. Passport Exp Date
+                            </label>
+                            <div class="form-holder">
+                                <input type="text" name="txtChild4PassportExpDate" style="padding-left:1px" placeholder="4." id="txtChild4PassportExpDate" class="form-control datepicker-here" data-language='en' data-date-format="dd-M-yyyy" id="dp3">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+
+                        </div>
+                        <div class="form-col">
+
+                        </div>
+
+                        <div class="form-col" style="text-align:right">
+                            <a href="#" style="text-decoration:underline" onclick="SwitchFamily('secChilds')">Switch to Soup data</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- SECTION 3 -->
+            <h4></h4>
+            <section>
+
+                <div class="form-row" style="margin-bottom:0px">
+                    <div class="form-col">
+
+                        <h3>
+                            Upload Docs
+                        </h3>
+
+                    </div>
+
+                    <div class="form-col" style="text-align:right">
+                        <a onclick="alert()" class="saveLink">Save</a>
+                    </div>
+                </div>
+
+                <div>
+
+                 must upload files
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-col">
+                        <div class="upload-img-box bg-gray-200  ">
+                            <div class="f-14  rtl mt-4">Copy of passport</div>
+                            <img src="images/camera.svg" id="myButton" class="myButton" alt="">
+                            <input id="myButtonInput" type="file" class="myInput" multiple style="display: none" runat="server" />
+                            <div id="dvmyButtonInput" class="dvFilesUpload">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-col">
+                        <div class="upload-img-box bg-gray-200  ">
+                            <div class="f-14  rtl mt-4">CV </div>
+                            <img src="images/camera.svg" id="myButton1" class="myButton" alt="">
+                            <input id="myButton1Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                            <div id="dvmyButton1Input" class="dvFilesUpload">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-col">
+                        <div class="upload-img-box bg-gray-200  ">
+                            <div class="f-14  rtl mt-4">Diploma </div>
+                            <img src="images/camera.svg" id="myButton2" class="myButton" alt="">
+                            <input id="myButton2Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                            <div id="dvmyButton2Input" class="dvFilesUpload">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-col">
+                        <div class="upload-img-box bg-gray-200  ">
+                            <div class="f-14  rtl mt-4">Doc 4 </div>
+                            <img src="images/camera.svg" id="myButton3" class="myButton" alt="">
+                            <input id="myButton3Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                            <div id="dvmyButton3Input" class="dvFilesUpload">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-col">
+                        <div class="upload-img-box bg-gray-200  ">
+                            <div class="f-14  rtl mt-4">Doc 5</div>
+                            <img src="images/camera.svg" id="myButton4" class="myButton" alt="">
+                            <input id="myButton4Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                            <div id="dvmyButton4Input" class="dvFilesUpload">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-col">
+                        <div class="upload-img-box bg-gray-200  ">
+                            <div class="f-14  rtl mt-4">Doc 6 </div>
+                            <img src="images/camera.svg" id="myButton5" class="myButton" alt="">
+                            <input id="myButton5Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                            <div id="dvmyButton5Input" class="dvFilesUpload">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-col">
+                        <div class="upload-img-box bg-gray-200  ">
+                            <div class="f-14  rtl mt-4">Doc 7 </div>
+                            <img src="images/camera.svg" id="myButton6" class="myButton" alt="">
+                            <input id="myButton6Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                            <div id="dvmyButton6Input" class="dvFilesUpload">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-col">
+                        <div class="upload-img-box bg-gray-200  ">
+                            <div class="f-14  rtl mt-4">Doc 8 </div>
+                            <img src="images/camera.svg" id="myButton7" class="myButton" alt="">
+                            <input id="myButton7Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                            <div id="dvmyButton7Input" class="dvFilesUpload">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-col">
+                        <div class="upload-img-box bg-gray-200  ">
+                            <div class="f-14  rtl mt-4">Doc 9</div>
+                            <img src="images/camera.svg" id="myButton8" class="myButton" alt="">
+                            <input id="myButton8Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                            <div id="dvmyButton8Input" class="dvFilesUpload">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-col">
+                        <div class="upload-img-box bg-gray-200  ">
+                            <div class="f-14  rtl mt-4">Doc 10 </div>
+                            <img src="images/camera.svg" id="myButton9" class="myButton" alt="">
+                            <input id="myButton9Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                            <div id="dvmyButton9Input" class="dvFilesUpload">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-col">
+                        <div class="upload-img-box bg-gray-200  ">
+                            <div class="f-14  rtl mt-4">Doc 11 </div>
+                            <img src="images/camera.svg" id="myButton10" class="myButton" alt="">
+                            <input id="myButton10Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                            <div id="dvmyButton10Input" class="dvFilesUpload">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-col">
+                        <div class="upload-img-box bg-gray-200  ">
+                            <div class="f-14  rtl mt-4">Doc 12 </div>
+                            <img src="images/camera.svg" id="myButton11" class="myButton" alt="">
+                            <input id="myButton11Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                            <div id="dvmyButton11Input" class="dvFilesUpload">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+
+
+
+        </form>
+    </div>
+
+   
+
+    <!-- JQUERY STEP -->
+    <script src="js/jquery.steps.js"></script>
+
+    <!-- DATE-PICKER -->
+    <script src="vendor/date-picker/js/datepicker.js"></script>
+    <script src="vendor/date-picker/js/datepicker.en.js"></script>
+    <script src="vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="vendor/jquery-validation/dist/additional-methods.min.js"></script>
+    <!--<script src="js/main.js"></script>-->
+    <script src="js/main2.js"></script>
+    <!-- Template created and distributed by Colorlib -->
 </body>
 </html>

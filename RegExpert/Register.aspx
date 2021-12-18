@@ -3,957 +3,1051 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title></title>
+    <title>Register DG Law</title>
 
 
-    <script type="text/javascript" src="../App_Themes/jquery-ui-1.10.3.custom/js/jquery-1.9.1.js"></script>
-    <script type="text/javascript" src="../App_Themes/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
-    <script type="text/javascript" src="../App_Themes/jquery-ui-1.10.3.custom/js/jquery.inputhints.min.js"></script>
-    <link href="../App_Themes/jquery-ui-1.10.3.custom/css/custom-theme/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css" />
-    <link href="../App_Themes/Theme1/Tracking.css" rel="stylesheet" type="text/css" />
-    <script src="script.js"></script>
 
-    <script src="../akquinet-jquery-toastmessage-plugin-6f5d7bf/src/main/javascript/jquery.toastmessage.js"
-        type="text/javascript"></script>
-    <link href="../akquinet-jquery-toastmessage-plugin-6f5d7bf/src/main/resources/css/jquery.toastmessage.css"
-        rel="stylesheet" type="text/css" />
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.css">
+
+    <!-- DATE-PICKER -->
+    <link rel="stylesheet" href="vendor/date-picker/css/datepicker.min.css">
 
 
-    <script language="javascript">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/script.js"></script>
 
-        var CurrentStep = 1;
-        // 1 פרטים
-        // 2 משפחה
-        // 3 מסמכים ושמירה
+
+    <script>
+
+
+
         $(document).ready(function () {
+            var postbackControl = null;
+            //  Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(BeginRequestHandler);
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+            //function BeginRequestHandler(sender, args) {
+            //    postbackControl = args.get_postBackElement();
+            //    postbackControl.disabled = true;
+            //} 
 
-            //$("#fileUpload1").change(function (e) {
+            function EndRequestHandler(sender, args) {
+                $('.datepicker-here').datepicker({ dateFormat: 'dd M yy' });
+                //postbackControl = args.get_postBackElement(); 
 
-            //    alert(e.target.files.length);
-            //    $("#txtUploadFile1").val($(this).val());
-
-            //    //alert();
-            //    //submit the form here
-            //});
-            $(".buttBlue").button();
-            DisableButtons(0, 1, 0);
-
-            //$("#dvStep1").hide();
-            //$("#dvStep3").show();
-
-            //rdButtNo
-
-            $("#rdButtNo").change(function () {
-
-                $("#dvFamaly").hide();
-            });
-
-            $("#rdButtYes").change(function () {
-
-                $("#dvFamaly").show();
-            });
+                //postbackControl = null; 
+                // alert();
+            }
 
 
+            if ($(window).width() >= 767) {
+                $(".formobile").hide();
+            }
 
 
-            //$('input[type=radio][name=yesno]').change(function () {
-            //    if (this.value == '1')
-            //        $("#dvFamaly").show();
-            //    else
-            //        $("#dvFamaly").hide();
-
-            //});
-
-
-            $(".txtCalander").datepicker({
-                showOn: "button",
-                changeYear: true,
-                changeMonth: true,
-                buttonImage: "../App_Themes/Theme1/Images/calendar.gif",
-                buttonImageOnly: true,
-                dateFormat: "d M y"
-            });
+            $("#secChilds").hide();
+            $("#secSoup").hide();
+            $("#aSaveStart").hide();
 
 
 
 
-
-            $(".ui-datepicker").css("font-size", "15px");
-
-            $(".ui-datepicker-trigger").css("position", "relative").css("left", "3px").css("top", "2px");
 
         });
-        function DisableButtons(button0, button1, button2) {
 
-            if (button0 == 1)
-                $("#btnAction0").show();
-            else
-                $("#btnAction0").hide();
+        function BeforeSave() {
 
-            if (button1 == 1)
-                $("#btnAction1").show();
-            else
-                $("#btnAction1").hide();
 
-            if (button2 == 1)
-                $("#btnAction2").show();
-            else
-                $("#btnAction2").hide();
+            form.validate().settings.ignore = ":disabled,:hidden";
+            if (form.valid()) {
 
+                __doPostBack('<%=LinkButtonSave.UniqueID%>', '');
+
+                //return true;
+            }
+
+            // return false;
         }
 
+        function SwitchFamily(data) {
 
-        function btnClick(action) {
+            if ($(window).width() >= 767) {
+                $(".formobile").hide();
+            }
 
+            if (data == "secSoup") {
+                $("#secSoup").hide();
+                //$("#secChilds").prop("visibility","visible");
+                $("#secChilds").show();
 
-            if (action == 2) {
-
-                if (!ValidateForm3()) {
-
-                    ShowMessage('Must Fill All Filed With * ', '4');
-                    return false;
-                }
-
-                return true;
-
+            } else {
+                $("#secChilds").hide();
+                $("#secSoup").show();
 
             }
 
-
-            if (action == 1 && CurrentStep == 1) {
-
-                if (!ValidateForm1()) {
-
-                    ShowMessage('Must Fill All Filed With * ', '4');
-                    return;
-                }
-
-                $("#dvStep1").hide();
-                $("#dvStep2").show();
-                DisableButtons(1, 1, 0);
-                CurrentStep = 2;
-
-                return;
-            }
-
-
-            if (action == 1 && CurrentStep == 2) {
-
-                // hhh
-                if ($("#<%= rdButtYes.ClientID %>").is(":checked")) {
-
-                    if (!ValidateForm2()) {
-
-                        ShowMessage('Must Fill All Filed With * ', '4');
-                        return;
-                    }
-
-
-                }
-                $("#dvStep1").hide();
-                $("#dvStep2").hide();
-                $("#dvStep3").show();
-                DisableButtons(1, 0, 1);
-                CurrentStep = 3;
-
-                return;
-
-            }
-
-            if (action == 0 && CurrentStep == 2) {
-                $("#dvStep2").hide();
-                $("#dvStep1").show();
-                $("#dvStep3").hide();
-                DisableButtons(0, 1, 0);
-                CurrentStep = 1;
-
-                return;
-            }
-
-            if (action == 0 && CurrentStep == 3) {
-                $("#dvStep1").hide();
-                $("#dvStep2").show();
-                $("#dvStep3").hide();
-                DisableButtons(1, 1, 0);
-                CurrentStep = 2;
-
-                return;
-            }
 
 
 
 
         }
 
-
-
-        function ValidateForm1() {
+        function changeYesNo() {
 
 
 
-            if ($('#<%=txtPassport.ClientID%>').val() == "" ||
-                $('#<%=txtName.ClientID%>').val() == "" ||
-                $('#<%=txtPassportExpDate.ClientID%>').val() == "" ||
-                $('#<%=txtPassportIssueDate.ClientID%>').val() == "" ||
-                $('#<%=txtSurname.ClientID%>').val() == ""
+            var res = $('input[name=yesno]:checked').val();
 
-                ) {
+            if (res == "rdButtYes") {
 
-                return false;
+                $("#secSoup").show();
+                $("#aSaveStart").show();
+                // $("#secChilds").hide();
+
+
+            } else {
+
+
+                $("#secChilds").hide();
+                $("#secSoup").hide();
+                $("#aSaveStart").hide();
+
+
 
             }
 
-
-            return true;
         }
 
-        function ValidateForm2() {
+        function SendForm() {
 
+            if (!validateUploadFiles()) {
 
-            if (
-                   $('#<%=txtSoupFamilyname.ClientID%>').val() == "" ||
-                    $('#<%=txtSoupGivenname.ClientID%>').val() == "" ||
-                    $('#<%=txtSoupPassport.ClientID%>').val() == "" ||
-                    $('#<%=txtSoupPassportIsueDate.ClientID%>').val() == "" ||
-                    $('#<%=txtSoupPassportExpDate.ClientID%>').val() == "" ||
-                    $('#<%=txtSoupPlaceofBirth.ClientID%>').val() == "" ||
-                    $('#<%=txtSoupMaidenname.ClientID%>').val() == "" ||
-                    $('#<%=txtSoupFathersname.ClientID%>').val() == "" ||
-                    $('#<%=txtSoupDateofBirth.ClientID%>').val() == ""
+                 __doPostBack('<%=btnSendForm.UniqueID%>', '');
 
+            } else {
 
-                ) {
-
-                return false;
+                alert("Must upload red Document!");
 
             }
+         
 
-
-            return true;
-        }
-
-
-
-
-
-
-        function ValidateForm3() {
-
-
-            if (
-                $.trim($("#dvmyButtonInput").html()) == "" || 
-
-                 $.trim($("#dvmyButton1Input").html()) == "" || 
-
-                 $.trim($("#dvmyButton2Input").html()) == ""
-
-                )
-              
-
-            return false;
-
-            return true;
+           
 
         }
 
 
-        function ShowMessage(text, type) {
-            $().toastmessage({
-                text: text,
-                sticky: false,
-                position: 'middle-center',
-                type: 'success'
-                // close: function () { console.log("toast is closed ..."); }
+        function validateUploadFiles() {
+
+            $("#dvmyButtonInputContainer,#dvmyButton1InputContainer,#dvmyButton2InputContainer").removeClass("dvInputUploadContainer");
+
+
+            var res = true;
+            var firstFileUpload = $("#dvmyButtonInput").html();
+            if (!$.trim(firstFileUpload)) {
+                $("#dvmyButtonInputContainer").addClass("dvInputUploadContainer");
+                res = false;
+            }
+
+            var firstFileUpload1 = $("#dvmyButton1Input").html();
+            if (!$.trim(firstFileUpload1)) {
+                $("#dvmyButton1InputContainer").addClass("dvInputUploadContainer");
+                res = false;
+            }
+
+            var firstFileUpload2 = $("#dvmyButton2Input").html();
+            if (!$.trim(firstFileUpload2)) {
+                $("#dvmyButton2InputContainer").addClass("dvInputUploadContainer");
+                res = false;
+            }
+
+            return res;
+        }
+
+        function SearchExistExpert() {
+
+            var Passport = $("#txtPassport").val();
+
+            // alert(Passport);
+
+            $.ajax({
+                type: "POST",
+                url: "Register.aspx/GetIfExistPassport",
+                data: "{'Passport':" + Passport + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) { alert(data.d); }
             });
-            // saving the newly created toast into a variable
-            if (type == "1" || !type) {
-                $().toastmessage('showNoticeToast');
-            }
-
-            if (type == "2") {
-                $().toastmessage('showSuccessToast');
-            }
-
-            if (type == "3") {
-                $().toastmessage('showWarningToast');
-            }
-
-            if (type == "4") {
-                $().toastmessage('showErrorToast');
-            }
 
         }
 
+        function Test() {
+
+            //   alert();
+        }
 
 
     </script>
+
+
+
+
 </head>
 <body>
-    <form id="Form1" runat="server">
-         <asp:HiddenField ID="HiddenFieldExpertRegId" runat="server" Value="0"/>
-         <asp:HiddenField ID="HiddenFieldSoup" runat="server" Value="0"/>
-         <asp:HiddenField ID="HiddenFieldChild1" runat="server" Value="0"/>
-         <asp:HiddenField ID="HiddenFieldChild2" runat="server" Value="0"/>
-         <asp:HiddenField ID="HiddenFieldChild3" runat="server" Value="0"/>
-         <asp:HiddenField ID="HiddenFieldChild4" runat="server" Value="0"/>
+    <div class="wrapper">
 
-        <asp:PlaceHolder runat="server" ID="TablePlaceHolder"></asp:PlaceHolder>
-        <div align="center">
-            <div id="dvMainReg" class="dvRoundAndBgForReg" runat="server">
-                <div class="">
 
-                    <div class="">
-                        <div style="float: left">
-                            <h2 style="color: #025482; font-size: 30px;">Welcome To DG Law</h2>
-                            <br />
-                            <span style="color: #025482; font-size: 23px;">This page is created for "<asp:Label ID="lblCompany" runat="server"></asp:Label>" <br />
-                                 experts for B1 work permit.<br />
-                                <%-- if you are not employed by company name please insert passport first.  --%>
-                            </span>
-                        </div>
 
-                       <%-- <div style="float: right">
-                            <img src="../App_Themes/Theme1/Images/login.png" alt="" width="165px" height="140px" />
-                        </div>--%>
+        <form method="POST" id="wizard" class="" runat="server" enctype="multipart/form-data">
 
-                    </div>
 
-                    <div style="clear: both"></div>
 
-                    <div id="dvStep1" class="dvSteps">
-                        <hr />
 
-                        <span style="color: #025482; font-size: 19px;"><u>Details</u></span>
-                        <span style="color: red; font-size: 15px;">(*) the fields with * are must to use</span>
-                        <br />
-                        <br />
-                        ***** if you register once please insert your passport first
-                        <br />
-                        <br />
-                        <table border="0" class="tblDetalis">
-                            <tr>
-                                <td>
-                                    <div>
-                                        <span class="spTitle">Passport</span><br />
-                                        <asp:TextBox ID="txtPassport" CssClass="txtRegister" OnTextChanged="txtChanged" AutoPostBack="true" runat="server" Width="240" Height="25" />
-                                        <span class="spRed">*</span>
-                                    </div>
-                                </td>
 
+            <asp:ScriptManager ID="scr" runat="server">
+            </asp:ScriptManager>
 
+            <h4></h4>
+            <section style="text-align: center">
+                <h3>Welcome To DG Law
+                    <br />
+                </h3>
+                <br />
 
-                                <td>
-                                    <div>
-                                        <span class="spTitle">Surname</span><br />
-                                        <asp:TextBox ID="txtSurname" CssClass="txtRegister" runat="server" Width="240" Height="25" />
-                                        <span class="spRed">*</span>
-                                    </div>
-                                </td>
+                <img src="../App_Themes/Theme1/Images/login.png" alt="" width="365px" height="300px" />
 
-
-                                <td>
-                                    <div>
-                                        <span class="spTitle">Name</span><br />
-                                        <asp:TextBox ID="txtName" CssClass="txtRegister" runat="server" Width="240" Height="25" />
-                                        <span class="spRed">*</span>
-                                    </div>
-                                </td>
-
-
-
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div>
-                                        <span class="spTitle">Passport Issue Date</span><br />
-                                        <asp:TextBox ID="txtPassportIssueDate" CssClass="txtRegister txtCalander" runat="server" Width="240" Height="25" />
-                                        <span class="spRed">&nbsp;*</span>
-                                    </div>
-                                </td>
-
-
-
-                                <td>
-                                    <div>
-                                        <span class="spTitle">Passport Exp Date</span><br />
-                                        <asp:TextBox ID="txtPassportExpDate" CssClass="txtRegister txtCalander" runat="server" Width="240" Height="25" />
-                                        <span class="spRed">&nbsp;*</span>
-                                    </div>
-                                </td>
-
-
-                                <td>
-                                    <div>
-                                        <span class="spTitle">Date Birth</span><br />
-                                        <asp:TextBox ID="txtDateofBirth" CssClass="txtRegister txtCalander" runat="server" Width="240" Height="25" />
-                                        <%-- <span class="spRed">*</span>--%>
-                                    </div>
-                                </td>
-
-
-
-                            </tr>
-
-                            <tr>
-                                <td colspan="5">
-                                    <hr />
-
-                                </td>
-
-                            </tr>
-
-
-
-                            <tr>
-                                <td>
-                                    <div>
-                                        <span class="spTitle">Phone</span><br />
-                                        <asp:TextBox ID="txtPhone" CssClass="txtRegister" runat="server" Width="240" Height="25" />
-                                    </div>
-                                </td>
-
-
-
-                                <td>
-                                    <div>
-                                        <span class="spTitle">Email</span><br />
-                                        <asp:TextBox ID="txtEmail" CssClass="txtRegister" runat="server" Width="240" Height="25" />
-
-                                    </div>
-                                </td>
-
-
-                                <td>
-                                    <div>
-                                        <span class="spTitle">Job</span><br />
-                                        <asp:TextBox ID="txtJob" CssClass="txtRegister" runat="server" Width="240" Height="25" />
-
-                                    </div>
-                                </td>
-
-
-
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div>
-                                        <span class="spTitle">Street and house no. </span>
-                                        <br />
-                                        <asp:TextBox ID="txtStreet" CssClass="txtRegister" runat="server" Width="240" Height="25" />
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div>
-                                        <span class="spTitle">Town </span>
-                                        <br />
-                                        <asp:TextBox ID="txtTown" CssClass="txtRegister" runat="server" Width="240" Height="25" />
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div>
-                                        <span class="spTitle">country</span><br />
-                                        <asp:TextBox ID="txtCountry" CssClass="txtRegister" runat="server" Width="240" Height="25" />
-                                    </div>
-                                </td>
-
-
-
-
-                            </tr>
-
-
-
-
-                        </table>
-
-
-                    </div>
-
-                    <div id="dvStep2" class="dvSteps" style="display: none">
-                        <hr />
-                        <span style="color: #025482; font-size: 19px;"><u>Famely</u></span>
-                        <span style="color: red; font-size: 15px;">(*) the fields with * are must to use</span>
-                        <br />
-
-                        <table>
-                            <tr>
-                                <td valign="top">
-                                    <h2 style="color: #025482; font-size: 20px;">Is your family will be traveling with you or plan to sty in Israel?
-                                  
-                                  
-                                    </h2>
-                                </td>
-                                <td>&nbsp;
-                                </td>
-                                <td>
-                                    <div style="color: #025482; font-size: 20px;">
-
-                                        <asp:RadioButton ID="rdButtNo" GroupName="yesno" runat="server" Checked Text="No" />
-                                        <asp:RadioButton ID="rdButtYes" GroupName="yesno" runat="server" Text="Yes" />
-
-
-                                        <%--  <input type="radio" runat="server" id="rdNo" name="yesno" value="0" checked>
-                                        No
-                                       
-                                        <input type="radio" runat="server" id="rdYes" name="yesno" value="1">
-                                        Yes--%>
-                                    </div>
-
-                                </td>
-
-                            </tr>
-
-                        </table>
-
-                        <div id="dvFamaly" style="display: none">
-                            <div>
-
-                                <h2 style="color: #025482; font-size: 20px; text-decoration: underline">Soup</h2>
-                            </div>
-                            <div>
-                                <table width="100%" class="tblFamaly">
-                                    <tr>
-                                        <td class="tdFamHeader"><span class="spRedFam">*</span>Family name 
-                                        </td>
-                                        <td class="tdFamHeader"><span class="spRedFam">*</span>Given name
-                                        </td>
-                                        <td class="tdFamHeader"><span class="spRedFam">*</span>Maiden name
-                                        </td>
-                                        <td class="tdFamHeader"><span class="spRedFam">*</span>Father’s name
-
-                                        </td>
-                                        <td class="tdFamHeader"><span class="spRedFam">*</span>Place of Birth
-
-                                        </td>
-                                        <td class="tdFamHeader"><span class="spRedFam">*</span>Date of Birth
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtSoupFamilyname" CssClass="txtFamely" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtSoupGivenname" CssClass="txtFamely" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtSoupMaidenname" CssClass="txtFamely" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtSoupFathersname" CssClass="txtFamely" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtSoupPlaceofBirth" CssClass="txtFamely" runat="server" />
-
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtSoupDateofBirth" CssClass="txtFamely txtCalander txtFamelyDate" runat="server" />
-                                        </td>
-                                    </tr>
-
-
-
-
-
-
-                                </table>
-                                <table width="80%" class="tblFamaly">
-                                    <tr>
-
-                                        <td class="tdFamHeader"><span class="spRedFam">*</span>Passport
-
-                                        </td>
-                                        <td class="tdFamHeader"><span class="spRedFam">*</span>Passport Issue Date
-
-                                        </td>
-                                        <td class="tdFamHeader"><span class="spRedFam">*</span>Passport Exp Date
-
-                                        </td>
-                                    </tr>
-                                    <tr>
-
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtSoupPassport" CssClass="txtFamely" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtSoupPassportIsueDate" CssClass="txtFamely txtCalander txtFamelyDate" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtSoupPassportExpDate" CssClass="txtFamely txtCalander txtFamelyDate" runat="server" />
-                                        </td>
-
-
-                                    </tr>
-
-
-
-                                </table>
-
-
-
-
-
-                            </div>
-
-                            <div>
-                                <br />
-                                <h2 style="color: #025482; font-size: 20px; text-decoration: underline">Children under the age of 18</h2>
-                            </div>
-                            <div>
-                                <table width="100%" class="tblFamaly">
-                                    <tr>
-                                        <td class="tdFamHeader">Given name
-
-                                        </td>
-                                        <td class="tdFamHeader">Country of birth
-
-                                        </td>
-                                        <td class="tdFamHeader">Date of Birth
-
-                                        </td>
-                                        <td class="tdFamHeader">Passport
-
-                                        </td>
-                                        <td class="tdFamHeader">Passport Issue Date
-
-                                        </td>
-                                        <td class="tdFamHeader">Passport Exp Date
-
-                                        </td>
-
-
-
-
-
-                                    </tr>
-                                    <tr>
-                                        <td class="tdFamData">
-                                            <b>1.</b>
-                                            <asp:TextBox ID="txtChild1Givenname" CssClass="txtFamely txtFamelyNumber" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild1Countryofbirth" CssClass="txtFamely" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild1DateofBirth" CssClass="txtFamely txtCalander txtFamelyDate" runat="server" />
-                                        </td>
-
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild1Passport" CssClass="txtFamely" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild1PassportIsueDate" CssClass="txtFamely txtCalander txtFamelyDate" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild1PassportExpDate" CssClass="txtFamely txtCalander txtFamelyDate" runat="server" />
-                                        </td>
-
-
-
-                                    </tr>
-                                    <tr>
-                                        <td class="tdFamData">
-                                            <b>2.</b>
-                                            <asp:TextBox ID="txtChild2Givenname" CssClass="txtFamely txtFamelyNumber" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild2Countryofbirth" CssClass="txtFamely" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild2DateofBirth" CssClass="txtFamely txtCalander txtFamelyDate" runat="server" />
-                                        </td>
-
-
-
-
-
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild2Passport" CssClass="txtFamely" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild2PassportIsueDate" CssClass="txtFamely txtCalander txtFamelyDate" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild2PassportExpDate" CssClass="txtFamely txtCalander txtFamelyDate" runat="server" />
-                                        </td>
-
-
-                                    </tr>
-
-                                    <tr>
-                                        <td class="tdFamData">
-                                            <b>3.</b>
-                                            <asp:TextBox ID="txtChild3Givenname" CssClass="txtFamely txtFamelyNumber" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild3Countryofbirth" CssClass="txtFamely" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild3DateofBirth" CssClass="txtFamely txtCalander txtFamelyDate" runat="server" />
-                                        </td>
-
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild3Passport" CssClass="txtFamely" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild3PassportIsueDate" CssClass="txtFamely txtCalander txtFamelyDate" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild3PassportExpDate" CssClass="txtFamely txtCalander txtFamelyDate" runat="server" />
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td class="tdFamData">
-                                            <b>4.</b>
-                                            <asp:TextBox ID="txtChild4Givenname" CssClass="txtFamely txtFamelyNumber" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild4Countryofbirth" CssClass="txtFamely" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild4DateofBirth" CssClass="txtFamely txtCalander txtFamelyDate" runat="server" />
-                                        </td>
-
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild4Passport" CssClass="txtFamely" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild4PassportIsueDate" CssClass="txtFamely txtCalander txtFamelyDate" runat="server" />
-                                        </td>
-                                        <td class="tdFamData">
-                                            <asp:TextBox ID="txtChild4PassportExpDate" CssClass="txtFamely txtCalander txtFamelyDate" runat="server" />
-                                        </td>
-
-                                    </tr>
-
-
-
-
-
-
-                                </table>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div id="dvStep3" class="dvSteps" style="display: none">
-                        <hr />
-                        <span style="color: #025482; font-size: 19px;"><u>Upload Document</u></span>
-                        <span style="color: red; font-size: 15px;">(*) the fields with * are must to use</span>
-                        <br />
-                        <br />
-
-                        <table border="0" width="100%">
-                            <tr>
-
-                                <td class="tdUpload">
-                                    <span style="color: red">*</span>
-                                    <input type="button" id="myButton" class="buttBlue myButton" runat="server" value="Copy of current passport" />
-                                    <input id="myButtonInput" type="file" class="myInput" multiple style="display: none" runat="server" />
-                                </td>
-                                <td class="tdUpload">
-                                    <span style="color: red">*</span><input type="button" id="myButton1" class="buttBlue myButton" runat="server" value="Cv" />
-                                    <input id="myButton1Input" type="file" class="myInput" multiple style="display: none" runat="server" />
-                                </td>
-                                <td class="tdUpload">
-                                    <span style="color: red">*</span><input type="button" id="myButton2" class="buttBlue myButton" runat="server" value="Certificates" />
-                                    <input id="myButton2Input" type="file" class="myInput" multiple style="display: none" runat="server" />
-
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td align="center">
-                                    <br />
-                                </td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td align="center">
-
-                                    <div id="dvmyButtonInput" class="dvFilesUpload">
-                                    </div>
-
-                                </td>
-
-                                <td align="center">
-
-                                    <div id="dvmyButton1Input" class="dvFilesUpload">
-                                    </div>
-
-                                </td>
-
-                                <td align="center">
-
-                                    <div id="dvmyButton2Input" class="dvFilesUpload">
-                                    </div>
-
-                                </td>
-
-
-                            </tr>
-
-
-                        </table>
-
-
-
-                    </div>
-
-                    <div style="clear: both"></div>
-
-                    <div id="dvfooter" class="dvNavigate">
-                        <hr />
-                        <br />
-                        <input type="button" id="btnAction0" class="buttBlue" runat="server" value="Prev Step" onclick="btnClick(0)" />
-                        <input type="button" id="btnAction1" class="buttBlue" runat="server" value="Next Step" onclick="btnClick(1)" />
-                        <%-- <input type="button" id="btnAction2" class="buttBlue" runat="server" value="Send Form" onclick="return btnClick(2);" onserverclick="SendClientForm" />
-                        --%>
-                        <asp:Button ID="btnAction2" runat="server" CssClass="buttBlue" OnClientClick="return btnClick(2);" OnClick="SendClientForm" Text="Send Form" />
-                        <%-- <asp:Button ID="Button4" runat="server" Text="Button" OnClick="SendClientForm" />--%>
-                    </div>
-
-
-
+                <div>
+                    This page is created for  
+                            <div class="dvcompanyName" id="lblCompany" runat="server"></div>
+                    experts for B1 work permit.
 
 
                 </div>
-            </div>
-        </div>
-    </form>
+                <br />
 
-    <script type="text/javascript">
-        
-    </script>
+                <div class="disabled">
+                    please, click next to start fill form
 
+                </div>
+
+
+
+
+
+            </section>
+            <!-- SECTION 1 -->
+            <h4></h4>
+
+
+            <section>
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <asp:HiddenField ID="HiddenFieldExpertRegId" runat="server" Value="0" />
+                        <asp:HiddenField ID="HiddenFieldSoup" runat="server" Value="0" />
+                        <asp:HiddenField ID="HiddenFieldChild1" runat="server" Value="0" />
+                        <asp:HiddenField ID="HiddenFieldChild2" runat="server" Value="0" />
+                        <asp:HiddenField ID="HiddenFieldChild3" runat="server" Value="0" />
+                        <asp:HiddenField ID="HiddenFieldChild4" runat="server" Value="0" />
+                        <div class="form-row" style="margin-bottom: 0px">
+                            <div class="form-col">
+
+                                <h3>Expert Details
+                                </h3>
+
+                            </div>
+
+                            <div class="form-col" style="text-align: right">
+                                <%--  <asp:Button ID="btnSaveData" Text="Save"  runat="server"  OnClick="btnSaveData_Click" CssClass="saveLink" OnClientClick="return BeforeSave();" />--%>
+
+                                <asp:LinkButton ID="LinkButtonSave" OnClick="btnSaveData_Click" runat="server"></asp:LinkButton>
+                                <button id="btnSaveData" class="saveLink" type="button" runat="server" onclick="BeforeSave();">Save</button>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div>
+                            ***** if you register once please insert your passport first
+                        </div>
+                        <br />
+
+                        <div class="form-row">
+
+
+
+                            <div class="form-col">
+
+                                <label for="">
+                                    Passport
+                                </label>
+                                <div class="form-holder">
+                                    <div class="form-group">
+                                        <i class="zmdi zmdi-account-o"></i>
+
+                                        <asp:TextBox ID="txtPassport" runat="server" CssClass="form-control" OnTextChanged="txtChanged" AutoPostBack="true"></asp:TextBox>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-col">
+
+                                <label for="">
+                                    Surname
+                                </label>
+                                <div class="form-holder">
+                                    <div class="form-group">
+                                        <i class="zmdi zmdi-account-o"></i>
+                                        <input runat="server" type="text" name="txtSurname" id="txtSurname" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <label for="">
+                                    Name
+                                </label>
+                                <div class="form-holder">
+                                    <i class="zmdi zmdi-account-o"></i>
+                                    <!--zmdi-edit-->
+                                    <input runat="server" type="text" name="txtName" id="txtName" class="form-control">
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="">
+                                    Passport Issue Date
+                                </label>
+                                <div class="form-holder">
+                                    <i class="zmdi zmdi-calendar"></i>
+                                    <input runat="server" type="text" name="txtPassportIssueDate" id="txtPassportIssueDate" autocomplete="off" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <label for="">
+                                    Passport Exp Date
+                                </label>
+                                <div class="form-holder">
+                                    <i class="zmdi zmdi-calendar"></i>
+                                    <input runat="server" type="text" name="txtPassportExpDate" id="txtPassportExpDate" autocomplete="off" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <label for="">
+                                    Date Birth
+                                </label>
+                                <div class="form-holder">
+                                    <i class="zmdi zmdi-calendar"></i>
+                                    <input runat="server" type="text" name="txtDateofBirth" id="txtDateofBirth" class="form-control datepicker-here" autocomplete="off" data-language='en' data-date-format="dd M yy">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="">
+                                    Phone
+                                </label>
+                                <div class="form-holder">
+                                    <i class="zmdi zmdi-smartphone-android"></i>
+                                    <input runat="server" type="text" name="txtPhone" id="txtPhone" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <label for="">
+                                    Email
+                                </label>
+                                <div class="form-holder">
+                                    <i class="zmdi zmdi-email"></i>
+                                    <input runat="server" type="text" name="txtEmail" id="txtEmail" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-col">
+                                <label for="">
+                                    Job
+                                </label>
+                                <div class="form-holder">
+                                    <i class="zmdi zmdi-edit"></i>
+                                    <!--zmdi-edit-->
+                                    <input runat="server" type="text" name="txtJob" id="txtJob" class="form-control">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="">
+                                    Street and house no.
+                                </label>
+                                <div class="form-holder">
+                                    <i class="zmdi zmdi-edit"></i>
+                                    <input runat="server" type="text" name="txtStreet" id="txtStreet" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <label for="">
+                                    Town
+                                </label>
+                                <div class="form-holder">
+                                    <i class="zmdi zmdi-edit"></i>
+                                    <input runat="server" type="text" name="txtTown" id="txtTown" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-col">
+                                <label for="">
+                                    Country
+                                </label>
+                                <div class="form-holder">
+                                    <i class="zmdi zmdi-edit"></i>
+                                    <!--zmdi-edit-->
+                                    <input runat="server" type="text" name="txtCountry" id="txtCountry" class="form-control">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </ContentTemplate>
+                    <Triggers>
+                        <%-- <asp:AsyncPostBackTrigger ControlID="txtPassport" EventName="TextChanged" />
+                            <asp:AsyncPostBackTrigger ControlID="btnSaveData"  EventName="Click" />--%>
+                    </Triggers>
+                </asp:UpdatePanel>
+
+            </section>
+
+            <!-- SECTION 2 -->
+            <h4></h4>
+            <section>
+                <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+
+                        <div id="secStart">
+                            <div class="form-row" style="margin-bottom: 0px">
+                                <div class="form-col">
+                                    <h3>Family
+                                    </h3>
+                                </div>
+
+                                <div class="form-col" style="text-align: right" id="aSaveStart">
+
+                                    <button id="Button1" class="saveLink" type="button" runat="server" onclick="BeforeSave();">Save</button>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-row">
+                                <div class="form-col" style="width: auto">
+                                    Is your family will be traveling with you or plan to sty in Israel?
+
+
+                                </div>
+
+
+                                <div class="">
+
+
+                                    <%--   <label class="label">
+                                <input runat="server" type="radio" id="rdButtYes" name="yesno" onchange="changeYesNo()"  value="yes">Yes</label>
+                            <label class="label">
+                                <input runat="server"  type="radio" id="rdButtNo" name="yesno" onchange="changeYesNo()" checked  value="no">No</label>--%>
+
+
+                                    <asp:RadioButton ID="rdButtNo" GroupName="yesno" runat="server" Checked Text="No" onclick="changeYesNo();" />
+                                    <asp:RadioButton ID="rdButtYes" GroupName="yesno" runat="server" Text="Yes" onclick="changeYesNo();" />
+
+
+
+                                </div>
+
+
+
+
+
+
+                            </div>
+
+
+                        </div>
+
+                        <div id="secSoup" runat="server">
+
+
+
+                            <h1>Soup</h1>
+
+
+                            <div class="form-row">
+                                <div class="form-col">
+
+                                    <label for="">
+                                        Family name
+                                    </label>
+
+                                    <div class="form-holder">
+                                        <i class="zmdi zmdi-account-o"></i>
+                                        <input runat="server" type="text" name="txtSoupFamilyname" id="txtSoupFamilyname" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="">
+                                        Given name
+                                    </label>
+                                    <div class="form-holder">
+                                        <i class="zmdi zmdi-account-o"></i>
+                                        <input runat="server" type="text" name="txtSoupGivenname" id="txtSoupGivenname" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="">
+                                        Maiden name
+                                    </label>
+                                    <div class="form-holder">
+                                        <i class="zmdi zmdi-account-o"></i>
+                                        <input runat="server" type="text" name="txtSoupMaidenname" id="txtSoupMaidenname" class="form-control">
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-col">
+                                    <label for="">
+                                        Father’s name
+                                    </label>
+                                    <div class="form-holder">
+                                        <i class="zmdi zmdi-account-o"></i>
+                                        <input runat="server" type="text" name="txtSoupFathersname" id="txtSoupFathersname" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="">
+                                        Place of Birth
+                                    </label>
+                                    <div class="form-holder">
+                                        <i class="zmdi zmdi-account-o"></i>
+                                        <input runat="server" type="text" name="txtSoupPlaceofBirth" id="txtSoupPlaceofBirth" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-col">
+                                    <label for="">
+                                        Date of Birth
+                                    </label>
+                                    <div class="form-holder">
+                                        <i class="zmdi zmdi-calendar"></i>
+                                        <input runat="server" type="text" name="txtSoupDateofBirth" id="txtSoupDateofBirth" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-col">
+                                    <label for="">
+                                        Passport
+                                    </label>
+                                    <div class="form-holder">
+                                        <i class="zmdi zmdi-account-o"></i>
+                                        <input runat="server" type="text" name="txtSoupPassport" id="txtSoupPassport" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="">
+                                        Passport Issue Date
+                                    </label>
+                                    <div class="form-holder">
+                                        <i class="zmdi zmdi-calendar"></i>
+                                        <input runat="server" type="text" name="txtSoupPassportIsueDate" id="txtSoupPassportIsueDate" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                    </div>
+                                </div>
+
+                                <div class="form-col">
+                                    <label for="">
+                                        Passport Exp Date
+                                    </label>
+                                    <div class="form-holder">
+                                        <i class="zmdi zmdi-calendar"></i>
+                                        <input runat="server" type="text" name="txtSoupPassportExpDate" id="txtSoupPassportExpDate" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-col">
+                                </div>
+                                <div class="form-col">
+                                </div>
+
+                                <div class="form-col" style="text-align: right">
+                                    <a href="#" style="text-decoration: underline" onclick="SwitchFamily('secSoup')">Switch to add children</a>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div id="secChilds" runat="server">
+                            <!--<div class="form-row" style="margin-bottom:0px">
+                    <div class="form-col">
+                        <h3>
+                            Family
+                        </h3>
+                    </div>
+
+
+
+                    <div class="form-col" style="text-align:right">
+                        <a onclick="alert()" class="saveLink">Save</a>
+                    </div>
+                </div>-->
+
+
+
+
+
+                            <h1>Children under the age of 18</h1>
+                            <br />
+
+                            <div class="form-row">
+
+                                <div class="form-col">
+                                    <label for="">
+                                        Given name
+                                    </label>
+
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild1Givenname" style="padding-left: 1px" placeholder="1." id="txtChild1Givenname" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="">
+                                        Country of birth
+                                    </label>
+
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild1Countryofbirth" style="padding-left: 1px" placeholder="1." id="txtChild1Countryofbirth" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="">
+                                        Date of Birth
+                                    </label>
+
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild1DateofBirth" style="padding-left: 1px" placeholder="1." id="txtChild1DateofBirth" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="">
+                                        Passport
+                                    </label>
+
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild1Passport" style="padding-left: 1px" placeholder="1." id="txtChild1Passport" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="">
+                                        Issue Date
+                                    </label>
+
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild1PassportIsueDate" style="padding-left: 1px" placeholder="1." id="txtChild1PassportIsueDate" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="">
+                                        Exp Date
+                                    </label>
+
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild1PassportExpDate" style="padding-left: 1px" placeholder="1." id="txtChild1PassportExpDate" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        2. Given name
+                                    </label>
+
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild2Givenname" style="padding-left: 1px" placeholder="2." id="txtChild2Givenname" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        2.Country of birth
+                                    </label>
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild2Countryofbirth" style="padding-left: 1px" placeholder="2." id="txtChild2Countryofbirth" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        2.Date of Birth
+                                    </label>
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild2DateofBirth" style="padding-left: 1px" placeholder="2." id="txtChild2DateofBirth" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        2. Passport
+                                    </label>
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild2Passport" style="padding-left: 1px" placeholder="2." id="txtChild2Passport" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        2. Passport Issue Date
+                                    </label>
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild2PassportIsueDate" style="padding-left: 1px" placeholder="2." id="txtChild2PassportIsueDate" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        2. Passport Exp Date
+                                    </label>
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild2PassportExpDate" style="padding-left: 1px" placeholder="2." id="txtChild2PassportExpDate" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        3. Given name
+                                    </label>
+
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild3Givenname" style="padding-left: 1px" placeholder="3." id="txtChild3Givenname" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        3.Country of birth
+                                    </label>
+
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild3Countryofbirth" style="padding-left: 1px" placeholder="3." id="txtChild3Countryofbirth" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        3.Date of Birth
+                                    </label>
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild3DateofBirth" style="padding-left: 1px" placeholder="3." id="txtChild3DateofBirth" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        3. Passport
+                                    </label>
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild3Passport" style="padding-left: 1px" placeholder="3." id="txtChild3Passport" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        3. Passport Issue Date
+                                    </label>
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild3PassportIsueDate" style="padding-left: 1px" placeholder="3." id="txtChild3PassportIsueDate" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        3. Passport Exp Date
+                                    </label>
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild3PassportExpDate" style="padding-left: 1px" placeholder="3." id="txtChild3PassportExpDate" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        4. Given name
+                                    </label>
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild4Givenname" style="padding-left: 1px" placeholder="4." id="txtChild4Givenname" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        4.Country of birth
+                                    </label>
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild4Countryofbirth" style="padding-left: 1px" placeholder="4." id="txtChild4Countryofbirth" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        4.Date of Birth
+                                    </label>
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild4DateofBirth" style="padding-left: 1px" placeholder="4." id="txtChild4DateofBirth" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        4. Passport
+                                    </label>
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild4Passport" style="padding-left: 1px" placeholder="4." id="txtChild4Passport" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        4. Passport Issue Date
+                                    </label>
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild4PassportIsueDate" style="padding-left: 1px" placeholder="4." id="txtChild4PassportIsueDate" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <label for="" class="formobile">
+                                        4. Passport Exp Date
+                                    </label>
+                                    <div class="form-holder">
+                                        <input runat="server" type="text" name="txtChild4PassportExpDate" style="padding-left: 1px" placeholder="4." id="txtChild4PassportExpDate" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                </div>
+                                <div class="form-col">
+                                </div>
+
+                                <div class="form-col" style="text-align: right">
+                                    <a href="#" style="text-decoration: underline" onclick="SwitchFamily('secChilds')">Switch to Soup data</a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </ContentTemplate>
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="txtPassport" EventName="TextChanged" />
+                    </Triggers>
+                </asp:UpdatePanel>
+
+            </section>
+
+            <!-- SECTION 3 -->
+            <h4></h4>
+            <section>
+                <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div class="form-row" style="margin-bottom: 0px">
+                            <div class="form-col">
+
+                                <h3>Upload Docs
+                                </h3>
+
+                            </div>
+
+                            <div class="form-col" style="text-align: right">
+                            <%--  <button id="Button2" class="saveLink" type="button" runat="server" onclick="BeforeSave();">Save</button>--%>
+                            </div>
+                        </div>
+
+                        <div>
+                          <span class="redMust">*</span>  Must upload files <br /><br />
+                        </div>
+
+
+                        <div class="form-row">
+
+                            <div class="form-col">
+                                <div class="upload-img-box bg-gray-200" id="dvmyButtonInputContainer">
+                                    <div class="f-14  rtl mt-4"><span class="redMust">*</span> Copy of passport</div>
+                                    <img src="images/camera.svg" id="myButton" class="myButton" alt="">
+                                    <input runat="server" id="myButtonInput" type="file" class="myInput"  style="display: none" runat="server" />
+                                    <div id="dvmyButtonInput" class="dvFilesUpload">
+                                     
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-col">
+                                <div class="upload-img-box bg-gray-200 " id="dvmyButton1InputContainer">
+                                    <div class="f-14  rtl mt-4"><span class="redMust">*</span>CV </div>
+                                    <img src="images/camera.svg" id="myButton1" class="myButton" alt="">
+                                    <input runat="server" id="myButton1Input" type="file" class="myInput"  style="display: none" runat="server" />
+                                    <div id="dvmyButton1Input" class="dvFilesUpload">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-col">
+                                <div class="upload-img-box bg-gray-200  " id="dvmyButton2InputContainer">
+                                    <div class="f-14  rtl mt-4"><span class="redMust">*</span>Diploma </div>
+                                    <img src="images/camera.svg" id="myButton2" class="myButton" alt="">
+                                    <input runat="server" id="myButton2Input" type="file" class="myInput"  style="display: none" runat="server" />
+                                    <div id="dvmyButton2Input" class="dvFilesUpload">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-col">
+                                <div class="upload-img-box bg-gray-200  ">
+                                    <div class="f-14  rtl mt-4">Doc 4 </div>
+                                    <img src="images/camera.svg" id="myButton3" class="myButton" alt="">
+                                    <input runat="server" id="myButton3Input" type="file" class="myInput"  style="display: none" runat="server" />
+                                    <div id="dvmyButton3Input" class="dvFilesUpload">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-col">
+                                <div class="upload-img-box bg-gray-200  ">
+                                    <div class="f-14  rtl mt-4">Doc 5</div>
+                                    <img src="images/camera.svg" id="myButton4" class="myButton" alt="">
+                                    <input runat="server" id="myButton4Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                                    <div id="dvmyButton4Input" class="dvFilesUpload">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-col">
+                                <div class="upload-img-box bg-gray-200  ">
+                                    <div class="f-14  rtl mt-4">Doc 6 </div>
+                                    <img src="images/camera.svg" id="myButton5" class="myButton" alt="">
+                                    <input runat="server" id="myButton5Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                                    <div id="dvmyButton5Input" class="dvFilesUpload">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-col">
+                                <div class="upload-img-box bg-gray-200  ">
+                                    <div class="f-14  rtl mt-4">Doc 7 </div>
+                                    <img src="images/camera.svg" id="myButton6" class="myButton" alt="">
+                                    <input runat="server" id="myButton6Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                                    <div id="dvmyButton6Input" class="dvFilesUpload">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-col">
+                                <div class="upload-img-box bg-gray-200  ">
+                                    <div class="f-14  rtl mt-4">Doc 8 </div>
+                                    <img src="images/camera.svg" id="myButton7" class="myButton" alt="">
+                                    <input runat="server" id="myButton7Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                                    <div id="dvmyButton7Input" class="dvFilesUpload">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-col">
+                                <div class="upload-img-box bg-gray-200  ">
+                                    <div class="f-14  rtl mt-4">Doc 9</div>
+                                    <img src="images/camera.svg" id="myButton8" class="myButton" alt="">
+                                    <input runat="server" id="myButton8Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                                    <div id="dvmyButton8Input" class="dvFilesUpload">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-col">
+                                <div class="upload-img-box bg-gray-200  ">
+                                    <div class="f-14  rtl mt-4">Doc 10 </div>
+                                    <img src="images/camera.svg" id="myButton9" class="myButton" alt="">
+                                    <input runat="server" id="myButton9Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                                    <div id="dvmyButton9Input" class="dvFilesUpload">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-col">
+                                <div class="upload-img-box bg-gray-200  ">
+                                    <div class="f-14  rtl mt-4">Doc 11 </div>
+                                    <img src="images/camera.svg" id="myButton10" class="myButton" alt="">
+                                    <input runat="server" id="myButton10Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                                    <div id="dvmyButton10Input" class="dvFilesUpload">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-col">
+                                <div class="upload-img-box bg-gray-200  ">
+                                    <div class="f-14  rtl mt-4">Doc 12 </div>
+                                    <img src="images/camera.svg" id="myButton11" class="myButton" alt="">
+                                    <input runat="server" id="myButton11Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                                    <div id="dvmyButton11Input" class="dvFilesUpload">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <asp:LinkButton ID="btnSendForm" OnClick="SendClientForm" runat="server"></asp:LinkButton>
+                    </ContentTemplate>
+                    <Triggers>
+                        <asp:PostBackTrigger ControlID="btnSendForm" />
+                    </Triggers>
+                </asp:UpdatePanel>
+
+
+            </section>
+
+
+
+
+
+
+        </form>
+
+        <!-- JQUERY STEP -->
+        <script src="js/jquery.steps.js"></script>
+
+        <!-- DATE-PICKER -->
+        <script src="vendor/date-picker/js/datepicker.js"></script>
+        <script src="vendor/date-picker/js/datepicker.en.js"></script>
+        <script src="vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="vendor/jquery-validation/dist/additional-methods.min.js"></script>
+
+        <script src="js/main.js"></script>
 </body>
 </html>
-
-
-<%--     <br />
-                    <hr />
-                    <span style="color: #025482; font-size: 19px;"><u>Documents</u></span>
-                    <span style="color: red; font-size: 15px;">(*) the Documents with *  must upload</span>
-                    <br />
-                    <br />
-
-                    <table border="0" class="tblDetalis" width="100%">
-                        <tr>
-
-                            <td style="width: 5px;">
-                                <span class="spRedDoc">*</span>
-                            </td>
-                            <td>
-                                <span class="spTitle">Copy of current passport: </span>
-
-                            </td>
-
-                            <td>
-                                <div>
-
-
-                                    <span class="buttBlue">
-                                        <span class="btn btn-primary btn-file">Add Document
-                                                        <input id="fileUpload1" type="file" multiple/>
-                                        </span></span>
-                                    <input type="text" id="txtUploadFile1" class="form-control" readonly>
-                                </div>
-                            </td>
-
-
-
-                            <td>
-                                <span class="spTitle">Document 1:</span>
-                            </td>
-                            <td>
-                                <div>
-                                    <asp:TextBox ID="TextBox9" CssClass="txtRegister" runat="server" Width="220" Height="25" />
-                                    <input type="button" id="Button3" class="buttBlue" runat="server" value="Add Document" />
-                                </div>
-                            </td>
-
-
-
-
-
-
-                        </tr>
-                        <tr>
-                            <td style="width: 5px;">
-                                <span class="spRedDoc">*</span>
-                            </td>
-                            <td>
-                                <span class="spTitle">Cv:</span>
-                            </td>
-                            <td>
-                                <div>
-                                    <asp:TextBox ID="TextBox7" CssClass="txtRegister" runat="server" Width="220" Height="25" />
-                                    <input type="button" id="Button1" class="buttBlue" runat="server" value="Add Document" />
-                                </div>
-                            </td>
-
-
-                            <td>
-                                <span class="spTitle">Document 2:</span>
-                            </td>
-                            <td>
-                                <div>
-                                    <asp:TextBox ID="TextBox10" CssClass="txtRegister" runat="server" Width="220" Height="25" />
-                                    <input type="button" id="Button4" class="buttBlue" runat="server" value="Add Document" />
-                                </div>
-                            </td>
-
-
-
-                        </tr>
-                        <tr>
-
-                            <td style="width: 5px;">
-                                <span class="spRedDoc">*</span>
-                            </td>
-
-                            <td>
-                                <span class="spTitle">Certificates: </span>
-
-                            </td>
-
-
-                            <td>
-
-                                <div>
-
-
-                                    <asp:TextBox ID="TextBox8" CssClass="txtRegister" runat="server" Width="220" Height="25" />
-                                    <input type="button" id="Button2" class="buttBlue" runat="server" value="Add Document" />
-
-                                </div>
-                            </td>
-
-                            <td>
-                                <span class="spTitle">Document 3:</span>
-                            </td>
-                            <td>
-                                <div>
-                                    <asp:TextBox ID="TextBox11" CssClass="txtRegister" runat="server" Width="220" Height="25" />
-                                    <input type="button" id="Button5" class="buttBlue" runat="server" value="Add Document" />
-                                </div>
-                            </td>
-
-                        </tr>
-                    </table>
-
-
-                    <hr />
-                    <div style="margin-top: 20px; text-align: left;">
-                        <input type="button" id="sasasas" class="buttBlue" onclick="SendClientForm()" runat="server" value="Send Form" />
-                    </div>
-                    <br />--%>

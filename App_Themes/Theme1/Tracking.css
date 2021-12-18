@@ -1084,3 +1084,15 @@ input[type=text], input[type=password] {
     font-size:12px;
 }
 
+.okClass {
+    background: #006CA6 !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+
+.cancelClass {
+    background: #84100A !important;
+    color: white !important;
+    font-weight: bold !important;
+}

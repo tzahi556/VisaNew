@@ -28,7 +28,7 @@ public partial class Pages_Expert : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        
+
 
         if (HttpContext.Current.Request.Cookies["UserData"] != null)
         {
@@ -67,7 +67,7 @@ public partial class Pages_Expert : System.Web.UI.Page
 
 
             ddlCompany.Disabled = true;
-           // ddlCompany.Enabled = false;
+            // ddlCompany.Enabled = false;
         }
 
 
@@ -106,14 +106,14 @@ public partial class Pages_Expert : System.Web.UI.Page
             ddlCompany.DataSource = dtCompany;
             ddlCompany.DataTextField = "Name";
             ddlCompany.DataValueField = "CompanyId";
-          
+
             ddlCompany.DataBind();
 
             if (RoleId == "1")
             {
-                ddlCompany.SelectedIndex = 2;
-                //ddlCompany.Value = "14";
-              
+                //ddlCompany.SelectedIndex = 2;
+
+
             }
             else
             {
@@ -122,9 +122,9 @@ public partial class Pages_Expert : System.Web.UI.Page
 
 
 
-           
-          //  string Options = GetOptionsForCompanyDDL();
-            
+
+            //  string Options = GetOptionsForCompanyDDL();
+
             FillGrid();
 
         }
@@ -134,7 +134,32 @@ public partial class Pages_Expert : System.Web.UI.Page
 
         //}
 
+        if (Request.Form["__EVENTTARGET"] == "txtSurname")
+        {
 
+
+
+            FillGrid();
+            // txtSurname.Focus();
+            ScriptManager.RegisterStartupScript(Page, this.GetType(), "FocusScript", "SetFocusOnPostBack(1);", true);
+
+            //Call the function here which you want
+
+        }
+
+        if (Request.Form["__EVENTTARGET"] == "txtName")
+        {
+            FillGrid();
+            // txtSurname.Focus();
+            ScriptManager.RegisterStartupScript(Page, this.GetType(), "FocusScript", "SetFocusOnPostBack(2);", true);
+            //Call the function here which you want
+
+        }
+
+        //if (Request.Form["__EVENTTARGET"] == "ddlCompany")
+        //{
+
+        //}
 
 
         ScriptManager.RegisterStartupScript(Page, this.GetType(), "DatePickerScript", "UpdateSelectedOnPostBack();", true);
@@ -146,26 +171,26 @@ public partial class Pages_Expert : System.Web.UI.Page
 
 
         DataTable dtRes = new DataTable();
-      
+
         dtRes.Columns.Add("CompanyId");
         dtRes.Columns.Add("Name");
-      //  dtRes.Columns.Add("Order");
-        
+        //  dtRes.Columns.Add("Order");
+
         DataTable dtCompany = Dal.ExeSp("GetCompanyForMain", CompanyId);
-        DataRow[] dtRows = dtCompany.Select("Parent_Id=0 Or Parent_Id Is Null","Name ASC");
+        DataRow[] dtRows = dtCompany.Select("Parent_Id=0 Or Parent_Id Is Null", "Name ASC");
         if (dtCompany.Rows.Count == 1)
         {
             dtRows = dtCompany.Select("CompanyId=" + CompanyId);
 
 
         }
-        
-        
-        
+
+
+
         dtRes.Rows.Add("", "Select...");
 
-        if(RoleId=="1")dtRes.Rows.Add("Single_0", "--All Companies--");
-        
+        if (RoleId == "1") dtRes.Rows.Add("Single_0", "--All Companies--");
+
         foreach (DataRow row in dtRows)
         {
             string Name = row["Name"].ToString();
@@ -177,12 +202,12 @@ public partial class Pages_Expert : System.Web.UI.Page
             {
                 dtRes.Rows.Add("Group_" + rowCompanyId, Name + " (Group)");
                 dtRes.Rows.Add(rowCompanyId, Name);
-                
+
                 // res += "<option value=Group_" + rowCompanyId + ">" + Name + " (Group)</option>";
 
                 foreach (DataRow rowChild in dtRowsChilds)
                 {
-                   // res += "<option value=" + rowChild["CompanyId"].ToString() + ">" + rowChild["Name"].ToString() + "</option>";
+                    // res += "<option value=" + rowChild["CompanyId"].ToString() + ">" + rowChild["Name"].ToString() + "</option>";
 
 
                     dtRes.Rows.Add(rowChild["CompanyId"].ToString(), rowChild["Name"].ToString());
@@ -209,7 +234,7 @@ public partial class Pages_Expert : System.Web.UI.Page
 
     protected void ddlFamily_SelectedChange(object sender, EventArgs e)
     {
-       // gvDocs.EditIndex = -1;
+        // gvDocs.EditIndex = -1;
         FillGrid();
 
     }
@@ -239,7 +264,7 @@ public partial class Pages_Expert : System.Web.UI.Page
 
 
 
-        dtExpert = dt.Select(" [Active]=1 And diffday >= 0").Any() ? dt.Select("[Active]=1 And diffday >= 0","Surname,Name").CopyToDataTable() : dtEmpty;
+        dtExpert = dt.Select(" [Active]=1 And diffday >= 0").Any() ? dt.Select("[Active]=1 And diffday >= 0", "Surname,Name").CopyToDataTable() : dtEmpty;
 
         gvTheGrid.DataSource = dtExpert;
         gvTheGrid.DataBind();
@@ -256,12 +281,12 @@ public partial class Pages_Expert : System.Web.UI.Page
         GridView1.DataBind();
 
 
-     
+
 
         if (GridView1.HeaderRow != null)
             GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
 
-      
+
 
 
         DataView dataView = new DataView(dtExpert);
@@ -423,7 +448,7 @@ public partial class Pages_Expert : System.Web.UI.Page
     protected void SendEmailDemo(object sender, EventArgs e)
     {
 
-      //  SendEmail sm = new SendEmail();
+        //  SendEmail sm = new SendEmail();
     }
 
     protected void btnSave_Click(object sender, EventArgs e)
@@ -735,7 +760,7 @@ public partial class Pages_Expert : System.Web.UI.Page
             string diffday = GridView1.DataKeys[e.Row.RowIndex].Values[0].ToString();
             string ExpertId = GridView1.DataKeys[e.Row.RowIndex].Values[1].ToString();
 
-             
+
 
 
             string Surname = DataBinder.Eval(e.Row.DataItem, "Surname").ToString();
@@ -744,7 +769,7 @@ public partial class Pages_Expert : System.Web.UI.Page
 
             Image flagImg = (Image)e.Row.FindControl("imgStatus");
 
-           
+
             if (!string.IsNullOrEmpty(diffday))
             {
                 int diff = int.Parse(diffday);
@@ -788,7 +813,7 @@ public partial class Pages_Expert : System.Web.UI.Page
             string IsMonthly = GridView1.DataKeys[e.Row.RowIndex].Values[2].ToString();
             if (IsMonthly == "True")
             {
-               
+
                 flagImg.ImageUrl = "~/App_Themes/Theme1/Images/Fav.png";
                 flagImg.ToolTip = "Monthly";
                 flagImg.Width = 16;
@@ -822,12 +847,12 @@ public partial class Pages_Expert : System.Web.UI.Page
 
 
             if (isPassportShort == "1")
-            { 
+            {
                 e.Row.Cells[4].Attributes.Add("style", "color:red;font-weight:bolder");
             }
 
             e.Row.Attributes.Add("ondblclick", "OpenCustomerDetails('" + ExpertId + "', '" + Surname + "&nbsp;" + Name + "');");
-            
+
             Image flagImg = (Image)e.Row.FindControl("imgStatus");
 
 
@@ -841,7 +866,7 @@ public partial class Pages_Expert : System.Web.UI.Page
             if (!string.IsNullOrEmpty(ParentId)) Nextf = "f2";
             if (!string.IsNullOrEmpty(IsParentOfAny)) Nextf = "F1";
 
-           // 
+            // 
 
             if (!string.IsNullOrEmpty(diffday))
             {
@@ -883,7 +908,7 @@ public partial class Pages_Expert : System.Web.UI.Page
                 {
 
 
-                    flagImg.ImageUrl = "~/App_Themes/Theme1/Images/"+Nextf+".png";
+                    flagImg.ImageUrl = "~/App_Themes/Theme1/Images/" + Nextf + ".png";
                     flagImg.ToolTip = diffday;
                     flagImg.Width = 16;
                     flagImg.Height = 16;
@@ -903,14 +928,14 @@ public partial class Pages_Expert : System.Web.UI.Page
                 //}
                 //else
                 //{
-                    flagImg.Width = 3;
-                    flagImg.Height = 3;
-               // }
+                flagImg.Width = 3;
+                flagImg.Height = 3;
+                // }
             }
 
             if (IsMonthly == "True")
             {
-               
+
                 flagImg.ImageUrl = "~/App_Themes/Theme1/Images/Fav.png";
                 flagImg.ToolTip = "Monthly";
                 flagImg.Width = 16;
@@ -941,7 +966,7 @@ public partial class Pages_Expert : System.Web.UI.Page
     //}
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        
+
         gvDocs.EditIndex = -1;
         FillGrid();
 
@@ -949,10 +974,28 @@ public partial class Pages_Expert : System.Web.UI.Page
 
     protected void btnDelete_Click(object sender, EventArgs e)
     {
+        string ExpertId = hdnSelectedArchive.Value;
+
+        if (!string.IsNullOrEmpty(ExpertId) && ExpertId!="0")
+        {
+
+            string sql = "delete from Expert where ExpertId = " + ExpertId;
+            int res = Dal.ExecuteNonQuery(sql);
+            FillGrid();
+
+           
+
+        }
+
+
 
         string selected = hdnSelected.Value;
-        Dal.ExeSp("DeleteMultipleExperts", selected);
-        FillGrid();
+        if (!string.IsNullOrEmpty(selected) && selected!="0")
+        {
+
+            Dal.ExeSp("DeleteMultipleExperts", selected);
+            FillGrid();
+        }
     }
 
 
