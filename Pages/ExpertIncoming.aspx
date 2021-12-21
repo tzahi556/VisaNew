@@ -385,6 +385,57 @@
             return listHeight;
         }
 
+
+        function DeleteArchive(ExpertId) {
+
+            ConfirmGeneric("Are u sure want delete from incoming Expert???", 2, ExpertId);
+        }
+        function ConfirmGeneric(title, type, ExpertId) {
+            dialog = $("<div id='dialog' title='Confirmation Required'>" + title + "</div>");
+            dialog.dialog({
+
+                modal: true,
+                buttons: [
+                    {
+                        text: "Confirm",
+                        class: 'okClass',
+                        //open: function () {
+                        //    $(this).addClass('okClass');
+                        //},
+                        click: function () {
+                            $(this).dialog("close");
+                            if (type == 1) ConfirmDelete();
+                            if (type == 2) ConfirmDeleteArchive(ExpertId);
+                            return true;
+                        }
+                    },
+                    {
+                        text: "Cancel",
+                        class: 'cancelClass',
+                        click: function () {
+                            $(this).dialog("close");
+                            return false;
+                        }
+                    }
+                ]
+              
+            });
+
+            $(".ui-dialog").css("padding", "4px").css("font-size", "small");
+
+        }
+
+
+        function ConfirmDeleteArchive(ExpertId) {
+
+            $("#<%=hdnSelectedArchive.ClientID%>").val(ExpertId);
+
+            __doPostBack('<%=btnDel.UniqueID%>', '');
+
+            $("#<%=hdnSelectedArchive.ClientID%>").val("0");
+           
+
+        }
     </script>
     <style type="text/css">
         .dataTables_scrollBody {
@@ -395,6 +446,9 @@
 <body style="display: none">
     <form id="form1" runat="server">
         <div>
+           <%-- <img src="../App_Themes/Theme1/Images/vv.png" />
+            <img src="../App_Themes/Theme1/Images/xx.png" />--%>
+
             <asp:HiddenField ID="hdnSelected" runat="server" Value="0" />
             <asp:HiddenField ID="hdnScrollPos" runat="server" Value="0" />
             <asp:HiddenField ID="hdnSortInfo" runat="server" Value="" />
@@ -473,6 +527,8 @@
                                 <div>
                                     <asp:UpdatePanel ID="UpdatePanel6" runat="server">
                                         <ContentTemplate>
+                                            <asp:HiddenField ID="hdnSelectedArchive" runat="server" Value="0" />
+                                            <asp:LinkButton ID="btnDel" OnClick="btnDelete_Click" runat="server"></asp:LinkButton>
                                             <asp:GridView ID="grdIncoming" runat="server" GridLines="Both" CellPadding="3" AutoGenerateColumns="false"
                                                 BackColor="WhiteSmoke" AllowPaging="false" AllowSorting="false" OnRowDeleting="GridView1_RowDeleting"
                                                 OnRowDataBound="GridView_RowDataBound"
@@ -487,7 +543,11 @@
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
 
+                                                    
+                                                 <%--   <asp:BoundField DataField="ExpertRegId" HeaderText="Id" SortExpression="ExpertRegId">
 
+                                                        <ItemStyle CssClass="gridCoumnName" />
+                                                    </asp:BoundField>--%>
                                                     <asp:BoundField DataField="Surname" HeaderText="Surname" SortExpression="Surname">
 
                                                         <ItemStyle CssClass="gridCoumnName" />
@@ -504,13 +564,22 @@
                                                     <asp:BoundField DataField="Visa/ Invitation Issue date" HeaderText="Town" SortExpression="VIIDate"></asp:BoundField>
                                                     <asp:BoundField DataField="Visa Exp Date" HeaderText="Email" SortExpression="VEDate"></asp:BoundField>
                                                     <asp:BoundField DataField="Multiple entry Visa" HeaderText="Re Entry Visa Exp" SortExpression="MEVDate"></asp:BoundField>--%>
-                                                    <asp:TemplateField HeaderText="">
+                                                   
+                                                    
+                                                      <asp:TemplateField HeaderText="">
+                                                          <ItemTemplate>
+                                                              <img src="../App_Themes/Theme1/Images/delete.png" onclick="DeleteArchive('<%# Eval("ExpertRegId") %>')" style="padding:5px" />
+                                                          
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    
+                                                  <%--  <asp:TemplateField HeaderText="">
                                                         <ItemTemplate>
                                                             <asp:ImageButton ID="ImageButton1" runat="server" AlternateText="Delete" CommandArgument='<%# Eval("ExpertRegId") %>'
                                                                 CommandName="Delete" ImageUrl="~/App_Themes/Theme1/Images/delete.png" Style="padding: 4px"
                                                                 ToolTip="Delete" CausesValidation="false" />
                                                         </ItemTemplate>
-                                                    </asp:TemplateField>
+                                                    </asp:TemplateField>--%>
                                                 </Columns>
                                             </asp:GridView>
                                         </ContentTemplate>

@@ -33,7 +33,7 @@ var form;
             },
 
             txtEmail : {
-               
+                required: true,
                 email: true
             },
 
@@ -101,6 +101,7 @@ var form;
                 //email: "Please enter a valid email address!"
             },
             txtEmail: {
+                required: "Please enter your first Email",
                 email: "Please enter a valid email address!"
             },
 
@@ -213,7 +214,7 @@ var form;
                     $('.steps ul').removeClass('step-4');
                     $('.actions ul').removeClass('mt-7');
                 }
-
+              
                 return true;
 
             }
@@ -237,21 +238,25 @@ var form;
         //},
         onFinishing: function (event, currentIndex)
         {
+            
             form.validate().settings.ignore = ":disabled";
             return form.valid();
         },
         onFinished: function (event, currentIndex)
         {
+           
             SendForm();
-            //
+          
             //alert('Sumited');
         },
         onStepChanged: function (event, currentIndex, priorIndex)
         {
-
+            if (currentIndex == 3) CallServer();
          
         }
     });
+
+    form.IsFamaly = false;
 
     jQuery.extend(jQuery.validator.messages, {
         required: "",

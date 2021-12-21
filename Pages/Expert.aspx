@@ -98,19 +98,19 @@
 
 
             var CompanyId = $('#<%= ddlCompany.ClientID %>').val().replace("Single_", "").replace("Group_", "");
-             if (!ExpertName)
-                 ExpertName = "New Expert";
+            if (!ExpertName)
+                ExpertName = "New Expert";
 
-             if (ExpertId) {
-                 var x = parent.winPopup("pages/PopUp_editCustomer.aspx?CompanyId=" + CompanyId + "&ExpertId=" + ExpertId + "&ts=" + new Date().getTime(), '1150', '630', ExpertName);
+            if (ExpertId) {
+                var x = parent.winPopup("pages/PopUp_editCustomer.aspx?CompanyId=" + CompanyId + "&ExpertId=" + ExpertId + "&ts=" + new Date().getTime(), '1150', '630', ExpertName);
 
-             }
-             else {
-                 if (Selected == "0") {
-                     parent.ShowMessage('Must Selected One Of Expert', '1');
-                 }
-                 else {
-                     var StepId = $('#<%= ddlSteps.ClientID %>').val();
+            }
+            else {
+                if (Selected == "0") {
+                    parent.ShowMessage('Must Selected One Of Expert', '1');
+                }
+                else {
+                    var StepId = $('#<%= ddlSteps.ClientID %>').val();
                     if (StepId == "0") {
                         parent.ShowMessage('Must Choose One Update Type', '1');
                     }
@@ -133,17 +133,17 @@
         }
 
         function KeyupChange(type) {
-          //  debugger
-            var txtVal =$('#' + type).val();
-            if (txtVal.length > 1 || txtVal.length==0)
-            __doPostBack(type, '');
+            //  debugger
+            var txtVal = $('#' + type).val();
+            if (txtVal.length > 1 || txtVal.length == 0)
+                __doPostBack(type, '');
 
         }
 
 
         function ChooseCompany(CompanyId) {
-           // alert(CompanyId);
-           
+            // alert(CompanyId);
+
             $("#txtSurname").val("");
             $("#txtName").val("");
 
@@ -153,7 +153,7 @@
             $select[0].selectize.setValue("Single_" + CompanyId);
 
 
-          
+
         }
 
         function DeleteArchive(ExpertId) {
@@ -165,7 +165,7 @@
         function SetFocusOnPostBack(type) {
 
 
-          
+
             var fieldInput = (type == 1) ? $('#<%=txtSurname.ClientID %>') : $('#<%=txtName.ClientID %>');
             var fldLength = fieldInput.val().length;
             fieldInput.focus();
@@ -175,7 +175,7 @@
         function UpdateSelectedOnPostBack() {
 
 
-           
+
 
             Selected = "0";
 
@@ -246,13 +246,13 @@
 
             $("#<%=hdnSelectedArchive.ClientID%>").val(ExpertId);
 
-           // alert(ExpertId);
+            // alert(ExpertId);
 
             __doPostBack('<%=btnDel.UniqueID%>', '');
 
             $("#<%=hdnSelectedArchive.ClientID%>").val("0");
 
-         }
+        }
 
         function ConfirmGeneric(title, type, ExpertId) {
             dialog = $("<div id='dialog' title='Confirmation Required'>" + title + "</div>");
@@ -306,6 +306,7 @@
             $(".ui-dialog").css("padding", "4px").css("font-size", "small");
 
         }
+
         function DeleteCustomer() {
 
             if (Selected == "0") {
@@ -313,7 +314,7 @@
             }
             else {
 
-                ConfirmGeneric("Are u sure want delete all selected???",1);
+                ConfirmGeneric("Are u sure want delete all selected???", 1);
 
 
               <%--  var x = confirm("Are u sure want delete all selected???");
@@ -418,7 +419,7 @@
                                 { "sSortDataType": "dom-date" },
                                 { "sSortDataType": "dom-date" },
                                 { "sSortDataType": "dom-date" },
-                              
+
                             ],
                             "sScrollY": "" + (listHeight - 35) + "px",
                         });
@@ -805,7 +806,7 @@
 <body style="display: none">
     <form id="form1" runat="server">
         <div>
-              <asp:HiddenField ID="hdnSelectedArchive" runat="server" Value="0" />
+            <asp:HiddenField ID="hdnSelectedArchive" runat="server" Value="0" />
             <asp:HiddenField ID="hdnSelected" runat="server" Value="0" />
             <asp:HiddenField ID="hdnScrollPos" runat="server" Value="0" />
             <asp:HiddenField ID="hdnSortInfo" runat="server" Value="" />
@@ -846,6 +847,9 @@
                                   
                                             <asp:TextBox ID="txtSurname" runat="server" Width="150" onkeyup="KeyupChange('txtSurname');"
                                                 Style="font-size: 14px;"></asp:TextBox>
+
+                                 <%--   <asp:TextBox ID="txtSurname" runat="server" Width="150" OnTextChanged="txtChange"
+                                                Style="font-size: 14px;"></asp:TextBox>--%>
 
                                     
 

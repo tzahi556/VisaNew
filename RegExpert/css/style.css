@@ -550,3 +550,8 @@ label.error {
     color:red;
     font-weight:bold;
 }
+
+.nocompany {
+    color: red;
+    font-weight: bold;
+}

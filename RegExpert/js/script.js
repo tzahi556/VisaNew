@@ -1,4 +1,15 @@
 ﻿$(function () {
+
+
+    InitUpload();
+
+
+   
+});
+
+
+
+function InitUpload() {
     let inputFile = $('.myInput');
     let button = $('.myButton');
     let buttonSubmit = $('#mySubmitButton');
@@ -6,7 +17,7 @@
     let files = [];
 
     inputFile.change(function () {
-        
+
         //alert(this.id);
         var dvContainer = "dv" + this.id;
         inputFile = $('#' + this.id);
@@ -16,15 +27,15 @@
             newFiles.push(file);
             files.push(file);
 
-           
+
         }
 
         newFiles.forEach(file => {
             let fileElement = $("<span class='fileUploadName'>" + file.name + "</span>");//$(`<p style='border:solid 1px red'> ${file.name}</p>`);
             fileElement.data('fileData', file);
 
-           
-            $('#' + dvContainer).append(fileElement);
+
+            $('#' + dvContainer).html(fileElement);
             validateUploadFiles();
             // filesContainer.append(fileElement);
 
@@ -42,7 +53,7 @@
     });
 
     button.click(function () {
-      
+
         var inputId = this.id + "Input";
         $('#' + inputId).click();
         //inputFile.click();
@@ -51,7 +62,7 @@
 
     buttonSubmit.click(function () {
 
-        debugger
+
 
         let formData = new FormData();
 
@@ -72,4 +83,8 @@
             contentType: false
         });
     });
-});
+
+
+}
+
+

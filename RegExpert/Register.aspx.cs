@@ -20,7 +20,7 @@ public partial class Register : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         //for dev
-        CompanyId = "21"; //Request.QueryString["CompanyId"];
+        CompanyId = Request.QueryString["CompanyId"];
 
         if (string.IsNullOrEmpty(CompanyId))
         {
@@ -98,10 +98,7 @@ public partial class Register : System.Web.UI.Page
             {
                 rdButtYes.Checked = true;
                 secSoup.Style["display"] = "true";
-                //secChilds.Visible = false;
-
-
-
+                
 
 
                 txtSoupFamilyname.Value = dt.Rows[1]["Surname"].ToString();
@@ -115,6 +112,7 @@ public partial class Register : System.Web.UI.Page
                 txtSoupDateofBirth.Value = dt.Rows[1]["DateofBirth"].ToString();
                 HiddenFieldSoup.Value = dt.Rows[1]["ExpertRegId"].ToString();
 
+               // UpdatePanel2.Update();
             }
 
             //// ילדים
@@ -154,8 +152,7 @@ public partial class Register : System.Web.UI.Page
             }
 
 
-
-            // dvmyButtonInput.InnerHtml = "tzahi.html";
+            
 
 
 
@@ -225,12 +222,12 @@ public partial class Register : System.Web.UI.Page
         }
 
 
-        //HiddenFieldExpertRegId.Value = "0";
-        //HiddenFieldSoup.Value = "0";
-        //HiddenFieldChild1.Value = "0";
-        //HiddenFieldChild2.Value = "0";
-        //HiddenFieldChild3.Value = "0";
-        //HiddenFieldChild4.Value = "0";
+        HiddenFieldExpertRegId.Value = "0";
+        HiddenFieldSoup.Value = "0";
+        HiddenFieldChild1.Value = "0";
+        HiddenFieldChild2.Value = "0";
+        HiddenFieldChild3.Value = "0";
+        HiddenFieldChild4.Value = "0";
 
 
 
@@ -240,7 +237,21 @@ public partial class Register : System.Web.UI.Page
 
     public void SendClientForm(object sender, EventArgs e)
     {
+        btnSaveData_Click(sender, e);
 
+       
+
+
+        string ExpertId = HiddenFieldExpertRegId.Value;
+
+        if (rdButtNo.Checked)
+        {
+
+            string sql = "Delete from  ExpertRegister  where ParentId = " + ExpertId;
+
+            int res = Dal.ExecuteNonQuery(sql);
+
+        }
 
         string PassportDir = txtPassport.Text;
 
@@ -255,7 +266,16 @@ public partial class Register : System.Web.UI.Page
             HttpPostedFile postedFile = (HttpPostedFile)postedFileFromClient;
 
             if (!string.IsNullOrEmpty(postedFile.FileName))
+            {
                 postedFile.SaveAs(Server.MapPath(savePath + postedFile.FileName));
+                Dal.ExeSp("SetExpertUploadFiles",
+                            1,
+                            i+1,
+                            ExpertId,
+                            postedFile.FileName,
+                            false
+                            );
+            }
             // postedFile.SaveAs(Server.MapPath(savePath + postedFile.FileName));
             // do something with file here
         }
@@ -265,16 +285,16 @@ public partial class Register : System.Web.UI.Page
 
 
 
-        //    string To = txtEmail.Text;
+        string To = txtEmail.Value;
 
-        //    string Subject = "New Expert Register - " + txtName.Text + " " + txtSurname.Text;
+        string Subject = "New Expert Register - " + txtName.Value + " " + txtSurname.Value;
 
-        //    string Body = "Hello Dear  <br />  New Expert Register To DG LAW <br /> First Name :" + txtName.Text + " <br /> Surename:" + txtSurname.Text
-        //         + "< br /> Passport: " + txtPassport.Text + " < br /> Company:" + lblCompany.Text;
+        string Body = "Hello Dear  <br />  New Expert Register To DG LAW <br /> First Name :" + txtName.Value + " <br /> Surename:" + txtSurname.Value
+             + "< br /> Passport: " + txtPassport.Text + " < br /> Company:" + lblCompany.InnerText;
 
-        //    Send(Subject, Body, To);
+      //  Send(Subject, Body, To);
 
-        //    Response.Redirect("RegisterEnd.aspx");
+        Response.Redirect("RegisterEnd.aspx");
 
 
 
@@ -282,7 +302,7 @@ public partial class Register : System.Web.UI.Page
 
     private string InsertIntoDB(string Surname, string Name, string CompanyId, string Email, string Phone, string Job,
         string Passport, string PassportIssueDate, string PassportExpDate, string ParentId, string StreetAndHouse, string Town,
-        string Country, string Maidenname, string Fathersname, string IsFamaly, string DateofBirth, string ExpertFamId)
+        string Country, string Maidenname, string Fathersname, string IsFamaly, string DateofBirth, string ExpertFamId,bool isFinish=false)
     {
         DataTable ExpertRegister = Dal.ExeSp("SetExpertRegister",
          Surname,
@@ -303,7 +323,8 @@ public partial class Register : System.Web.UI.Page
          IsFamaly,
          GetAsDate(DateofBirth),
          ExpertFamId,
-         ""
+         "",
+         isFinish
 
          );
 
@@ -327,93 +348,100 @@ public partial class Register : System.Web.UI.Page
 
 
 
-    //public void Send(string Subject, string Body, string To)
-    //{
-    //    string officeMails = "";
+    public void Send(string Subject, string Body, string To)
+    {
+        //string officeMails = "";
 
-    //    DataTable dtUsers = Dal.ExeSp("GetUsersTable");
+        //DataTable dtUsers = Dal.ExeSp("GetUsersTable");
 
-    //    DataRow[] result = dtUsers.Select("IsEmail=True And Email<>'' And Email Is Not Null");
-
-
-    //    bool isFirst = true;
+        //DataRow[] result = dtUsers.Select("IsEmail=True And Email<>'' And Email Is Not Null");
 
 
-    //    foreach (DataRow row in result)
-    //    {
-
-    //        if (isFirst)
-    //        {
-    //            officeMails = row["Email"].ToString();
-    //            isFirst = false;
-    //        }
-    //        else
-    //        {
-    //            officeMails += "," + row["Email"].ToString();
-    //        }
+        //bool isFirst = true;
 
 
-    //    }
+        //foreach (DataRow row in result)
+        //{
+
+        //    if (isFirst)
+        //    {
+        //        officeMails = row["Email"].ToString();
+        //        isFirst = false;
+        //    }
+        //    else
+        //    {
+        //        officeMails += "," + row["Email"].ToString();
+        //    }
 
 
-
-    //    SmtpClient SmtpServer = new SmtpClient();
-    //    MailMessage actMSG = new MailMessage();
-    //    SmtpServer.Host = "yossilouk.cloudwm.com";
-    //    SmtpServer.Port = 25;
+        //}
 
 
 
-    //    SmtpServer.UseDefaultCredentials = false;
-
-    //    string mail_user = "dglaw";
-    //    string mail_pass = "jadekia556";
-
-    //    SmtpServer.Credentials = new System.Net.NetworkCredential(mail_user, mail_pass);
+        SmtpClient SmtpServer = new SmtpClient();
+        MailMessage actMSG = new MailMessage();
+        SmtpServer.Host = "yossilouk.cloudwm.com";
+        SmtpServer.Port = 25;
 
 
-    //    actMSG.IsBodyHtml = true;
 
-    //    actMSG.Subject = Subject;
-    //    actMSG.Body = String.Format("{0}", Body);
+        SmtpServer.UseDefaultCredentials = false;
 
-    //    actMSG.To.Add("yossi@louk.com");
-    //    //actMSG.To.Add("tzahi556@gmail.com");
+        string mail_user = "dglaw";
+        string mail_pass = "jadekia556";
 
-    //    //if (!string.IsNullOrEmpty(officeMails))
-    //    //{
-    //    //    actMSG.To.Add(officeMails);
-    //    //}
-
-    //    if (!string.IsNullOrEmpty(To))
-    //    {
-    //        actMSG.To.Add(To);
-
-    //    }
+        SmtpServer.Credentials = new System.Net.NetworkCredential(mail_user, mail_pass);
 
 
-    //    actMSG.From = new MailAddress("dglaw@yossilouk.cloudwm.com");
+        actMSG.IsBodyHtml = true;
+
+        actMSG.Subject = Subject;
+        actMSG.Body = String.Format("{0}", Body);
+
+     //   actMSG.To.Add("yossi@louk.com");
+        //actMSG.To.Add("tzahi556@gmail.com");
+
+        //if (!string.IsNullOrEmpty(officeMails))
+        //{
+        //    actMSG.To.Add(officeMails);
+        //}
+
+        if (!string.IsNullOrEmpty(To))
+        {
+            actMSG.To.Add(To);
+
+        }
 
 
-    //    try
-    //    {
+        actMSG.From = new MailAddress("dglaw@yossilouk.cloudwm.com");
 
-    //        SmtpServer.Send(actMSG);
-    //        actMSG.Dispose();
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        HttpContext.Current.Response.Write(ex.Message);
-    //    }
 
-    //}
+        try
+        {
+
+            SmtpServer.Send(actMSG);
+            actMSG.Dispose();
+        }
+        catch (Exception ex)
+        {
+            HttpContext.Current.Response.Write(ex.Message);
+        }
+
+    }
 
 
     protected void btnSaveData_Click(object sender, EventArgs e)
     {
 
-        string dddd = HiddenFieldExpertRegId.Value;
+     
+        LinkButton button = (LinkButton)sender;
+        string SenderId = button.ID;
+        bool isFinish = false;
+        if(SenderId== "btnSendForm")
+        {
 
+            isFinish = true;
+        }
 
         string NewExpertRegisterId = InsertIntoDB(txtSurname.Value,
                                                   txtName.Value,
@@ -432,7 +460,8 @@ public partial class Register : System.Web.UI.Page
                                                   "",
                                                   "0",
                                                   txtDateofBirth.Value,
-                                                  HiddenFieldExpertRegId.Value
+                                                  HiddenFieldExpertRegId.Value,
+                                                  isFinish
                                                   );
 
         HiddenFieldExpertRegId.Value = NewExpertRegisterId;
@@ -517,6 +546,38 @@ public partial class Register : System.Web.UI.Page
 
 
 
+
+
+
+    }
+
+    protected void btnGetFiles_Click(object sender, EventArgs e)
+    {
+        string ExpertId = HiddenFieldExpertRegId.Value;
+
+        if (ExpertId == "0") return;
+        DataTable dt =   Dal.ExeSp("SetExpertUploadFiles",
+                           2,
+                           0,
+                           ExpertId,
+                            "",
+                           false
+                           );
+
+
+
+        foreach (DataRow row in dt.Rows)
+        {
+            string FileName = row["FileName"].ToString();
+            int UploadId = Convert.ToInt32(row["UploadId"].ToString());
+            UploadId = UploadId - 1;
+            string UploadIdStr = UploadId.ToString();
+            if (UploadId == 0) UploadIdStr = "";
+            HtmlGenericControl div = FindControl("dvmyButton" + UploadIdStr + "Input") as HtmlGenericControl;
+            if(div!=null)
+            div.InnerHtml = "<span class='fileUploadName'>" + FileName + "</span>";
+
+        }
 
 
 

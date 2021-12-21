@@ -103,6 +103,32 @@ public partial class Pages_ExpertIncoming : System.Web.UI.Page
 
     }
 
+    protected void btnDelete_Click(object sender, EventArgs e)
+    {
+        string ExpertRegId = hdnSelectedArchive.Value;
+
+        if (!string.IsNullOrEmpty(ExpertRegId) && ExpertRegId != "0")
+        {
+
+            string sql = "delete from ExpertRegister where ExpertRegId = " + ExpertRegId;
+            int res = Dal.ExecuteNonQuery(sql);
+            FillGrid();
+
+
+
+        }
+
+
+
+        //string selected = hdnSelected.Value;
+        //if (!string.IsNullOrEmpty(selected) && selected != "0")
+        //{
+
+        //    Dal.ExeSp("DeleteMultipleExperts", selected);
+        //    FillGrid();
+        //}
+    }
+
     private DataTable GetOptionsForCompanyDDL()
     {
 

@@ -445,6 +445,13 @@ public partial class Pages_Expert : System.Web.UI.Page
 
     }
 
+    
+
+    protected void txtChange(object sender, EventArgs e)
+    {
+        FillGrid();
+        //  SendEmail sm = new SendEmail();
+    }
     protected void SendEmailDemo(object sender, EventArgs e)
     {
 

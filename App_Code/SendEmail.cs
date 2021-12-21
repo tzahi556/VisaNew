@@ -513,64 +513,64 @@ public class SendEmail
         // System.Threading.Thread.Sleep(30000);
         //  
         //System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
-        using (SmtpClient client = new SmtpClient("smtp.office365.com", 587))
-        {
-            MailMessage actMSG = new MailMessage();
-            try
-            {
-              
-                Body = GetHeader() + Body + GetFooter();
-                          // client.UseDefaultCredentials = false;
-                          // client.Credentials = new System.Net.NetworkCredential("dglaw@dgtracking.co.il", "Zux74633"); //
+        //using (SmtpClient client = new SmtpClient("smtp.office365.com", 587))
+        //{
+        //    MailMessage actMSG = new MailMessage();
+        //    try
+        //    {
 
-                client.Credentials = new System.Net.NetworkCredential("dglaw@dgtracking.co.il", "Zux74633"); //
-                client.EnableSsl = true;
+        //        Body = GetHeader() + Body + GetFooter();
+        //                  // client.UseDefaultCredentials = false;
+        //                  // client.Credentials = new System.Net.NetworkCredential("dglaw@dgtracking.co.il", "Zux74633"); //
 
-                // client.DeliveryMethod = SmtpDeliveryMethod.Network;
+        //        client.Credentials = new System.Net.NetworkCredential("dglaw@dgtracking.co.il", "Zux74633"); //
+        //        client.EnableSsl = true;
 
-                actMSG.IsBodyHtml = true;
+        //        // client.DeliveryMethod = SmtpDeliveryMethod.Network;
 
-                actMSG.Subject = Subject;
-                actMSG.Body = String.Format("{0}", Body);
-                actMSG.From = new MailAddress("dglaw@dgtracking.co.il");
+        //        actMSG.IsBodyHtml = true;
 
-                //   actMSG.To.Add("tzahi556@gmail.com");
+        //        actMSG.Subject = Subject;
+        //        actMSG.Body = String.Format("{0}", Body);
+        //        actMSG.From = new MailAddress("dglaw@dgtracking.co.il");
 
-
-                // client.SendCompleted += new SendCompletedEventHandler(SendCompletedCallback);
-
-                if (!string.IsNullOrEmpty(officeMails))
-                {
-                    actMSG.To.Add(officeMails);
-                }
-
-                //string userState = "test message1";
-
-                client.Send(actMSG);
-
-                Dal.ExecuteNonQuery("Insert Into LogAuto ([Subject], Error, [To]) values(N'" + Subject + "','','" + officeMails + "') ");
-
-              //  actMSG.Dispose();
-
-            }
-            catch (Exception ex)
-            {
-                Dal.ExecuteNonQuery("Insert Into LogAuto ([Subject], Error, [To]) values(N'" + Subject + "',N'" + ex.Message.ToString() + ' ' + ex.InnerException.ToString() + "','" + officeMails + "') ");
-                // actMSG.Dispose();
-
-                System.Threading.Thread.Sleep(1000);
-                Send(Subject, Body, To);
-               // HttpContext.Current.Response.Write(ex.Message);
-            }
+        //        //   actMSG.To.Add("tzahi556@gmail.com");
 
 
-        }
+        //        // client.SendCompleted += new SendCompletedEventHandler(SendCompletedCallback);
+
+        //        if (!string.IsNullOrEmpty(officeMails))
+        //        {
+        //            actMSG.To.Add(officeMails);
+        //        }
+
+        //        //string userState = "test message1";
+
+        //        client.Send(actMSG);
+
+        //        Dal.ExecuteNonQuery("Insert Into LogAuto ([Subject], Error, [To]) values(N'" + Subject + "','','" + officeMails + "') ");
+
+        //      //  actMSG.Dispose();
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Dal.ExecuteNonQuery("Insert Into LogAuto ([Subject], Error, [To]) values(N'" + Subject + "',N'" + ex.Message.ToString() + ' ' + ex.InnerException + "','" + officeMails + "') ");
+        //        // actMSG.Dispose();
+
+        //        System.Threading.Thread.Sleep(1000);
+        //        Send(Subject, Body, To);
+        //       // HttpContext.Current.Response.Write(ex.Message);
+        //    }
 
 
+        //}
 
 
 
-        // Body = GetHeader() + Body + GetFooter();
+
+
+          Body = GetHeader() + Body + GetFooter();
         // SmtpClient SmtpServer = new SmtpClient();
         // MailMessage actMSG = new MailMessage();
         // SmtpServer.Host = "smtp.office365.com";
@@ -610,6 +610,57 @@ public class SendEmail
         // {
         //     HttpContext.Current.Response.Write(ex.Message);
         // }
+
+
+
+        SmtpClient SmtpServer = new SmtpClient();
+        MailMessage actMSG = new MailMessage();
+        SmtpServer.Host = "dgtracking.co.il";
+        SmtpServer.Port = 25;
+
+
+
+        //SmtpServer.UseDefaultCredentials = false;
+
+        string mail_user = "dglawmails@dgtracking.co.il";
+        string mail_pass = "Jadekia556";
+
+        SmtpServer.Credentials = new System.Net.NetworkCredential(mail_user, mail_pass);
+
+
+        actMSG.IsBodyHtml = true;
+
+        actMSG.Subject = Subject;
+        actMSG.Body = String.Format("{0}", Body);
+
+        //   actMSG.To.Add("yossi@louk.com");
+        //actMSG.To.Add("tzahi556@gmail.com");
+
+        if (!string.IsNullOrEmpty(officeMails))
+        {
+            actMSG.To.Add(officeMails);
+        }
+
+        //if (!string.IsNullOrEmpty(To))
+        //{
+        //    actMSG.To.Add(To);
+
+        //}
+
+
+        actMSG.From = new MailAddress("dglawmails@dgtracking.co.il");
+
+
+        try
+        {
+
+            SmtpServer.Send(actMSG);
+            actMSG.Dispose();
+        }
+        catch (Exception ex)
+        {
+            HttpContext.Current.Response.Write(ex.Message);
+        }
 
     }
 

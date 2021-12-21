@@ -24,6 +24,19 @@
 
 
         $(document).ready(function () {
+
+            var Company = $("#lblCompany").html();
+
+            if (!Company) {
+
+                $("#lblCompany").html("<span class='nocompany'>***The Url Not Valid!***</span>");
+                $("a,.disabled").hide();
+
+
+                
+            }
+
+
             var postbackControl = null;
             //  Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(BeginRequestHandler);
             Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
@@ -31,13 +44,63 @@
             //    postbackControl = args.get_postBackElement();
             //    postbackControl.disabled = true;
             //} 
-
+           
             function EndRequestHandler(sender, args) {
-                $('.datepicker-here').datepicker({ dateFormat: 'dd M yy' });
-                //postbackControl = args.get_postBackElement(); 
 
-                //postbackControl = null; 
-                // alert();
+                var txtPassportIssueDate = $("#txtPassportIssueDate").val();
+                var txtPassportExpDate = $("#txtPassportExpDate").val();
+                var txtDateofBirth = $("#txtDateofBirth").val();
+
+                var txtSoupPassportIsueDate = $("#txtSoupPassportIsueDate").val();
+                var txtSoupPassportExpDate = $("#txtSoupPassportExpDate").val();
+                var txtSoupDateofBirth = $("#txtSoupDateofBirth").val();
+
+
+                var txtChild1DateofBirth = $("#txtChild1DateofBirth").val();
+                var txtChild1PassportIsueDate = $("#txtChild1PassportIsueDate").val();
+                var txtChild1PassportExpDate = $("#txtChild1PassportExpDate").val();
+
+                var txtChild2DateofBirth = $("#txtChild2DateofBirth").val();
+                var txtChild2PassportIsueDate = $("#txtChild2PassportIsueDate").val();
+                var txtChild2PassportExpDate = $("#txtChild2PassportExpDate").val();
+
+                var txtChild3DateofBirth = $("#txtChild3DateofBirth").val();
+                var txtChild3PassportIsueDate = $("#txtChild3PassportIsueDate").val();
+                var txtChild3PassportExpDate = $("#txtChild3PassportExpDate").val();
+
+                var txtChild4DateofBirth = $("#txtChild4DateofBirth").val();
+                var txtChild4PassportIsueDate = $("#txtChild4PassportIsueDate").val();
+                var txtChild4PassportExpDate = $("#txtChild4PassportExpDate").val();
+               
+                $('.datepicker-here').datepicker({ dateFormat: 'dd M yy' });
+
+                $("#txtPassportIssueDate").val(txtPassportIssueDate);
+                $("#txtPassportExpDate").val(txtPassportExpDate);
+                $("#txtDateofBirth").val(txtDateofBirth);
+              
+                $("#txtSoupPassportIsueDate").val(txtSoupPassportIsueDate);
+                $("#txtSoupPassportExpDate").val(txtSoupPassportExpDate);
+                $("#txtSoupDateofBirth").val(txtSoupDateofBirth);
+
+                $("#txtChild1DateofBirth").val(txtChild1DateofBirth);
+                $("#txtChild1PassportIsueDate").val(txtChild1PassportIsueDate);
+                $("#txtChild1PassportExpDate").val(txtChild1PassportExpDate);
+
+                $("#txtChild2DateofBirth").val(txtChild2DateofBirth);
+                $("#txtChild2PassportIsueDate").val(txtChild2PassportIsueDate);
+                $("#txtChild2PassportExpDate").val(txtChild2PassportExpDate);
+
+
+                $("#txtChild3DateofBirth").val(txtChild3DateofBirth);
+                $("#txtChild3PassportIsueDate").val(txtChild3PassportIsueDate);
+                $("#txtChild3PassportExpDate").val(txtChild3PassportExpDate);
+
+                $("#txtChild4DateofBirth").val(txtChild4DateofBirth);
+                $("#txtChild4PassportIsueDate").val(txtChild4PassportIsueDate);
+                $("#txtChild4PassportExpDate").val(txtChild4PassportExpDate);
+
+                InitUpload();
+               
             }
 
 
@@ -56,6 +119,9 @@
 
         });
 
+
+        
+
         function BeforeSave() {
 
 
@@ -70,7 +136,17 @@
             // return false;
         }
 
+
+        function CallServer() {
+
+            __doPostBack('<%=btnGetFiles.UniqueID%>', '');
+            
+
+        }
+
         function SwitchFamily(data) {
+
+
 
             if ($(window).width() >= 767) {
                 $(".formobile").hide();
@@ -95,7 +171,8 @@
 
         function changeYesNo() {
 
-
+            //alert(form.IsFamaly);
+            
 
             var res = $('input[name=yesno]:checked').val();
 
@@ -103,6 +180,18 @@
 
                 $("#secSoup").show();
                 $("#aSaveStart").show();
+
+
+                $('input[name^="txtSoup"]').each(function () {
+                    $(this).rules('remove');
+                });
+
+                $('input[name^="txtSoup"]').each(function () {
+                    $(this).rules('add', {
+                        required: true
+                    });
+                });
+               // form.IsFamaly = true;
                 // $("#secChilds").hide();
 
 
@@ -113,15 +202,17 @@
                 $("#secSoup").hide();
                 $("#aSaveStart").hide();
 
-
+                $('input[name^="txtSoup"]').each(function () {
+                    $(this).rules('remove');
+                });
 
             }
 
         }
 
         function SendForm() {
-
-            if (!validateUploadFiles()) {
+            
+            if (validateUploadFiles()) {
 
                  __doPostBack('<%=btnSendForm.UniqueID%>', '');
 
@@ -139,27 +230,27 @@
 
         function validateUploadFiles() {
 
-            $("#dvmyButtonInputContainer,#dvmyButton1InputContainer,#dvmyButton2InputContainer").removeClass("dvInputUploadContainer");
+            //$("#dvmyButtonInputContainer,#dvmyButton1InputContainer,#dvmyButton2InputContainer").removeClass("dvInputUploadContainer");
 
 
             var res = true;
-            var firstFileUpload = $("#dvmyButtonInput").html();
-            if (!$.trim(firstFileUpload)) {
-                $("#dvmyButtonInputContainer").addClass("dvInputUploadContainer");
-                res = false;
-            }
+            //var firstFileUpload = $("#dvmyButtonInput").html();
+            //if (!$.trim(firstFileUpload)) {
+            //    $("#dvmyButtonInputContainer").addClass("dvInputUploadContainer");
+            //    res = false;
+            //}
 
-            var firstFileUpload1 = $("#dvmyButton1Input").html();
-            if (!$.trim(firstFileUpload1)) {
-                $("#dvmyButton1InputContainer").addClass("dvInputUploadContainer");
-                res = false;
-            }
+            //var firstFileUpload1 = $("#dvmyButton1Input").html();
+            //if (!$.trim(firstFileUpload1)) {
+            //    $("#dvmyButton1InputContainer").addClass("dvInputUploadContainer");
+            //    res = false;
+            //}
 
-            var firstFileUpload2 = $("#dvmyButton2Input").html();
-            if (!$.trim(firstFileUpload2)) {
-                $("#dvmyButton2InputContainer").addClass("dvInputUploadContainer");
-                res = false;
-            }
+            //var firstFileUpload2 = $("#dvmyButton2Input").html();
+            //if (!$.trim(firstFileUpload2)) {
+            //    $("#dvmyButton2InputContainer").addClass("dvInputUploadContainer");
+            //    res = false;
+            //}
 
             return res;
         }
@@ -549,7 +640,7 @@
                                     </label>
                                     <div class="form-holder">
                                         <i class="zmdi zmdi-calendar"></i>
-                                        <input runat="server" type="text" name="txtSoupDateofBirth" id="txtSoupDateofBirth" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                        <input runat="server" type="text" name="txtSoupDateofBirth" id="txtSoupDateofBirth" autocomplete="off" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
                                     </div>
                                 </div>
 
@@ -572,7 +663,7 @@
                                     </label>
                                     <div class="form-holder">
                                         <i class="zmdi zmdi-calendar"></i>
-                                        <input runat="server" type="text" name="txtSoupPassportIsueDate" id="txtSoupPassportIsueDate" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                        <input runat="server" type="text" name="txtSoupPassportIsueDate" id="txtSoupPassportIsueDate" autocomplete="off" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
                                     </div>
                                 </div>
 
@@ -582,7 +673,7 @@
                                     </label>
                                     <div class="form-holder">
                                         <i class="zmdi zmdi-calendar"></i>
-                                        <input runat="server" type="text" name="txtSoupPassportExpDate" id="txtSoupPassportExpDate" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                        <input runat="server" type="text" name="txtSoupPassportExpDate" id="txtSoupPassportExpDate" autocomplete="off" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
                                     </div>
                                 </div>
 
@@ -885,7 +976,7 @@
                           <span class="redMust">*</span>  Must upload files <br /><br />
                         </div>
 
-
+                        
                         <div class="form-row">
 
                             <div class="form-col">
@@ -893,8 +984,10 @@
                                     <div class="f-14  rtl mt-4"><span class="redMust">*</span> Copy of passport</div>
                                     <img src="images/camera.svg" id="myButton" class="myButton" alt="">
                                     <input runat="server" id="myButtonInput" type="file" class="myInput"  style="display: none" runat="server" />
-                                    <div id="dvmyButtonInput" class="dvFilesUpload">
-                                     
+                                   
+                            
+                                    <div id="dvmyButtonInput" class="dvFilesUpload" runat="server" >
+                                    
                                     </div>
                                 </div>
 
@@ -904,7 +997,7 @@
                                     <div class="f-14  rtl mt-4"><span class="redMust">*</span>CV </div>
                                     <img src="images/camera.svg" id="myButton1" class="myButton" alt="">
                                     <input runat="server" id="myButton1Input" type="file" class="myInput"  style="display: none" runat="server" />
-                                    <div id="dvmyButton1Input" class="dvFilesUpload">
+                                    <div id="dvmyButton1Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>
 
@@ -914,7 +1007,7 @@
                                     <div class="f-14  rtl mt-4"><span class="redMust">*</span>Diploma </div>
                                     <img src="images/camera.svg" id="myButton2" class="myButton" alt="">
                                     <input runat="server" id="myButton2Input" type="file" class="myInput"  style="display: none" runat="server" />
-                                    <div id="dvmyButton2Input" class="dvFilesUpload">
+                                    <div id="dvmyButton2Input" class="dvFilesUpload" runat="server" >
                                     </div>
                                 </div>
 
@@ -924,7 +1017,7 @@
                                     <div class="f-14  rtl mt-4">Doc 4 </div>
                                     <img src="images/camera.svg" id="myButton3" class="myButton" alt="">
                                     <input runat="server" id="myButton3Input" type="file" class="myInput"  style="display: none" runat="server" />
-                                    <div id="dvmyButton3Input" class="dvFilesUpload">
+                                    <div id="dvmyButton3Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>
 
@@ -939,7 +1032,7 @@
                                     <div class="f-14  rtl mt-4">Doc 5</div>
                                     <img src="images/camera.svg" id="myButton4" class="myButton" alt="">
                                     <input runat="server" id="myButton4Input" type="file" class="myInput" multiple style="display: none" runat="server" />
-                                    <div id="dvmyButton4Input" class="dvFilesUpload">
+                                    <div id="dvmyButton4Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>
 
@@ -949,7 +1042,7 @@
                                     <div class="f-14  rtl mt-4">Doc 6 </div>
                                     <img src="images/camera.svg" id="myButton5" class="myButton" alt="">
                                     <input runat="server" id="myButton5Input" type="file" class="myInput" multiple style="display: none" runat="server" />
-                                    <div id="dvmyButton5Input" class="dvFilesUpload">
+                                    <div id="dvmyButton5Input" class="dvFilesUpload" runat="server" >
                                     </div>
                                 </div>
 
@@ -959,7 +1052,7 @@
                                     <div class="f-14  rtl mt-4">Doc 7 </div>
                                     <img src="images/camera.svg" id="myButton6" class="myButton" alt="">
                                     <input runat="server" id="myButton6Input" type="file" class="myInput" multiple style="display: none" runat="server" />
-                                    <div id="dvmyButton6Input" class="dvFilesUpload">
+                                    <div id="dvmyButton6Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>
 
@@ -969,7 +1062,7 @@
                                     <div class="f-14  rtl mt-4">Doc 8 </div>
                                     <img src="images/camera.svg" id="myButton7" class="myButton" alt="">
                                     <input runat="server" id="myButton7Input" type="file" class="myInput" multiple style="display: none" runat="server" />
-                                    <div id="dvmyButton7Input" class="dvFilesUpload">
+                                    <div id="dvmyButton7Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>
 
@@ -984,7 +1077,7 @@
                                     <div class="f-14  rtl mt-4">Doc 9</div>
                                     <img src="images/camera.svg" id="myButton8" class="myButton" alt="">
                                     <input runat="server" id="myButton8Input" type="file" class="myInput" multiple style="display: none" runat="server" />
-                                    <div id="dvmyButton8Input" class="dvFilesUpload">
+                                    <div id="dvmyButton8Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>
 
@@ -994,7 +1087,7 @@
                                     <div class="f-14  rtl mt-4">Doc 10 </div>
                                     <img src="images/camera.svg" id="myButton9" class="myButton" alt="">
                                     <input runat="server" id="myButton9Input" type="file" class="myInput" multiple style="display: none" runat="server" />
-                                    <div id="dvmyButton9Input" class="dvFilesUpload">
+                                    <div id="dvmyButton9Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>
 
@@ -1004,7 +1097,7 @@
                                     <div class="f-14  rtl mt-4">Doc 11 </div>
                                     <img src="images/camera.svg" id="myButton10" class="myButton" alt="">
                                     <input runat="server" id="myButton10Input" type="file" class="myInput" multiple style="display: none" runat="server" />
-                                    <div id="dvmyButton10Input" class="dvFilesUpload">
+                                    <div id="dvmyButton10Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>
 
@@ -1014,18 +1107,19 @@
                                     <div class="f-14  rtl mt-4">Doc 12 </div>
                                     <img src="images/camera.svg" id="myButton11" class="myButton" alt="">
                                     <input runat="server" id="myButton11Input" type="file" class="myInput" multiple style="display: none" runat="server" />
-                                    <div id="dvmyButton11Input" class="dvFilesUpload">
+                                    <div id="dvmyButton11Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>
 
                             </div>
 
                         </div>
-
+                         <asp:LinkButton ID="btnGetFiles" OnClick="btnGetFiles_Click" runat="server"></asp:LinkButton>
                         <asp:LinkButton ID="btnSendForm" OnClick="SendClientForm" runat="server"></asp:LinkButton>
                     </ContentTemplate>
                     <Triggers>
                         <asp:PostBackTrigger ControlID="btnSendForm" />
+                        <asp:AsyncPostBackTrigger ControlID="btnGetFiles" />
                     </Triggers>
                 </asp:UpdatePanel>
 

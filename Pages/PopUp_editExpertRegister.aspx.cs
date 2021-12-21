@@ -8,6 +8,8 @@ using System.Linq.Expressions;
 using System.Data;
 using System.IO;
 using System.Configuration;
+using System.IO.Compression;
+//using System.IO.Compression.FileSystem;
 
 public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
 {
@@ -55,7 +57,34 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
         if (!Page.IsPostBack)
         {
             InitDropDown();
+
             FillData();
+
+            string savePath = "~\\ExpertsUpload\\" + txtPassport.Text + "\\";
+            string zipPath = "~\\ExpertsUpload\\" + txtPassport.Text + "\\" + txtPassport.Text + ".zip";
+            string SitePrefix = ConfigurationManager.AppSettings["SitePrefix"];
+            string webPath = SitePrefix + txtPassport.Text + "/";
+
+            if (Directory.Exists(Server.MapPath(savePath)))
+            {
+
+                if (!File.Exists(Server.MapPath(zipPath)))
+                {
+                    try
+                    {
+                        ZipFile.CreateFromDirectory(Server.MapPath(savePath), Server.MapPath(zipPath));
+                    }
+                    catch (Exception ex)
+                    {
+
+
+                    }
+                }
+
+
+            }
+
+
 
 
         }
@@ -122,42 +151,38 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
 
 
 
-            string savePath = "~\\ExpertsUpload\\" + txtPassport.Text + "\\";
+            //string savePath = "~\\ExpertsUpload\\" + txtPassport.Text + "\\";
 
-            string SitePrefix = ConfigurationManager.AppSettings["SitePrefix"];
+            //string SitePrefix = ConfigurationManager.AppSettings["SitePrefix"];
 
-            string webPath = SitePrefix + txtPassport.Text + "/";
-            string[] allFiles = Directory.GetFiles(Server.MapPath(savePath));
+            //string webPath = SitePrefix + txtPassport.Text + "/";
+            //string[] allFiles = Directory.GetFiles(Server.MapPath(savePath));
 
-            string AllFilesContainer = "";
+            //string AllFilesContainer = "";
 
-            string butt = "<button type='button' class='dvDownloadExpert ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only' role='button' aria-disabled='false'>"
-                  + "<span class='ui-button-text'>";
-
-
-            //  
+            //string butt = "<button type='button' class='dvDownloadExpert ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only' role='button' aria-disabled='false'>"
+            //      + "<span class='ui-button-text'>";
 
 
-            foreach (string item in allFiles)
-            {
-                AllFilesContainer = AllFilesContainer + butt + "<a  href='" + webPath + Path.GetFileName(item) + "' download>" + Path.GetFileName(item) + "</a>"
-                    + "</span></button>";
+            ////  
+
+
+            //foreach (string item in allFiles)
+            //{
+            //    AllFilesContainer = AllFilesContainer + butt + "<a  href='" + webPath + Path.GetFileName(item) + "' download>" + Path.GetFileName(item) + "</a>"
+            //        + "</span></button>";
 
 
 
-            }
-
-
+            //}
 
 
 
 
-            //dvUploadFile.InnerHtml = "<a href="+array1[0].ToString()+" download='sssss.png'>sdsdds</a>";
-            // Directory.CreateDirectory(Server.MapPath(savePath + ""));
-            //string savePath = "http://localhost/VisaNew/ExpertsUpload/" + txtPassport.Text + "/";
-            //string[] array1 = Directory.GetFiles(Server.MapPath(savePath));
 
-            dvUploadFile.InnerHtml = AllFilesContainer;
+
+
+            //dvUploadFile.InnerHtml = AllFilesContainer;
 
         }
 
@@ -208,6 +233,133 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
 
         }
 
+
+
+        FilesTableGenerate();
+
+
+
+    }
+
+    private void FilesTableGenerate()
+    {
+        string savePath = "~\\ExpertsUpload\\" + txtPassport.Text + "\\";
+
+        string SitePrefix = ConfigurationManager.AppSettings["SitePrefix"];
+
+        string webPath = SitePrefix + txtPassport.Text + "/";
+       // string[] allFiles = Directory.GetFiles(Server.MapPath(savePath));
+
+        DataTable dtFiles = Dal.ExeSp("SetExpertUploadFiles",
+                         3,
+                         0,
+                         ExpertRegId,
+                          "",
+                         false
+                         );
+
+
+        string divContent = "<table id='tblUploadFiles'  width='100%'><tr> <th></th> <th></th> <th>Is Upload</th> <th>File Name</th> <th>Is Readable</th> <th>Remark</th> </tr>";
+
+        string imgVV = "<img src='../App_Themes/Theme1/Images/vv.png'/>";
+        string imgXX = "<img src='../App_Themes/Theme1/Images/xx.png'/>";
+        foreach (DataRow row in dtFiles.Rows)
+        {
+
+            //  var ExpertId = row["ExpertId"].ToString();
+            var Id = row["Id"].ToString();
+            var SeqId = row["SeqId"].ToString();
+            var UploadName = row["UploadName"].ToString();
+            var FileName = row["FileName"].ToString();
+            var IsReadable = row["IsReadable"].ToString();
+            var Remark = row["Remark"].ToString();
+            bool IsUpload = false;
+            bool IsReadableBool = false;
+
+            if (!string.IsNullOrEmpty(FileName))
+                IsUpload = true;
+            if (!string.IsNullOrEmpty(IsReadable) && IsReadable == "True")
+                IsReadableBool = true;
+
+            divContent += "<tr><td>" + SeqId + "</td>";
+            divContent += "<td>" + UploadName + "</td>";// + FileName + "-"+ IsReadable + "</div>";
+            divContent += "<td style='text-align:center'>" + ((IsUpload) ? imgVV : imgXX) + "</td>";
+            divContent += "<td><a href='" + webPath + FileName + "' download>" + FileName + "</a></td>";
+            divContent += "<td style='text-align:center'><div style='cursor:pointer' runat='server' onclick=UpdateRead('" + IsReadableBool.ToString() + "'," + Id + ") />" + ((IsReadableBool && IsUpload) ? imgVV : ((IsUpload) ? imgXX : "")) + "</div></td>";
+            if(!string.IsNullOrEmpty(Id))
+                divContent += "<td style='text-align:center;width:40%;padding:1px'><input style='width:100%;border:0px !important;padding:2px !important;margin:0 !important;height:30px'  type='text'  onchange=UpdateRead(this.value," + Id + ",true) value='" + Remark + "' /></td></tr>";
+            else
+                divContent += "<td style='text-align:center;width:40%;padding:1px'></td></tr>";
+        }
+
+
+        dvDocsRegister.InnerHtml = divContent + "</table>";
+
+        string zipPath = "~\\ExpertsUpload\\" + txtPassport.Text + "\\" + txtPassport.Text + ".zip";
+        if (File.Exists(Server.MapPath(zipPath)))
+        {
+            spDownload.InnerHtml = "<a id='btnDownloadAll' href='" + webPath + txtPassport.Text + ".zip" + "' download> Dowload All Files</a>";
+        }
+    }
+
+    protected void DowloadAll(object sender, EventArgs e)
+    {
+        //response.ContentType = "application/zip";
+        //response.AddHeader("content-disposition", "attachment; filename=" + outputFileName);
+        //using (ZipFile zipfile = new ZipFile())
+        //{
+        //    zipfile.AddSelectedFiles("*.*", folderName, includeSubFolders);
+        //    zipfile.Save(response.OutputStream);
+        //}
+        //using (ZipFile zip = new ZipFile())
+        //{
+        //    //zip.AlternateEncodingUsage = ZipOption.AsNecessary;
+        //    //zip.AddDirectoryByName("Files");
+        //    //foreach (GridViewRow row in gvfiles.Rows)
+        //    //{
+        //    //    string filePath = Server.MapPath("~/") + (row.FindControl("lblpath") as Label).Text;
+        //    //    zip.AddFile(filePath, "Files");
+        //    //}
+        //    //zip.Save(Server.MapPath("~/Zip/") + "file.zip");
+        //}
+        // string zipPath = "~\\ExpertsUpload\\";
+
+    }
+
+    protected void btnUpdateRead_Click(object sender, EventArgs e)
+    {
+        string Remark = hdnExperRemark.Value;
+        string ExperUploadId = hdnExperUploadId.Value;
+        string IsReadableBool = hdnIsReadableBool.Value;
+
+        if (Remark != "0")
+        {
+            string sqlRe = "Update ExperUploadFiles set Remark='" + Remark + "' where Id = " + ExperUploadId;
+
+            int resRe = Dal.ExecuteNonQuery(sqlRe);
+
+            FilesTableGenerate();
+
+
+        }
+
+
+        if (IsReadableBool != "0")
+        {
+
+
+
+
+
+            int Read = 1;
+            if (IsReadableBool == "True")
+                Read = 0;
+            string sql = "Update ExperUploadFiles set IsReadable=" + Read + " where Id = " + ExperUploadId;
+
+            int res = Dal.ExecuteNonQuery(sql);
+
+            FilesTableGenerate();
+        }
     }
 
     protected void btnSave_Click(object sender, EventArgs e)
@@ -328,12 +480,12 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
     }
 
 
-    
+
 
 
     private string InsertIntoDB(string Surname, string Name, string CompanyId, string Email, string Phone, string Job,
        string Passport, string PassportIssueDate, string PassportExpDate, string ParentId, string StreetAndHouse, string Town,
-       string Country, string Maidenname, string Fathersname, string IsFamaly, string DateofBirth,string ExpertFamId,string Comment)
+       string Country, string Maidenname, string Fathersname, string IsFamaly, string DateofBirth, string ExpertFamId, string Comment)
     {
         DataTable ExpertRegister = Dal.ExeSp("SetExpertRegister",
          Surname,
@@ -354,7 +506,8 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
          IsFamaly,
          GetAsDate(DateofBirth),
          ExpertFamId,
-         Comment
+         Comment,
+         true
          );
 
         return ExpertRegister.Rows[0][0].ToString();
