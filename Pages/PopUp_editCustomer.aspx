@@ -45,7 +45,7 @@
 
         function RedirectToCompany() {
 
-
+            
            // parent.ChooseCompany();
             var CompanyId = $('#<%= ddlCompany.ClientID %>').val();
             //parent.dialog.ChooseCompany(CompanyId);

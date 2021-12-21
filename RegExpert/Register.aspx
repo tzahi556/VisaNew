@@ -35,8 +35,8 @@
 
                 
             }
-
-
+           
+          
             var postbackControl = null;
             //  Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(BeginRequestHandler);
             Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
@@ -144,6 +144,10 @@
 
         }
 
+        function CallServerStep2() {
+            changeYesNo();
+        }
+
         function SwitchFamily(data) {
 
 
@@ -181,18 +185,12 @@
                 $("#secSoup").show();
                 $("#aSaveStart").show();
 
-
-                $('input[name^="txtSoup"]').each(function () {
-                    $(this).rules('remove');
-                });
-
                 $('input[name^="txtSoup"]').each(function () {
                     $(this).rules('add', {
                         required: true
                     });
                 });
-               // form.IsFamaly = true;
-                // $("#secChilds").hide();
+              
 
 
             } else {

@@ -96,7 +96,7 @@
 
         function OpenCustomerDetails(ExpertId, ExpertName) {
 
-
+            debugger
             var CompanyId = $('#<%= ddlCompany.ClientID %>').val().replace("Single_", "").replace("Group_", "");
             if (!ExpertName)
                 ExpertName = "New Expert";

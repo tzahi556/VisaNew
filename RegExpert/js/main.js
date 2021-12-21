@@ -40,43 +40,43 @@ var form;
             //******************** Soup ****************
             txtSoupFamilyname: {
 
-                required: true
+                required: false
             },
             txtSoupGivenname: {
 
-                required: true
+                required: false
             },
             txtSoupMaidenname: {
 
-                required: true
+                required: false
             },
             txtSoupFathersname: {
 
-                required: true
+                required: false
             },
             txtSoupPlaceofBirth: {
 
-                required: true
+                required: false
             },
             txtSoupDateofBirth: {
 
-                required: true,
+                required: false,
                 date: true
             },
 
             txtSoupPassport: {
-                required: true
+                required: false
             },
             
 
             txtSoupPassportIsueDate: {
 
-                required: true,
+                required: false,
                 date: true
             },
             txtSoupPassportExpDate: {
 
-                required: true,
+                required: false,
                 date: true
             },
 
@@ -252,6 +252,7 @@ var form;
         onStepChanged: function (event, currentIndex, priorIndex)
         {
             if (currentIndex == 3) CallServer();
+            if (currentIndex == 2) CallServerStep2();
          
         }
     });
