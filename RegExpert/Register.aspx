@@ -17,6 +17,10 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/script.js"></script>
+     <script src="../akquinet-jquery-toastmessage-plugin-6f5d7bf/src/main/javascript/jquery.toastmessage.js"
+        type="text/javascript"></script>
+    <link href="../akquinet-jquery-toastmessage-plugin-6f5d7bf/src/main/resources/css/jquery.toastmessage.css"
+        rel="stylesheet" type="text/css" />
 
 
     <script>
@@ -129,9 +133,12 @@
             if (form.valid()) {
 
                 __doPostBack('<%=LinkButtonSave.UniqueID%>', '');
-
+                ShowMessage("The Data Save Successed!", 2);
                 //return true;
             }
+
+
+           
 
             // return false;
         }
@@ -273,6 +280,34 @@
         function Test() {
 
             //   alert();
+        }
+
+
+        function ShowMessage(text, type) {
+            $().toastmessage({
+                text: text,
+                sticky: false,
+                position: 'middle-center',
+                type: 'success'
+                // close: function () { console.log("toast is closed ..."); }
+            });
+            // saving the newly created toast into a variable
+            if (type == "1" || !type) {
+                $().toastmessage('showNoticeToast');
+            }
+
+            if (type == "2") {
+                $().toastmessage('showSuccessToast');
+            }
+
+            if (type == "3") {
+                $().toastmessage('showWarningToast');
+            }
+
+            if (type == "4") {
+                $().toastmessage('showErrorToast');
+            }
+
         }
 
 
