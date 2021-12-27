@@ -17,12 +17,13 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/script.js"></script>
-     <script src="../akquinet-jquery-toastmessage-plugin-6f5d7bf/src/main/javascript/jquery.toastmessage.js"
+    <%-- <script src="../akquinet-jquery-toastmessage-plugin-6f5d7bf/src/main/javascript/jquery.toastmessage.js"
         type="text/javascript"></script>
     <link href="../akquinet-jquery-toastmessage-plugin-6f5d7bf/src/main/resources/css/jquery.toastmessage.css"
-        rel="stylesheet" type="text/css" />
-
-
+        rel="stylesheet" type="text/css" />--%>
+    <link href="jAlert/jAlerts.css" rel="stylesheet" />
+   
+   
     <script>
 
 
@@ -104,6 +105,13 @@
                 $("#txtChild4PassportExpDate").val(txtChild4PassportExpDate);
 
                 InitUpload();
+
+
+                //jAlert({
+                //    headingText: 'jQuery jAlerts Demos',
+                //    contentText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rhoncus et elit id rutrum. Nunc ac quam id erat hendrerit pretium vitae vel felis. Quisque fermentum elit non velit auctor'
+                //}, "left"); // <---- Notice how this is changed to "left"
+
                
             }
 
@@ -133,7 +141,8 @@
             if (form.valid()) {
 
                 __doPostBack('<%=LinkButtonSave.UniqueID%>', '');
-                ShowMessage("The Data Save Successed!", 2);
+                Message();
+                //ShowMessage("The Data Save Successed!", 2);
                 //return true;
             }
 
@@ -142,6 +151,16 @@
 
             // return false;
         }
+
+
+        function Message() {
+           
+            jAlert({
+                headingText: 'System Message',
+                contentText: 'Data successfully saved'
+            }, "top"); // <---- Notice how this is changed to "left"
+
+        } // end left() function
 
 
         function CallServer() {
@@ -283,32 +302,32 @@
         }
 
 
-        function ShowMessage(text, type) {
-            $().toastmessage({
-                text: text,
-                sticky: false,
-                position: 'middle-center',
-                type: 'success'
-                // close: function () { console.log("toast is closed ..."); }
-            });
-            // saving the newly created toast into a variable
-            if (type == "1" || !type) {
-                $().toastmessage('showNoticeToast');
-            }
+        //function ShowMessage(text, type) {
+        //    $().toastmessage({
+        //        text: text,
+        //        sticky: false,
+        //        position: 'middle-center',
+        //        type: 'success'
+        //        // close: function () { console.log("toast is closed ..."); }
+        //    });
+        //    // saving the newly created toast into a variable
+        //    if (type == "1" || !type) {
+        //        $().toastmessage('showNoticeToast');
+        //    }
 
-            if (type == "2") {
-                $().toastmessage('showSuccessToast');
-            }
+        //    if (type == "2") {
+        //        $().toastmessage('showSuccessToast');
+        //    }
 
-            if (type == "3") {
-                $().toastmessage('showWarningToast');
-            }
+        //    if (type == "3") {
+        //        $().toastmessage('showWarningToast');
+        //    }
 
-            if (type == "4") {
-                $().toastmessage('showErrorToast');
-            }
+        //    if (type == "4") {
+        //        $().toastmessage('showErrorToast');
+        //    }
 
-        }
+        //}
 
 
     </script>
@@ -1006,7 +1025,7 @@
                         </div>
 
                         <div>
-                          <span class="redMust">*</span>  Must upload files <br /><br />
+                          <span class="redMust"></span>  please, upload files <br /><br />
                         </div>
 
                         
@@ -1014,7 +1033,7 @@
 
                             <div class="form-col">
                                 <div class="upload-img-box bg-gray-200" id="dvmyButtonInputContainer">
-                                    <div class="f-14  rtl mt-4"><span class="redMust">*</span> Copy of passport</div>
+                                    <div class="f-14  rtl mt-4"><span class="redMust"></span> Copy of passport</div>
                                     <img src="images/camera.svg" id="myButton" class="myButton" alt="">
                                     <input runat="server" id="myButtonInput" type="file" class="myInput"  style="display: none" runat="server" />
                                    
@@ -1027,7 +1046,7 @@
                             </div>
                             <div class="form-col">
                                 <div class="upload-img-box bg-gray-200 " id="dvmyButton1InputContainer">
-                                    <div class="f-14  rtl mt-4"><span class="redMust">*</span>CV </div>
+                                    <div class="f-14  rtl mt-4"><span class="redMust"></span>CV </div>
                                     <img src="images/camera.svg" id="myButton1" class="myButton" alt="">
                                     <input runat="server" id="myButton1Input" type="file" class="myInput"  style="display: none" runat="server" />
                                     <div id="dvmyButton1Input" class="dvFilesUpload" runat="server">
@@ -1037,7 +1056,7 @@
                             </div>
                             <div class="form-col">
                                 <div class="upload-img-box bg-gray-200  " id="dvmyButton2InputContainer">
-                                    <div class="f-14  rtl mt-4"><span class="redMust">*</span>Diploma </div>
+                                    <div class="f-14  rtl mt-4"><span class="redMust"></span>Diploma </div>
                                     <img src="images/camera.svg" id="myButton2" class="myButton" alt="">
                                     <input runat="server" id="myButton2Input" type="file" class="myInput"  style="display: none" runat="server" />
                                     <div id="dvmyButton2Input" class="dvFilesUpload" runat="server" >
@@ -1176,5 +1195,7 @@
         <script src="vendor/jquery-validation/dist/additional-methods.min.js"></script>
 
         <script src="js/main.js"></script>
+
+        <script src="jAlert/jAlerts.js"></script>
 </body>
 </html>

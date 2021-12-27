@@ -203,13 +203,14 @@ public partial class Pages_Users : System.Web.UI.Page
          CheckBox chActive = (CheckBox)GridView1.Rows[e.RowIndex].FindControl("chActive");
 
          CheckBox chIsEmail = (CheckBox)GridView1.Rows[e.RowIndex].FindControl("chIsEmail");
+       
+         CheckBox chIsIncomingMail = (CheckBox)GridView1.Rows[e.RowIndex].FindControl("chIsIncomingMail");
 
 
-
-         string sql = string.Format("Update Users set FirstName='{0}',LastName='{1}', UserName='{2}' ,Password='{3}',Email ='{4}' "
-             + ",CompanyId='{5}' , RoleId='{6}' ,Active='{7}',IsEmail='{9}' Where UserId='{8}'"
+        string sql = string.Format("Update Users set FirstName='{0}',LastName='{1}', UserName='{2}' ,Password='{3}',Email ='{4}' "
+             + ",CompanyId='{5}' , RoleId='{6}' ,Active='{7}',IsEmail='{9}',IsIncomingMail='{10}' Where UserId='{8}'"
             , txtFirstName.Text, txtLastName.Text, txtUserName.Text, txtPassword.Text, txtEmail.Text, ddlCompany.SelectedValue,
-         ddlRoles.SelectedValue, chActive.Checked, UserId, chIsEmail.Checked);
+         ddlRoles.SelectedValue, chActive.Checked, UserId, chIsEmail.Checked, chIsIncomingMail.Checked);
 
          int res = Dal.ExecuteNonQuery(sql);
 

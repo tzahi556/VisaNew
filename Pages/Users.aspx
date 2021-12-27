@@ -125,7 +125,8 @@
 								{ "sSortDataType": "include-select" },
 								{ "sSortDataType": "include-input" },
                                 { "sSortDataType": "dom-checkbox" },
-								{ "sSortDataType": "dom-checkbox" },
+                                { "sSortDataType": "dom-checkbox" },
+                                { "sSortDataType": "dom-checkbox" },
 								null
 							],
 			            	"sScrollY": "" + (listHeight - 50) + "px",
@@ -357,6 +358,17 @@
                                         </FooterTemplate>
                                     </asp:TemplateField>
                                   
+                                  <asp:TemplateField HeaderText="Incoming Mail" SortExpression="IsIncomingMail">
+                                        <ItemTemplate>
+                                             <asp:CheckBox ID="chIsIncomingMail" runat="server" Enabled="false" Checked='<%#bool.Parse(Eval("IsIncomingMail").ToString())%>'/> 
+                                        </ItemTemplate>
+                                        <EditItemTemplate>
+                                            <asp:CheckBox ID="chIsIncomingMail" runat="server" Checked='<%#bool.Parse(Eval("IsIncomingMail").ToString())%>'/>
+                                        </EditItemTemplate>
+                                        <FooterTemplate>
+                                           <asp:CheckBox ID="chIsIncomingMail" runat="server" Checked="false"/>
+                                        </FooterTemplate>
+                                    </asp:TemplateField>
 
                                 
                                     <asp:TemplateField HeaderText="Active" SortExpression="Active">

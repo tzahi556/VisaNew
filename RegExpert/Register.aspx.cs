@@ -10,6 +10,7 @@ using System.IO;
 using System.Net.Mail;
 using System.Web.Services;
 using System.Web.UI.HtmlControls;
+using System.Text;
 
 public partial class Register : System.Web.UI.Page
 {
@@ -98,7 +99,7 @@ public partial class Register : System.Web.UI.Page
             {
                 rdButtYes.Checked = true;
                 secSoup.Style["display"] = "true";
-                
+
 
 
                 txtSoupFamilyname.Value = dt.Rows[1]["Surname"].ToString();
@@ -112,7 +113,7 @@ public partial class Register : System.Web.UI.Page
                 txtSoupDateofBirth.Value = dt.Rows[1]["DateofBirth"].ToString();
                 HiddenFieldSoup.Value = dt.Rows[1]["ExpertRegId"].ToString();
 
-               // UpdatePanel2.Update();
+                // UpdatePanel2.Update();
             }
 
             //// ילדים
@@ -152,7 +153,7 @@ public partial class Register : System.Web.UI.Page
             }
 
 
-            
+
 
 
 
@@ -237,10 +238,13 @@ public partial class Register : System.Web.UI.Page
 
     public void SendClientForm(object sender, EventArgs e)
     {
+      // var IsNew = HiddenFieldExpertRegId.Value;
+
+
         btnSaveData_Click(sender, e);
 
-       
 
+        string FilesList = "";
 
         string ExpertId = HiddenFieldExpertRegId.Value;
 
@@ -270,11 +274,13 @@ public partial class Register : System.Web.UI.Page
                 postedFile.SaveAs(Server.MapPath(savePath + postedFile.FileName));
                 Dal.ExeSp("SetExpertUploadFiles",
                             1,
-                            i+1,
+                            i + 1,
                             ExpertId,
                             postedFile.FileName,
                             false
                             );
+
+                FilesList += postedFile.FileName + "<br/>";
             }
             // postedFile.SaveAs(Server.MapPath(savePath + postedFile.FileName));
             // do something with file here
@@ -289,10 +295,14 @@ public partial class Register : System.Web.UI.Page
 
         string Subject = "New Expert Register - " + txtName.Value + " " + txtSurname.Value;
 
-        string Body = "Hello Dear  <br />  New Expert Register To DG LAW <br /> First Name :" + txtName.Value + " <br /> Surename:" + txtSurname.Value
-             + "< br /> Passport: " + txtPassport.Text + " < br /> Company:" + lblCompany.InnerText;
+        string Body = "<b>Hello Dear</b>  <br /><br />  New Expert Register To DG LAW <br /> <b>First Name:</b>" + txtName.Value + " <br /> <b>Surename:</b>" + txtSurname.Value
+             + "<br/><b> Passport:</b> " + txtPassport.Text + " <br/> <b>Company:</b>" + lblCompany.InnerText + "<br/>";
+        if (!string.IsNullOrEmpty(FilesList))
+            Body += "<br /><b> We recieve This Files:</b><br/>" + FilesList;
 
-      //  Send(Subject, Body, To);
+
+
+        Send(Subject, Body, To);
 
         Response.Redirect("RegisterEnd.aspx");
 
@@ -302,7 +312,7 @@ public partial class Register : System.Web.UI.Page
 
     private string InsertIntoDB(string Surname, string Name, string CompanyId, string Email, string Phone, string Job,
         string Passport, string PassportIssueDate, string PassportExpDate, string ParentId, string StreetAndHouse, string Town,
-        string Country, string Maidenname, string Fathersname, string IsFamaly, string DateofBirth, string ExpertFamId,bool isFinish=false)
+        string Country, string Maidenname, string Fathersname, string IsFamaly, string DateofBirth, string ExpertFamId, bool isFinish = false)
     {
         DataTable ExpertRegister = Dal.ExeSp("SetExpertRegister",
          Surname,
@@ -348,47 +358,49 @@ public partial class Register : System.Web.UI.Page
 
 
 
+
     public void Send(string Subject, string Body, string To)
     {
-        //string officeMails = "";
 
-        //DataTable dtUsers = Dal.ExeSp("GetUsersTable");
+        string officeMails = "";
+        DataTable dtUsers = Dal.ExeSp("GetUsersTable");
+        DataRow[] result = dtUsers.Select("IsIncomingMail=True And Email<>'' And Email Is Not Null");
+        bool isFirst = true;
+        foreach (DataRow row in result)
+        {
 
-        //DataRow[] result = dtUsers.Select("IsEmail=True And Email<>'' And Email Is Not Null");
-
-
-        //bool isFirst = true;
-
-
-        //foreach (DataRow row in result)
-        //{
-
-        //    if (isFirst)
-        //    {
-        //        officeMails = row["Email"].ToString();
-        //        isFirst = false;
-        //    }
-        //    else
-        //    {
-        //        officeMails += "," + row["Email"].ToString();
-        //    }
+            if (isFirst)
+            {
+                officeMails = row["Email"].ToString();
+                isFirst = false;
+            }
+            else
+            {
+                officeMails += "," + row["Email"].ToString();
+            }
 
 
-        //}
+        }
+
+
+
+
+        Body = GetHeader() + Body + GetFooter();
+
 
 
 
         SmtpClient SmtpServer = new SmtpClient();
         MailMessage actMSG = new MailMessage();
-        SmtpServer.Host = "yossilouk.cloudwm.com";
+        SmtpServer.Host = "dgtracking.co.il";
         SmtpServer.Port = 25;
 
 
 
-        SmtpServer.UseDefaultCredentials = false;
+        //SmtpServer.UseDefaultCredentials = false;
 
-        string mail_user = "dglaw";
-        string mail_pass = "jadekia556";
+        string mail_user = "dglawmails@dgtracking.co.il";
+        string mail_pass = "Jadekia556";
 
         SmtpServer.Credentials = new System.Net.NetworkCredential(mail_user, mail_pass);
 
@@ -398,22 +410,22 @@ public partial class Register : System.Web.UI.Page
         actMSG.Subject = Subject;
         actMSG.Body = String.Format("{0}", Body);
 
-     //   actMSG.To.Add("yossi@louk.com");
+        actMSG.To.Add(txtEmail.Value);
         //actMSG.To.Add("tzahi556@gmail.com");
 
-        //if (!string.IsNullOrEmpty(officeMails))
-        //{
-        //    actMSG.To.Add(officeMails);
-        //}
-
-        if (!string.IsNullOrEmpty(To))
+        if (!string.IsNullOrEmpty(officeMails))
         {
-            actMSG.To.Add(To);
-
+            actMSG.To.Add(officeMails);
         }
 
+        //if (!string.IsNullOrEmpty(To))
+        //{
+        //    actMSG.To.Add(To);
 
-        actMSG.From = new MailAddress("dglaw@yossilouk.cloudwm.com");
+        //}
+
+
+        actMSG.From = new MailAddress("dglawmails@dgtracking.co.il");
 
 
         try
@@ -429,15 +441,168 @@ public partial class Register : System.Web.UI.Page
 
     }
 
+    private string GetHeader()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        //<span style='color:red'>**</span><u style='font-family: Arial,sans-serif;font-size: 10.5pt;'>This in an automated mail notification, <b>do not reply</b> to this mail </u> <span style='color:red'>**</span>
+        sb.Append(@"<html><head></head><body dir='ltr' style='padding:5px'>
+               
+              
+           ");
+
+
+        return sb.ToString();
+    }
+
+    private string GetFooter()
+    {
+        StringBuilder sb = new StringBuilder();
+
+
+        sb.Append(@"
+
+    <div><br><br><br>Best Regards,<br><br></div>
+    
+
+
+    <table class='' border='0' cellspacing='0' cellpadding='0' style='width: 100%; border-collapse: collapse;'>
+       
+       
+       <tr>
+        <td rowspan='5'>
+          <img alt='' src='http://dgtracking.co.il/images/dg.png' />
+       
+        </td>
+       
+       </tr>
+       
+        <tr>
+            <td valign='top' style='height: 30.1pt'>
+                <p class='' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal;
+                    font-weight: bold; font-size: 12.0pt; font-family: Georgia,serif; color: #365F91'>
+                    Kobi (Yaakov) Neeman , Adv.
+                    <br />
+                    Dardik Gross &amp; Co. Law Firm
+                </p>
+            </td>
+        </tr>
+        <tr style='height: 2.25pt'>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td style='font-size: 9.0pt; font-family: Arial,sans-serif; color: #5F5F5F;'>
+                Abba Hillel Silver Rd 14 &nbsp; &nbsp; &nbsp; &nbsp; Tel: <span style='color: blue'>
+                    <u>+972 3 6122624</u></span> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <a href='http://www.dglaw.co.il/'
+                        target='_blank'><span style='font-size: 9.0pt; font-family: Arial,sans-serif; color: #5F5F5F;
+                            text-decoration: none; text-underline: none'>www.dglaw.co.il</span></a>
+                <br />
+                Ramat Gan, Israel 52506 &nbsp; &nbsp; &nbsp; Fax: <span style='color: blue'><u>+972
+                    3 6122587 </u></span>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <a href='mailto:neeman@dglaw.co.il'
+                        target='_blank'><span style='font-size: 9.0pt; font-family: Arial,sans-serif; color: #365F91;
+                            text-decoration: none; text-underline: none'>neeman@dglaw.co.il</span></a>
+            </td>
+        </tr>
+        <!--  <tr>
+            <td valign='top' style='padding: 0cm 5.4pt 0cm 5.4pt; height: 34.25pt'>
+                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
+                    <span style='font-size: 9.0pt; font-family: Arial,sans-serif; color: #5F5F5F'>Abba Hillel
+                        Silver Rd 14</span><span style='font-size: 12.0pt; font-family: Times New Roman,serif;'></span></p>
+                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
+                    <span style='font-size: 9.0pt; font-family: Arial,sans-serif; color: #5F5F5F'>Ramat
+                        <span>Gan</span>, Israel 52506</span><span style='font-size: 12.0pt; font-family: Times New Roman,serif;'></span></p>
+            </td>
+            <td valign='top' style='width: 150.1pt; height: 34.25pt'>
+                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
+                    <span style='font-size: 9.0pt; font-family: Arial,sans-serif; color: #5F5F5F'>Tel:
+                    </span><a href='tel:%2B972%203%206122624' target='_blank'><span style='font-size: 9.0pt;
+                        font-family: Arial,sans-serif; color: blue'>+972 3 6122624</span></a><span style='font-size: 9.0pt;
+                            font-family: Arial,sans-serif; color: #5F5F5F'> </span><span style='font-size: 12.0pt;
+                                font-family: Times New Roman,serif;'></span>
+                </p>
+                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
+                    <span style='font-size: 9.0pt; font-family: Arial,sans-serif; color: #5F5F5F'>Fax:
+                    </span><a href='tel:%2B972%203%206122587' target='_blank'><span style='font-size: 9.0pt;
+                        font-family: Arial,sans-serif; color: blue'>+972 3 6122587</span></a><span style='font-size: 9.0pt;
+                            font-family: Arial,sans-serif; color: #5F5F5F'> </span><span style='font-size: 12.0pt;
+                                font-family: Times New Roman,serif;'></span>
+                </p>
+            </td>
+            <td colspan='2' valign='top' style='width: 131.65pt;
+                height: 34.25pt'>
+                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
+                    <a href='http://www.dglaw.co.il/' target='_blank'><span style='font-size: 9.0pt;
+                        font-family: Arial,sans-serif; color: #5F5F5F; text-decoration: none; text-underline: none'>
+                        www.dglaw.co.il</span></a><span style='font-size: 9.0pt; font-family: Arial,sans-serif;
+                            color: #5F5F5F'> </span><span style='font-size: 12.0pt; font-family: Times New Roman,serif;'>
+                            </span>
+                </p>
+                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
+                    <a href='mailto:neeman@dglaw.co.il' target='_blank'><span style='font-size: 9.0pt;
+                        font-family: Arial,sans-serif; color: #365F91; text-decoration: none; text-underline: none'>
+                        neeman@dglaw.co.il</span></a><span style='font-size: 9.0pt; font-family: Arial,sans-serif;
+                            color: #365F91'> </span><span style='font-size: 12.0pt; font-family: Times New Roman,serif;'>
+                            </span>
+                </p>
+            </td>
+            <td valign='top' style='width: 28.15pt; height: 34.25pt'>
+                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
+                    <span style='font-size: 12.0pt; font-family: Times New Roman,serif;'>&nbsp;</span></p>
+            </td>
+            <td valign='top' style='width: 35.75pt; height: 34.25pt'>
+                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
+                    <span style='font-size: 12.0pt; font-family: Times New Roman,serif;'>&nbsp;</span></p>
+            </td>
+            <td style='width: 16.1pt; padding: 0cm 0cm 0cm 0cm; height: 34.25pt'>
+                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
+                    <span style='font-size: 12.0pt; font-family: Times New Roman,serif;'>&nbsp;</span></p>
+            </td>
+        </tr>-->
+        <tr style='height: 6.5pt'>
+            <td valign='top' style=''>
+                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
+                    <span style='font-size: 7.0pt; font-family: Arial,sans-serif; color: #5F5F5F'>The information
+                        in this e-mail is intended only for the person or entity to <span class='GramE'>whom</span>
+                        it is addressed and may contain confidential material.<br /> If you are not the intended
+                        recipient, please notify the sender immediately (tel. </span><a href='tel:%2B972%283%29612-2624'
+                            target='_blank'><span style='font-size: 7.0pt; font-family: Arial,sans-serif; color: blue'>
+                                +972(3)612-2624</span></a><span style='font-size: 7.0pt; font-family: Arial,sans-serif;
+                                    color: #5F5F5F'>) and do not disclose the contents to any other person,<br /> use it for
+                                    any purpose, or store or copy the information in any medium. Any views expressed
+                                    within this e-mail, which do not record an advice<br /> under the terms of an engagement
+                                    letter previously agreed in writing, do not constitute an opinion and/or reflect
+                                    the views of the firm. </span><span style='font-size: 12.0pt; font-family: Times New Roman,serif;'>
+                                    </span><br /><br />
+                                     <span style='font-size: 8.0pt; font-family: Arial,sans-serif; color: #365F91;margin-left: 36.0pt;'>Please
+                        consider the environment. Do you really need to print this email?</span><span style='font-size: 12.0pt;
+                            font-family: Times New Roman,serif;'></span>
+
+                </p>
+               
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+
+
+              ");
+
+
+        return sb.ToString();
+
+    }
 
     protected void btnSaveData_Click(object sender, EventArgs e)
     {
 
-     
+
         LinkButton button = (LinkButton)sender;
         string SenderId = button.ID;
         bool isFinish = false;
-        if(SenderId== "btnSendForm")
+        if (SenderId == "btnSendForm")
         {
 
             isFinish = true;
@@ -556,7 +721,7 @@ public partial class Register : System.Web.UI.Page
         string ExpertId = HiddenFieldExpertRegId.Value;
 
         if (ExpertId == "0") return;
-        DataTable dt =   Dal.ExeSp("SetExpertUploadFiles",
+        DataTable dt = Dal.ExeSp("SetExpertUploadFiles",
                            2,
                            0,
                            ExpertId,
@@ -574,8 +739,8 @@ public partial class Register : System.Web.UI.Page
             string UploadIdStr = UploadId.ToString();
             if (UploadId == 0) UploadIdStr = "";
             HtmlGenericControl div = FindControl("dvmyButton" + UploadIdStr + "Input") as HtmlGenericControl;
-            if(div!=null)
-            div.InnerHtml = "<span class='fileUploadName'>" + FileName + "</span>";
+            if (div != null)
+                div.InnerHtml = "<span class='fileUploadName'>" + FileName + "</span>";
 
         }
 

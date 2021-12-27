@@ -24,7 +24,9 @@
             Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
 
             function EndRequestHandler(sender, args) {
-                $("#btnCancelFam2,#btnDownloadAll").button();
+                $("#btnCancelFam2,#btnDownloadAll,#btnSendEmail").button();
+                parent.ShowMessage('The Mail Send to Expert', '2');
+
             }
 
             prepareUI();
@@ -45,8 +47,6 @@
 
 
         });
-
-
 
         function closeDialog() {
             parent.dialog.dialog('close');
@@ -90,12 +90,13 @@
                 $('select').attr('disabled', true);
             }
 
-            $("#btnSave,#btnMove").button();
+            $("#btnSave,#btnMove,#btnGoBack,#btnSendEmail").button();
             $("#btnCancel,#btnCancelFam,#btnCancelFam2,#btnSaveFam,#btnDownloadAll").button();
             $("select").dropkick();
 
             $("#dk_container_ddlCompany .dk_toggle").css("width", "450px");
         }
+
         function OpenFamilyExpert(ExpertId, CompanyId, ExpertName) {
 
             // alert(window.top.location.href);
@@ -106,19 +107,41 @@
             // var x = parent.parent.parent.winPopup("pages/PopUp_editCustomer.aspx?CompanyId=" + CompanyId + "&ExpertId=" + ExpertId + "&StepId=" + StepId, '1100', '750', ExpertName);
         }
 
-        function UpdateRead(IsReadableBool, ExperUploadId, isRemark) {
+        function UpdateRead(varValue, ExperUploadId, SeqId, isreadable) {
 
-            // alert(IsReadableBool + " " + ExperUploadId);
-         debugger
+            var sendmail = $('#sendmail_' + SeqId).prop('checked');
+            var remark = $('#remark_' + SeqId).val();
+            var readable = (isreadable)?$('#readable_' + SeqId).attr("isreadablebool"):"noClick";
+
+           
+
+           
+            $("#<%=hdnSeqId.ClientID%>").val(SeqId);
+            $("#<%=hdnIsSendmailBool.ClientID%>").val(sendmail);
+            $("#<%=hdnIsReadableBool.ClientID%>").val(readable);
+            $("#<%=hdnExperRemark.ClientID%>").val(remark);
+            $("#<%=hdnExperUploadId.ClientID%>").val(ExperUploadId);
+            __doPostBack('<%=btnUpdateRead.UniqueID%>', '');
+           
+
+            // alert(SeqId);
+
+        }
+
+
+       <%-- function UpdateRead(IsReadableBool, ExperUploadId, isRemark) {
+
+       
+        
             if (isRemark) {
                 $("#<%=hdnIsReadableBool.ClientID%>").val("0");
                 $("#<%=hdnExperRemark.ClientID%>").val(IsReadableBool);
                 $("#<%=hdnExperUploadId.ClientID%>").val(ExperUploadId);
-              
+
                 __doPostBack('<%=btnUpdateRead.UniqueID%>', '');
                 $("#<%=hdnExperRemark.ClientID%>").val("0");
                 $("#<%=hdnExperUploadId.ClientID%>").val("0");
-               
+
             } else {
 
                 $("#<%=hdnExperRemark.ClientID%>").val("0");
@@ -128,10 +151,10 @@
                 $("#<%=hdnIsReadableBool.ClientID%>").val("0");
                 $("#<%=hdnExperUploadId.ClientID%>").val("0");
 
-
             }
+           
 
-        }
+        }--%>
 
 
     </script>
@@ -287,7 +310,13 @@
                         </div>
                         <div style="margin-top: 8px">
 
+                            <span class="blueButton" style="float: left">
+                                <button id="btnGoBack" type="button" runat="server" onserverclick="btnGoBack_Click" onclick="ClientScriptOnSave();" style="width: 300px">
+                                    <img src="../App_Themes/Theme1/Images/close.png" width="16" height="16" style="display: none" />
+                                   <- Go Back to Incoming Expert 
+                                </button>
 
+                            </span>
 
                             <span class="blueButton">
                                 <button id="btnSave" type="button" runat="server" onserverclick="btnSave_Click" onclick="ClientScriptOnSave();"
@@ -578,6 +607,18 @@
                         #tblUploadFiles th, #tblUploadFiles td {
                             padding: 10px;
                         }
+
+                        .spLastSend{
+                             text-align: center !important;
+                        border: 1px solid #d3d3d3;
+                        background: #e6e6e6 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+                        font-weight: normal;
+                        color: #555555;
+                        padding:5px;
+                        border-radius:5px;
+
+                        }
+
                 </style>
 
                 <div id="tabs-3" style="border: solid 1px gray">
@@ -585,24 +626,47 @@
                         <ContentTemplate>
                             <asp:HiddenField ID="hdnIsReadableBool" runat="server" Value="0" />
                             <asp:HiddenField ID="hdnExperUploadId" runat="server" Value="0" />
+                            <asp:HiddenField ID="hdnIsSendmailBool" runat="server" Value="0" />
+                            <asp:HiddenField ID="hdnExperRemark" runat="server" Value="0" />
+                            <asp:HiddenField ID="hdnSeqId" runat="server" Value="0" />
+                            
+                          
+                            
 
-                             <asp:HiddenField ID="hdnExperRemark" runat="server" Value="0" />
+                            <div style="margin-bottom: 8px;">
 
-                            <div style="margin-bottom: 8px; text-align: right">
-                                <span class="blueButton" id="spDownload" runat="server">
-
-
-                                   <%-- <button id="btnDownloadAll" type="button" runat="server" onserverclick="DowloadAll" style="width: 140px">
-                                        <img src="../App_Themes/Theme1/Images/save1.jpg" width="16" height="16" style="display: none" />
-                                        Dowload All Files
-                                    </button>--%>
+                                <span  id="Span2" runat="server" style="float: left">
+                                    Last Sent Mail To Expert: <span id="lastSendEmail" runat="server" class="spLastSend"></span>
                                 </span>
+
+
+                                <span class="blueButton" id="spDownload" runat="server" style="float: right">
+
+
+                                  
+                                </span>
+
+                                <div class="clear"></div>
+
                             </div>
                             <div id="dvDocs" style="overflow: auto; overflow-x: hidden">
                                 <div id="dvDocsRegister" runat="server">
                                 </div>
                             </div>
                             <div style="margin-top: 8px; text-align: right">
+
+                                 <span class="blueButton" id="Span1" runat="server">
+
+
+                                    <button id="btnSendEmail" type="button" runat="server" onserverclick="SendEmail_Click" onclick="ClientScriptOnSave();" style="width: 140px">
+                                        <img src="../App_Themes/Theme1/Images/save1.jpg" width="16" height="16" style="display: none" />
+                                       Send Email
+                                    </button>
+                                </span>
+
+
+
+
                                 <button id="btnCancelFam2" type="button" onclick="closeDialog();" style="width: 100px">
                                     <img src="../App_Themes/Theme1/Images/close.png" width="16" height="16" style="display: none" />
                                     Close
