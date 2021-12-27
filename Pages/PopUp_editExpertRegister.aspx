@@ -25,7 +25,14 @@
 
             function EndRequestHandler(sender, args) {
                 $("#btnCancelFam2,#btnDownloadAll,#btnSendEmail").button();
-                parent.ShowMessage('The Mail Send to Expert', '2');
+
+                var res = $("#<%=hdnSendMail.ClientID%>").val();
+                if (res == "1") { 
+                    parent.ShowMessage('The Mail Send to Expert', '2');
+                    $("#<%=hdnSendMail.ClientID%>").val("0");
+                }
+
+              
 
             }
 
@@ -586,6 +593,13 @@
                 </div>
 
                 <style>
+
+                    .filenamelimit {
+                      overflow: hidden;
+                      white-space: nowrap;
+                      text-overflow: ellipsis;
+                      max-width: 150px;
+                    }
                     #tblUploadFiles th {
                         text-align: center !important;
                         border: 1px solid #d3d3d3;
@@ -630,7 +644,7 @@
                             <asp:HiddenField ID="hdnExperRemark" runat="server" Value="0" />
                             <asp:HiddenField ID="hdnSeqId" runat="server" Value="0" />
                             
-                          
+                           <asp:HiddenField ID="hdnSendMail" runat="server" Value="0" />
                             
 
                             <div style="margin-bottom: 8px;">

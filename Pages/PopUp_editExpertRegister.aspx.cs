@@ -246,7 +246,7 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
                          );
 
 
-        string divContent = "<table id='tblUploadFiles'   width='100%'><tr><th></th><th>Send mail</th> <th></th> <th>Is Upload</th> <th>File Name</th> <th>Is Readable</th> <th>Remark</th> </tr>";
+        string divContent = "<table id='tblUploadFiles'   width='100%'><tr><th></th><th>Send</th> <th></th> <th>Is Upload</th> <th>File Name</th> <th>Is Readable</th> <th>Remark</th> </tr>";
 
         string imgVV = "<img src='../App_Themes/Theme1/Images/vv.png'/>";
         string imgXX = "<img src='../App_Themes/Theme1/Images/xx.png'/>";
@@ -279,7 +279,7 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
             divContent += "<tr><td>" + SeqId + "</td><td>&nbsp;<input type='checkbox'  onchange=UpdateRead(this.value," + Id + ","+ SeqId + ") id='sendmail_"+ SeqId + "' runat='server'" + ((IsSendBool)?"checked" : "") + "/></td>";
             divContent += "<td>" + UploadName + "</td>";// + FileName + "-"+ IsReadable + "</div>";
             divContent += "<td style='text-align:center'>" + ((IsUpload) ? imgVV : imgXX) + "</td>";
-            divContent += "<td><a href='" + webPath + FileName + "' download>" + FileName + "</a></td>";
+            divContent += "<td title='"+ FileName + "'><a  href='" + webPath + FileName + "' download><div class='filenamelimit'>" + FileName + "</div></a></td>";
             divContent += "<td style='text-align:center'><div style='cursor:pointer' isreadablebool='"+ IsReadableBool.ToString() + "'  runat='server' id='readable_" + SeqId + "'  onclick=UpdateRead('" + IsReadableBool.ToString() + "'," + Id + ","+ SeqId + ",true) />" + ((IsReadableBool && IsUpload) ? imgVV : ((IsUpload) ? imgXX : "")) + "</div></td>";
             if (IsUpload)
                 divContent += "<td style='text-align:center;width:40%;padding:1px'>" +
@@ -420,6 +420,8 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
         {
             Send(Subject, Body, "");
 
+            hdnSendMail.Value = "1";
+                
             string sqlRe = "Update ExperUploadFiles set SendEmailDate='{1}' where ExpertId = {0}";
 
             sqlRe = string.Format(sqlRe, ExpertRegId,DateTime.Now.ToString("yyyy-MM-dd"));
