@@ -19,6 +19,10 @@ var form;
             txtName: {
                 required: true,
             },
+            txtCountry: {
+                required: true,
+            },
+            
             txtPassportIssueDate: {
                 required: true,
                 date: true
@@ -98,8 +102,12 @@ var form;
             },
             txtName : {
                 required : "Please enter your first name"
-                //email: "Please enter a valid email address!"
+               
             },
+            txtCountry: {
+                required: "Please enter your Country"
+            },
+            
             txtEmail: {
                 required: "Please enter your first Email",
                 email: "Please enter a valid email address!"

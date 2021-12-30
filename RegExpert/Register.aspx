@@ -125,13 +125,14 @@
             $("#secSoup").hide();
             $("#aSaveStart").hide();
 
-
-
+            $("a").addClass('isDisabled');    
 
 
         });
 
 
+
+       
         
 
         function BeforeSave() {
@@ -302,6 +303,16 @@
         }
 
 
+        function setEnableNext() {
+
+            if ($("#confirmCompany").is(":checked")) {
+                $("a").removeClass('isDisabled');
+            } else {
+                $("a").addClass('isDisabled');    
+            }
+        }
+
+
         //function ShowMessage(text, type) {
         //    $().toastmessage({
         //        text: text,
@@ -357,18 +368,31 @@
                 </h3>
                 <br />
 
-                <img src="../App_Themes/Theme1/Images/login.png" alt="" width="365px" height="300px" />
+                <img src="../App_Themes/Theme1/Images/login.png" alt="" width="300px" height="200px" />
 
-                <div>
+                <div class="mt-4">
                     This page is created for  
                             <div class="dvcompanyName" id="lblCompany" runat="server"></div>
-                    experts for B1 work permit.
+                   
+                     <br /> 
+                  
+                          
+                          <input  type="checkbox"  id="confirmCompany" onchange="setEnableNext()" class="checkboxOf"   > 
+                          <span class="bl-ar"> Confirm you work in this Company</span>
+                 
+                   
+                 
+                    <br />
+                    <br />
+                     experts for B1 work permit.
 
 
                 </div>
                 <br />
 
-                <div class="disabled">
+                <div class="disabled mt-4">
+                    notice! <br />
+                    you can Save data all the time before submit! <br />
                     please, click next to start fill form
 
                 </div>
@@ -427,7 +451,7 @@
                                 </label>
                                 <div class="form-holder">
                                     <div class="form-group">
-                                        <i class="zmdi zmdi-account-o"></i>
+                                        <i class="zmdi zmdi-account-o"></i><span class="redMust">*</span>
 
                                         <asp:TextBox ID="txtPassport" runat="server" CssClass="form-control" OnTextChanged="txtChanged" AutoPostBack="true"></asp:TextBox>
 
@@ -443,7 +467,7 @@
                                 </label>
                                 <div class="form-holder">
                                     <div class="form-group">
-                                        <i class="zmdi zmdi-account-o"></i>
+                                        <i class="zmdi zmdi-account-o"></i><span class="redMust">*</span>
                                         <input runat="server" type="text" name="txtSurname" id="txtSurname" class="form-control">
                                     </div>
                                 </div>
@@ -453,7 +477,7 @@
                                     Name
                                 </label>
                                 <div class="form-holder">
-                                    <i class="zmdi zmdi-account-o"></i>
+                                    <i class="zmdi zmdi-account-o"></i><span class="redMust">*</span>
                                     <!--zmdi-edit-->
                                     <input runat="server" type="text" name="txtName" id="txtName" class="form-control">
                                 </div>
@@ -469,7 +493,7 @@
                                     Passport Issue Date
                                 </label>
                                 <div class="form-holder">
-                                    <i class="zmdi zmdi-calendar"></i>
+                                    <i class="zmdi zmdi-calendar"></i><span class="redMust">*</span>
                                     <input runat="server" type="text" name="txtPassportIssueDate" id="txtPassportIssueDate" autocomplete="off" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
                                 </div>
                             </div>
@@ -478,7 +502,7 @@
                                     Passport Exp Date
                                 </label>
                                 <div class="form-holder">
-                                    <i class="zmdi zmdi-calendar"></i>
+                                    <i class="zmdi zmdi-calendar"></i><span class="redMust">*</span>
                                     <input runat="server" type="text" name="txtPassportExpDate" id="txtPassportExpDate" autocomplete="off" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
                                 </div>
                             </div>
@@ -487,7 +511,7 @@
                                     Date Birth
                                 </label>
                                 <div class="form-holder">
-                                    <i class="zmdi zmdi-calendar"></i>
+                                    <i class="zmdi zmdi-calendar"></i><span class="redMust">*</span>
                                     <input runat="server" type="text" name="txtDateofBirth" id="txtDateofBirth" class="form-control datepicker-here" autocomplete="off" data-language='en' data-date-format="dd M yy">
                                 </div>
                             </div>
@@ -508,7 +532,7 @@
                                     Email
                                 </label>
                                 <div class="form-holder">
-                                    <i class="zmdi zmdi-email"></i>
+                                    <i class="zmdi zmdi-email"></i><span class="redMust">*</span>
                                     <input runat="server" type="text" name="txtEmail" id="txtEmail" class="form-control">
                                 </div>
                             </div>
@@ -551,7 +575,7 @@
                                     Country
                                 </label>
                                 <div class="form-holder">
-                                    <i class="zmdi zmdi-edit"></i>
+                                    <i class="zmdi zmdi-edit"></i><span class="redMust">*</span>
                                     <!--zmdi-edit-->
                                     <input runat="server" type="text" name="txtCountry" id="txtCountry" class="form-control">
                                 </div>
@@ -1024,9 +1048,9 @@
                             </div>
                         </div>
 
-                        <div>
-                          <span class="redMust"></span>  please, upload files <br /><br />
-                        </div>
+                        <%--<div>
+                          <span class="redMust"></span>  please, Upload files <br /><br />
+                        </div>--%>
 
                         
                         <div class="form-row">
@@ -1034,9 +1058,10 @@
                             <div class="form-col">
                                 <div class="upload-img-box bg-gray-200" id="dvmyButtonInputContainer">
                                     <div class="f-14  rtl mt-4"><span class="redMust"></span> Copy of passport</div>
-                                    <img src="images/camera.svg" id="myButton" class="myButton" alt="">
+                                    <button id="myButton" class="uploadLink myButton" type="button">Upload file</button>
                                     <input runat="server" id="myButtonInput" type="file" class="myInput"  style="display: none" runat="server" />
-                                   
+                                    
+                                    <button id="myButtonRemove" class="removeLink myButtonRemove" type="button">Remove file</button>
                             
                                     <div id="dvmyButtonInput" class="dvFilesUpload" runat="server" >
                                     
@@ -1046,9 +1071,12 @@
                             </div>
                             <div class="form-col">
                                 <div class="upload-img-box bg-gray-200 " id="dvmyButton1InputContainer">
-                                    <div class="f-14  rtl mt-4"><span class="redMust"></span>CV </div>
-                                    <img src="images/camera.svg" id="myButton1" class="myButton" alt="">
+                                    <div class="f-14  rtl mt-4"><span class="redMust"></span>CV English </div>
+                                   <%-- <img src="images/camera.svg" id="myButton1" class="myButton" alt="">--%>
+                                    <button id="myButton1" class="uploadLink myButton" type="button">Upload file</button>
                                     <input runat="server" id="myButton1Input" type="file" class="myInput"  style="display: none" runat="server" />
+                                    <button id="myButton1Remove" class="removeLink myButtonRemove" type="button">Remove file</button>
+                                    
                                     <div id="dvmyButton1Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>
@@ -1056,9 +1084,11 @@
                             </div>
                             <div class="form-col">
                                 <div class="upload-img-box bg-gray-200  " id="dvmyButton2InputContainer">
-                                    <div class="f-14  rtl mt-4"><span class="redMust"></span>Diploma </div>
-                                    <img src="images/camera.svg" id="myButton2" class="myButton" alt="">
+                                    <div class="f-14  rtl mt-4"><span class="redMust"></span>Diplomas/Qualification</div>
+                                   <button id="myButton2" class="uploadLink myButton" type="button">Upload file</button>
                                     <input runat="server" id="myButton2Input" type="file" class="myInput"  style="display: none" runat="server" />
+                                   
+                                    <button id="myButton2Remove" class="removeLink myButtonRemove" type="button">Remove file</button>
                                     <div id="dvmyButton2Input" class="dvFilesUpload" runat="server" >
                                     </div>
                                 </div>
@@ -1066,9 +1096,10 @@
                             </div>
                             <div class="form-col">
                                 <div class="upload-img-box bg-gray-200  ">
-                                    <div class="f-14  rtl mt-4">Doc 4 </div>
-                                    <img src="images/camera.svg" id="myButton3" class="myButton" alt="">
+                                    <div class="f-14  rtl mt-4">Vaccination/Recovery </div>
+                                    <button id="myButton3" class="uploadLink myButton" type="button">Upload file</button>
                                     <input runat="server" id="myButton3Input" type="file" class="myInput"  style="display: none" runat="server" />
+                                    <button id="myButton3Remove" class="removeLink myButtonRemove" type="button">Remove file</button>
                                     <div id="dvmyButton3Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>
@@ -1081,9 +1112,10 @@
 
                             <div class="form-col">
                                 <div class="upload-img-box bg-gray-200  ">
-                                    <div class="f-14  rtl mt-4">Doc 5</div>
-                                    <img src="images/camera.svg" id="myButton4" class="myButton" alt="">
+                                    <div class="f-14  rtl mt-4">Medical Insurance</div>
+                                   <button id="myButton4" class="uploadLink myButton" type="button">Upload file</button>
                                     <input runat="server" id="myButton4Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                                    <button id="myButton4Remove" class="removeLink myButtonRemove" type="button">Remove file</button>
                                     <div id="dvmyButton4Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>
@@ -1091,9 +1123,11 @@
                             </div>
                             <div class="form-col">
                                 <div class="upload-img-box bg-gray-200  ">
-                                    <div class="f-14  rtl mt-4">Doc 6 </div>
-                                    <img src="images/camera.svg" id="myButton5" class="myButton" alt="">
+                                    <div class="f-14  rtl mt-4">Israeli B-1 work visas</div>
+                                     <button id="myButton5" class="uploadLink myButton" type="button">Upload file</button>
                                     <input runat="server" id="myButton5Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                                   
+                                     <button id="myButton5Remove" class="removeLink myButtonRemove" type="button">Remove file</button>
                                     <div id="dvmyButton5Input" class="dvFilesUpload" runat="server" >
                                     </div>
                                 </div>
@@ -1101,9 +1135,11 @@
                             </div>
                             <div class="form-col">
                                 <div class="upload-img-box bg-gray-200  ">
-                                    <div class="f-14  rtl mt-4">Doc 7 </div>
-                                    <img src="images/camera.svg" id="myButton6" class="myButton" alt="">
+                                    <div class="f-14  rtl mt-4">Application Forms </div>
+                                     <button id="myButton6" class="uploadLink myButton" type="button">Upload file</button>
                                     <input runat="server" id="myButton6Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                                   
+                                      <button id="myButton6Remove" class="removeLink myButtonRemove" type="button">Remove file</button>
                                     <div id="dvmyButton6Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>
@@ -1112,8 +1148,10 @@
                             <div class="form-col">
                                 <div class="upload-img-box bg-gray-200  ">
                                     <div class="f-14  rtl mt-4">Doc 8 </div>
-                                    <img src="images/camera.svg" id="myButton7" class="myButton" alt="">
+                                     <button id="myButton7" class="uploadLink myButton" type="button">Upload file</button>
                                     <input runat="server" id="myButton7Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                                  
+                                    <button id="myButton7Remove" class="removeLink myButtonRemove" type="button">Remove file</button>
                                     <div id="dvmyButton7Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>
@@ -1127,8 +1165,9 @@
                             <div class="form-col">
                                 <div class="upload-img-box bg-gray-200  ">
                                     <div class="f-14  rtl mt-4">Doc 9</div>
-                                    <img src="images/camera.svg" id="myButton8" class="myButton" alt="">
+                                    <button id="myButton8" class="uploadLink myButton" type="button">Upload file</button>
                                     <input runat="server" id="myButton8Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                                     <button id="myButton8Remove" class="removeLink myButtonRemove" type="button">Remove file</button>
                                     <div id="dvmyButton8Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>
@@ -1137,8 +1176,9 @@
                             <div class="form-col">
                                 <div class="upload-img-box bg-gray-200  ">
                                     <div class="f-14  rtl mt-4">Doc 10 </div>
-                                    <img src="images/camera.svg" id="myButton9" class="myButton" alt="">
+                                     <button id="myButton9" class="uploadLink myButton" type="button">Upload file</button>
                                     <input runat="server" id="myButton9Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                                     <button id="myButton9Remove" class="removeLink myButtonRemove" type="button">Remove file</button>
                                     <div id="dvmyButton9Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>
@@ -1147,8 +1187,9 @@
                             <div class="form-col">
                                 <div class="upload-img-box bg-gray-200  ">
                                     <div class="f-14  rtl mt-4">Doc 11 </div>
-                                    <img src="images/camera.svg" id="myButton10" class="myButton" alt="">
+                                    <button id="myButton10" class="uploadLink myButton" type="button">Upload file</button>
                                     <input runat="server" id="myButton10Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                                      <button id="myButton10Remove" class="removeLink myButtonRemove" type="button">Remove file</button>
                                     <div id="dvmyButton10Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>
@@ -1157,8 +1198,9 @@
                             <div class="form-col">
                                 <div class="upload-img-box bg-gray-200  ">
                                     <div class="f-14  rtl mt-4">Doc 12 </div>
-                                    <img src="images/camera.svg" id="myButton11" class="myButton" alt="">
+                                    <button id="myButton11" class="uploadLink myButton" type="button">Upload file</button>
                                     <input runat="server" id="myButton11Input" type="file" class="myInput" multiple style="display: none" runat="server" />
+                                    <button id="myButton11Remove" class="removeLink myButtonRemove" type="button">Remove file</button>
                                     <div id="dvmyButton11Input" class="dvFilesUpload" runat="server">
                                     </div>
                                 </div>

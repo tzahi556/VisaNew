@@ -16,6 +16,8 @@ function InitUpload() {
     let filesContainer = $('#myFiles');
     let files = [];
 
+    let buttonRemove = $('.myButtonRemove');
+
     inputFile.change(function () {
 
         //alert(this.id);
@@ -39,13 +41,13 @@ function InitUpload() {
             validateUploadFiles();
             // filesContainer.append(fileElement);
 
-            fileElement.click(function (event) {
-                let fileElement = $(event.target);
-                let indexToRemove = files.indexOf(fileElement.data('fileData'));
-                fileElement.remove();
-                files.splice(indexToRemove, 1);
-                validateUploadFiles();
-            });
+            //fileElement.click(function (event) {
+            //    let fileElement = $(event.target);
+            //    let indexToRemove = files.indexOf(fileElement.data('fileData'));
+            //    fileElement.remove();
+            //    files.splice(indexToRemove, 1);
+            //    validateUploadFiles();
+            //});
 
 
 
@@ -57,6 +59,17 @@ function InitUpload() {
         var inputId = this.id + "Input";
         $('#' + inputId).click();
         //inputFile.click();
+
+    });
+
+    buttonRemove.click(function () {
+        var currentFileContainer = "#dv" + this.id.replace("Remove", "") + "Input";
+
+        $(currentFileContainer).html("");
+
+        //var inputId = this.id + "Input";
+        //$('#' + inputId).click();
+        
 
     });
 

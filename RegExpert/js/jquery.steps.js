@@ -2013,7 +2013,7 @@ var defaults = $.fn.steps.defaults = {
          * @default "Finish"
          * @for defaults
          **/
-        finish: "Finish",
+        finish: "SUBMIT",
 
         /**
          * Label for the next button.

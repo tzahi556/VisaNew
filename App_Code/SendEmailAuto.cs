@@ -33,7 +33,7 @@ public class SendEmailAuto : System.Web.Services.WebService
     {
         //SendEmailWeekly dd = new SendEmailWeekly();
         SendEmail sm = new SendEmail(DateTime.Now.ToString());
-       
+        SendEmailIncoming smincoming = new SendEmailIncoming(DateTime.Now.ToString());
         //return "Hello World";
     }
 

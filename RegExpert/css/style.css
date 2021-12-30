@@ -545,13 +545,75 @@ label.error {
     border:solid 2px red;
 }
 
-.redMust{
-
-    color:red;
-    font-weight:bold;
+.redMust {
+    color: red;
+    font-weight: bold;
+    position: absolute;
+    top: 8px;
+    left: 5px;
 }
 
 .nocompany {
     color: red;
     font-weight: bold;
+}
+
+
+
+.uploadLink {
+    border: solid 1px black;
+    display: inline-flex;
+    height: 25px;
+    width: 112px;
+    align-items: center;
+    color: #fff;
+    cursor: pointer;
+    background: #3377c0;
+    
+    justify-content: center;
+    letter-spacing: 1px;
+    font-weight:bold;
+}
+
+
+
+.removeLink {
+    border: solid 1px black;
+    display: inline-flex;
+    height: 25px;
+    width: 112px;
+    align-items: center;
+    color: #fff;
+    cursor: pointer;
+    background: #fc6358;
+    justify-content: center;
+    letter-spacing: 1px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.isDisabled {
+    color: currentColor;
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration: none;
+    pointer-events: none;
+}
+
+
+.mt-4{
+    color:black !important;
+    font-weight:bold;
+
+}
+
+.bl-ar {
+    
+}
+
+.checkboxOf {
+    height:22px;
+    width:23px;
+    position:relative;
+    top:7px;
 }

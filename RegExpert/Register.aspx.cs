@@ -608,19 +608,19 @@ public partial class Register : System.Web.UI.Page
             isFinish = true;
         }
 
-        string NewExpertRegisterId = InsertIntoDB(txtSurname.Value,
-                                                  txtName.Value,
+        string NewExpertRegisterId = InsertIntoDB(GetUpperLowerCase(txtSurname.Value,1),
+                                                  GetUpperLowerCase(txtName.Value,2),
                                                   CompanyId,
                                                   txtEmail.Value,
                                                   txtPhone.Value,
                                                   txtJob.Value,
-                                                  txtPassport.Text,
+                                                  GetUpperLowerCase(txtPassport.Text,1),
                                                   txtPassportIssueDate.Value,
                                                   txtPassportExpDate.Value,
                                                   "0",
                                                   txtStreet.Value,
                                                   txtTown.Value,
-                                                  txtCountry.Value,
+                                                  GetUpperLowerCase(txtCountry.Value,2),
                                                   "",
                                                   "",
                                                   "0",
@@ -632,19 +632,16 @@ public partial class Register : System.Web.UI.Page
         HiddenFieldExpertRegId.Value = NewExpertRegisterId;
 
 
-
-
-
         // מכניסים את האישה
         if (rdButtYes.Checked)
         {
-            string SoupExpertRegisterId = InsertIntoDB(txtSoupFamilyname.Value,
-                                            txtSoupGivenname.Value,
+            string SoupExpertRegisterId = InsertIntoDB(GetUpperLowerCase(txtSoupFamilyname.Value,1),
+                                            GetUpperLowerCase(txtSoupGivenname.Value,2),
                                             CompanyId,
                                             "",
                                             "",
                                             "",
-                                            txtSoupPassport.Value,
+                                            GetUpperLowerCase(txtSoupPassport.Value,1),
                                             txtSoupPassportIsueDate.Value,
                                             txtSoupPassportExpDate.Value,
                                             NewExpertRegisterId,
@@ -681,12 +678,12 @@ public partial class Register : System.Web.UI.Page
                     )
                 {
                     string ChildExpertRegisterId = InsertIntoDB("",
-                                                    txtChildGivenname.Value,
+                                                    GetUpperLowerCase(txtChildGivenname.Value,2),
                                                     CompanyId,
                                                     "",
                                                     "",
                                                     "",
-                                                    txtChildPassport.Value,
+                                                    GetUpperLowerCase(txtChildPassport.Value,1),
                                                     txtChildPassportIsueDate.Value,
                                                     txtChildPassportExpDate.Value,
                                                     NewExpertRegisterId,
@@ -707,12 +704,35 @@ public partial class Register : System.Web.UI.Page
             }
 
         }// end if famaly came
+       
 
 
+    }
 
+    private string GetUpperLowerCase(string value, int type)
+    {
+        if (string.IsNullOrEmpty(value.Trim())) return "";
+        //שם משפחה
+        if (type == 1)
+            return value.ToUpper();
+        else
+        {
+            string res = "";
+            string[] NameVal = value.Split(' ');
 
-
-
+            for (int i = 0; i < NameVal.Length; i++)
+            {
+                string item = NameVal[i];
+                if(i==0)
+                    res += item[0].ToString().ToUpper() + ((item.Length > 1) ? item.Substring(1) : "");
+                else
+                    res += " " + item[0].ToString().ToUpper() + ((item.Length > 1) ? item.Substring(1) : "");
+            }
+           
+            return res;
+           // return value[0].ToString().ToUpper() + ((value.Length > 1) ? value.Substring(1) : "");
+        }
+           
 
     }
 
@@ -743,8 +763,6 @@ public partial class Register : System.Web.UI.Page
                 div.InnerHtml = "<span class='fileUploadName'>" + FileName + "</span>";
 
         }
-
-
 
     }
 }
