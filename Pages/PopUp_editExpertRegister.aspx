@@ -195,21 +195,21 @@
                             </div>
                             <table width="100%" border="0" cellpadding="0" cellspacing="10">
                                 <tr>
-                                    <td align="left" style="width: 60px">Surname:
+                                    <td align="right" style="">Surname:
                                     </td>
                                     <td align="left">
                                         <asp:TextBox ID="txtSurname" runat="server"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtSurname"
                                             ForeColor="red" ErrorMessage="*" ValidationGroup="up" />
                                     </td>
-                                    <td align="left">Name:
+                                    <td align="right">Name:
                                     </td>
                                     <td align="left">
                                         <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="rf2" runat="server" ControlToValidate="txtName" ForeColor="red"
                                             ErrorMessage="*" ValidationGroup="up" />
                                     </td>
-                                    <td align="left">Date of Birth:
+                                    <td align="right">Date of Birth:
                                     </td>
                                     <td align="left">
                                         <asp:TextBox ID="txtDateBirth" runat="server" CssClass="txtCalander"></asp:TextBox>
@@ -217,7 +217,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td align="left">Passport:
+                                    <td align="right">Passport:
                                     </td>
                                     <td align="left">
                                         <asp:TextBox ID="txtPassport" runat="server"></asp:TextBox>
@@ -225,12 +225,12 @@
                                             ForeColor="red" ErrorMessage="*" ValidationGroup="up" />
                                     </td>
 
-                                    <td align="left">Passport Issue Date:
+                                    <td align="right">Passport Issue Date:
                                     </td>
                                     <td align="left">
                                         <asp:TextBox ID="txtPassportIssueDate" runat="server" CssClass="txtCalander"></asp:TextBox>
                                     </td>
-                                    <td align="left">Passport Exp Date:
+                                    <td align="right">Passport Exp Date:
                                     </td>
                                     <td align="left">
                                         <asp:TextBox ID="txtPassportExpDate" runat="server" CssClass="txtCalander"></asp:TextBox>
@@ -239,17 +239,17 @@
                                 </tr>
 
                                 <tr>
-                                    <td align="left">Address:
+                                    <td align="right">Address:
                                     </td>
                                     <td align="left">
                                         <asp:TextBox ID="txtAddress" runat="server"></asp:TextBox>
                                     </td>
-                                    <td align="left">Town:
+                                    <td align="right">Town:
                                     </td>
                                     <td align="left">
                                         <asp:TextBox ID="txtTown" runat="server"></asp:TextBox>
                                     </td>
-                                    <td align="left">Country:
+                                    <td align="right">Country:
                                     </td>
                                     <td align="left">
                                         <asp:TextBox ID="txtCountry" runat="server"></asp:TextBox>
@@ -258,27 +258,43 @@
                                 </tr>
 
                                 <tr>
-                                    <td align="left">Job:
+                                    <td align="right">Job:
                                     </td>
                                     <td align="left">
                                         <asp:TextBox ID="txtJob" runat="server"></asp:TextBox>
                                     </td>
 
-                                    <td align="left">Phone:
+                                    <td align="right">Phone:
                                     </td>
                                     <td align="left">
                                         <asp:TextBox ID="txtPhone" runat="server"></asp:TextBox>
                                     </td>
 
-                                    <td align="left">Email:
+                                    <td align="right">Email:
                                     </td>
                                     <td align="left">
                                         <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
                                     </td>
                                 </tr>
+
+                                <tr>
+                                    <td align="right" style="">Stay Israel Start:
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtStayIsraelStartDate" CssClass="txtCalander" runat="server"></asp:TextBox>
+                                    </td>
+
+                                    <td align="right">Stay Israel End:
+                                    </td>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtStayIsraelEndDate" CssClass="txtCalander" runat="server"></asp:TextBox>
+                                    </td>
+
+                                   
+                                </tr>
                                 <tr>
 
-                                    <td align="left">Company:
+                                    <td align="right">Company:
                                     </td>
                                     <td align="left" colspan="5">
                                         <asp:DropDownList ID="ddlCompany" runat="server" AppendDataBoundItems="true">
@@ -289,10 +305,24 @@
                                     </td>
 
                                 </tr>
-
+                                  
 
                             </table>
 
+                        </div>
+
+                          <div class="dvRoundAndBgPopup" style="font-size: medium; margin-top: 8px; padding-top: 20px;">
+                            <div class="section-head">
+                                Comments Expert
+                            </div>
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="left">
+                                        <asp:TextBox ID="txtCommentExpert" TextMode="MultiLine" runat="server" Rows="3" Columns="79"
+                                            Style="height: 80px; width: 100%;"></asp:TextBox>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
 
                         <%--  <div class="dvRoundAndBgPopup" style="font-size: medium; margin-top: 8px; padding-top: 10px; padding-bottom: 5px; height: 150px;overflow:auto">
@@ -304,7 +334,7 @@
                         </div>--%>
                         <div class="dvRoundAndBgPopup" style="font-size: medium; margin-top: 8px; padding-top: 20px;">
                             <div class="section-head">
-                                Comments
+                                Comments office
                             </div>
                             <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                 <tr>

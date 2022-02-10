@@ -17,15 +17,17 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/script.js"></script>
-
+     <link href="jAlert/jAlerts.css" rel="stylesheet" />
 
     <script>
 
 
 
         $(document).ready(function () {
-            
+            MessageSubmit();
             $("a,ul").hide();
+
+          
 
         });
 
@@ -34,6 +36,16 @@
 
         
         }
+
+
+        function MessageSubmit() {
+            jAlert({
+                headingText: 'System Message',
+                contentText: 'Thank you for filling out your information.   Confirmation mail has been sent to you.     get back to you if additional information is needed.'
+
+            }, "top"); // <---- Notice how this is changed to "left"
+
+        } // end left() function
 
         function SwitchFamily(data) {
 
@@ -174,7 +186,7 @@
 
             <h4></h4>
             <section style="text-align: center">
-                <h3> Thank you For Register Us!
+                <h3> Thank you
                     <br />
                 </h3>
                 <br />
@@ -187,11 +199,11 @@
                 </div>
                 <br />
 
-                <div class="disabled">
+             <%--   <div class="disabled">
                     We Call you
 
                 </div>
-
+--%>
 
 
 
@@ -214,5 +226,7 @@
         <script src="vendor/jquery-validation/dist/additional-methods.min.js"></script>
 
         <script src="js/main.js"></script>
+
+          <script src="jAlert/jAlerts.js"></script>
 </body>
 </html>

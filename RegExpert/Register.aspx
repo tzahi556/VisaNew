@@ -51,7 +51,7 @@
             //} 
            
             function EndRequestHandler(sender, args) {
-
+               
                 var txtPassportIssueDate = $("#txtPassportIssueDate").val();
                 var txtPassportExpDate = $("#txtPassportExpDate").val();
                 var txtDateofBirth = $("#txtDateofBirth").val();
@@ -76,7 +76,13 @@
                 var txtChild4DateofBirth = $("#txtChild4DateofBirth").val();
                 var txtChild4PassportIsueDate = $("#txtChild4PassportIsueDate").val();
                 var txtChild4PassportExpDate = $("#txtChild4PassportExpDate").val();
-               
+
+
+                var txtStayIsraelStartDate = $("#txtStayIsraelStartDate").val();
+
+               // alert(txtStayIsraelStartDate);
+                var txtStayIsraelEndDate = $("#txtStayIsraelEndDate").val();
+                var txtComment = $("#txtComment").val();
                 $('.datepicker-here').datepicker({ dateFormat: 'dd M yy' });
 
                 $("#txtPassportIssueDate").val(txtPassportIssueDate);
@@ -104,6 +110,9 @@
                 $("#txtChild4PassportIsueDate").val(txtChild4PassportIsueDate);
                 $("#txtChild4PassportExpDate").val(txtChild4PassportExpDate);
 
+                $("#txtStayIsraelStartDate").val(txtStayIsraelStartDate);
+                $("#txtStayIsraelEndDate").val(txtStayIsraelEndDate);
+                $("#txtComment").val(txtComment);
                 InitUpload();
 
 
@@ -162,6 +171,17 @@
             }, "top"); // <---- Notice how this is changed to "left"
 
         } // end left() function
+
+
+        function MessageSubmit() {
+            jAlert({
+                headingText: 'System Message',
+                contentText: 'Thank you for fulling out your information.</br>Confirmation mail has been sent to you.</br>We will get back to you if additional information is needed.'
+
+            }, "top"); // <---- Notice how this is changed to "left"
+
+        } // end left() function
+
 
 
         function CallServer() {
@@ -238,8 +258,8 @@
         function SendForm() {
             
             if (validateUploadFiles()) {
-
-                 __doPostBack('<%=btnSendForm.UniqueID%>', '');
+                // MessageSubmit();
+                __doPostBack('<%=btnSendForm.UniqueID%>', '');
 
             } else {
 
@@ -371,7 +391,8 @@
                 <img src="../App_Themes/Theme1/Images/login.png" alt="" width="300px" height="200px" />
 
                 <div class="mt-4">
-                    This page is created for  
+                   <span style="font-size:23px;"> B1 Work permit application </span><br /> <br />
+                   You are working in this company
                             <div class="dvcompanyName" id="lblCompany" runat="server"></div>
                    
                      <br /> 
@@ -382,18 +403,18 @@
                  
                    
                  
+                  <%--  <br />
                     <br />
-                    <br />
-                     experts for B1 work permit.
+                     experts for B1 work permit.--%>
 
 
                 </div>
                 <br />
 
                 <div class="disabled mt-4">
-                    notice! <br />
-                    you can Save data all the time before submit! <br />
-                    please, click next to start fill form
+                    Notice! <br />
+                    You can save your work and later start where you left off by <br />
+                    entering your passport number and your surname.
 
                 </div>
 
@@ -404,10 +425,8 @@
             </section>
             <!-- SECTION 1 -->
             <h4></h4>
-
-
             <section>
-                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
                         <asp:HiddenField ID="HiddenFieldExpertRegId" runat="server" Value="0" />
                         <asp:HiddenField ID="HiddenFieldSoup" runat="server" Value="0" />
@@ -436,7 +455,7 @@
 
 
                         <div>
-                            ***** if you register once please insert your passport first
+                           ****If you already registered, please enter your passport number and your surname 
                         </div>
                         <br />
 
@@ -447,7 +466,7 @@
                             <div class="form-col">
 
                                 <label for="">
-                                    Passport
+                                    Passport number
                                 </label>
                                 <div class="form-holder">
                                     <div class="form-group">
@@ -463,7 +482,7 @@
                             <div class="form-col">
 
                                 <label for="">
-                                    Surname
+                                    Surnames
                                 </label>
                                 <div class="form-holder">
                                     <div class="form-group">
@@ -474,7 +493,7 @@
                             </div>
                             <div class="form-col">
                                 <label for="">
-                                    Name
+                                    Given name
                                 </label>
                                 <div class="form-holder">
                                     <i class="zmdi zmdi-account-o"></i><span class="redMust">*</span>
@@ -490,7 +509,7 @@
                         <div class="form-row">
                             <div class="form-col">
                                 <label for="">
-                                    Passport Issue Date
+                                   Passport issuance date
                                 </label>
                                 <div class="form-holder">
                                     <i class="zmdi zmdi-calendar"></i><span class="redMust">*</span>
@@ -499,7 +518,7 @@
                             </div>
                             <div class="form-col">
                                 <label for="">
-                                    Passport Exp Date
+                                  Expiration date
                                 </label>
                                 <div class="form-holder">
                                     <i class="zmdi zmdi-calendar"></i><span class="redMust">*</span>
@@ -508,7 +527,7 @@
                             </div>
                             <div class="form-col">
                                 <label for="">
-                                    Date Birth
+                                    Date of birth
                                 </label>
                                 <div class="form-holder">
                                     <i class="zmdi zmdi-calendar"></i><span class="redMust">*</span>
@@ -520,7 +539,7 @@
                         <div class="form-row">
                             <div class="form-col">
                                 <label for="">
-                                    Phone
+                                    Phone number
                                 </label>
                                 <div class="form-holder">
                                     <i class="zmdi zmdi-smartphone-android"></i>
@@ -553,7 +572,7 @@
                         <div class="form-row">
                             <div class="form-col">
                                 <label for="">
-                                    Street and house no.
+                                    Street name and number
                                 </label>
                                 <div class="form-holder">
                                     <i class="zmdi zmdi-edit"></i>
@@ -562,7 +581,7 @@
                             </div>
                             <div class="form-col">
                                 <label for="">
-                                    Town
+                                    City, State
                                 </label>
                                 <div class="form-holder">
                                     <i class="zmdi zmdi-edit"></i>
@@ -589,8 +608,85 @@
                             <asp:AsyncPostBackTrigger ControlID="btnSaveData"  EventName="Click" />--%>
                     </Triggers>
                 </asp:UpdatePanel>
-
             </section>
+
+             <h4></h4>
+            <section>
+            <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                      
+                        <div class="form-row" style="margin-bottom: 0px">
+                            <div class="form-col">
+
+                                <h3>Travel information
+                                </h3>
+
+                            </div>
+
+                            <div class="form-col" style="text-align: right">
+                              
+                                <asp:LinkButton ID="LinkButton1" OnClick="btnSaveData_Click" runat="server"></asp:LinkButton>
+                                <button id="Button2" class="saveLink" type="button" runat="server" onclick="BeforeSave();">Save</button>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <%--<div>
+                           enter period stay in israel
+                        </div>--%>
+                        <br />
+
+                        
+
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="">
+                                 Planned arrival date to 
+                                </label>
+                                <div class="form-holder">
+                                    <i class="zmdi zmdi-calendar"></i><span class="redMust"></span>
+                                    <input runat="server" type="text" name="txtStayIsraelStartDate" id="txtStayIsraelStartDate" autocomplete="off" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <label for="">
+                                 Planned departure date 
+                                </label>
+                                <div class="form-holder">
+                                    <i class="zmdi zmdi-calendar"></i><span class="redMust"></span>
+                                    <input runat="server" type="text" name="txtStayIsraelEndDate" id="txtStayIsraelEndDate" autocomplete="off" class="form-control datepicker-here" data-language='en' data-date-format="dd M yy">
+                                </div>
+                            </div>
+                         
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col" style="width:100% !important">
+                                <label for="">
+                                   Brief description of the project and your assignment  
+                                </label>
+                                <div class="form-holder">
+                                    
+                                    <textarea runat="server" type="text" name="txtComment" id="txtComment" style="height:200px;padding-left:2px" class="form-control"></textarea>
+                                </div>
+                            </div>
+                           
+
+                        </div>
+
+                       
+                    </ContentTemplate>
+                    <Triggers>
+                        <%-- <asp:AsyncPostBackTrigger ControlID="txtPassport" EventName="TextChanged" />
+                            <asp:AsyncPostBackTrigger ControlID="btnSaveData"  EventName="Click" />--%>
+                    </Triggers>
+                </asp:UpdatePanel>
+            </section>
+
+
 
             <!-- SECTION 2 -->
             <h4></h4>
@@ -601,7 +697,7 @@
                         <div id="secStart">
                             <div class="form-row" style="margin-bottom: 0px">
                                 <div class="form-col">
-                                    <h3>Family
+                                    <h3>Family details
                                     </h3>
                                 </div>
 
@@ -616,7 +712,7 @@
 
                             <div class="form-row">
                                 <div class="form-col" style="width: auto">
-                                    Is your family will be traveling with you or plan to sty in Israel?
+                                   Are there other family members traveling with you to Israel?
 
 
                                 </div>
@@ -652,7 +748,7 @@
 
 
 
-                            <h1>Soup</h1>
+                            <h1>Spouse</h1>
 
 
                             <div class="form-row">
@@ -669,7 +765,7 @@
                                 </div>
                                 <div class="form-col">
                                     <label for="">
-                                        Given name
+                                        Given names
                                     </label>
                                     <div class="form-holder">
                                         <i class="zmdi zmdi-account-o"></i>
@@ -726,7 +822,7 @@
 
                                 <div class="form-col">
                                     <label for="">
-                                        Passport
+                                        Passport number
                                     </label>
                                     <div class="form-holder">
                                         <i class="zmdi zmdi-account-o"></i>
@@ -735,7 +831,7 @@
                                 </div>
                                 <div class="form-col">
                                     <label for="">
-                                        Passport Issue Date
+                                       Passport issuance date 
                                     </label>
                                     <div class="form-holder">
                                         <i class="zmdi zmdi-calendar"></i>
@@ -745,7 +841,7 @@
 
                                 <div class="form-col">
                                     <label for="">
-                                        Passport Exp Date
+                                       Passport expiration date 
                                     </label>
                                     <div class="form-holder">
                                         <i class="zmdi zmdi-calendar"></i>
@@ -1071,7 +1167,7 @@
                             </div>
                             <div class="form-col">
                                 <div class="upload-img-box bg-gray-200 " id="dvmyButton1InputContainer">
-                                    <div class="f-14  rtl mt-4"><span class="redMust"></span>CV English </div>
+                                    <div class="f-14  rtl mt-4"><span class="redMust"></span>CV / Resume</div>
                                    <%-- <img src="images/camera.svg" id="myButton1" class="myButton" alt="">--%>
                                     <button id="myButton1" class="uploadLink myButton" type="button">Upload file</button>
                                     <input runat="server" id="myButton1Input" type="file" class="myInput"  style="display: none" runat="server" />
@@ -1123,7 +1219,7 @@
                             </div>
                             <div class="form-col">
                                 <div class="upload-img-box bg-gray-200  ">
-                                    <div class="f-14  rtl mt-4">Israeli B-1 work visas</div>
+                                    <div class="f-14  rtl mt-4">Previous Israeli B1 visa</div>
                                      <button id="myButton5" class="uploadLink myButton" type="button">Upload file</button>
                                     <input runat="server" id="myButton5Input" type="file" class="myInput" multiple style="display: none" runat="server" />
                                    

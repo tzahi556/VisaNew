@@ -1,1104 +1,159 @@
 ﻿<html>
-<head>
-    <script type="text/javascript">        var _sf_startpt = (new Date()).getTime()</script>
-    <title>Ten Minute Pages</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="js/cufon-yui.js" type="text/javascript"></script>
-    <script src="js/Lucida_Sans_400.font.js" type="text/javascript"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-    <link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
-    <script src="http://vjs.zencdn.net/c/video.js"></script>
-    <script type="text/javascript" src="js/jquery.carouFredSel.js"></script>
-    <script type="text/javascript" src="js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-    <link rel="stylesheet" href="js/fancybox/jquery.fancybox-1.3.4.css" type="text/css"
-        media="screen" />
-    <!-- <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW"> -->
-    <!--[if IE]>
-	<style>div#inside { width: 900px; } </style>
-	<![endif]-->
-    <script type="text/javascript">
-        $(function () {
-            wistiaEmbed = $("iframe[name='wistia_embed']")[0].wistiaApi;
-            wistiaEmbed.bind("timechange", function (t) {
-                curTime = parseInt(t); //console.log(t);
-                // curTime is the amount of seconds that has passed
-                if (curTime >= 1455) $("[dly]").fadeIn();
-            });
-        })
-    </script>
-    <style>
-        #logo
-        {
-            display: block;
-            margin: 0 auto;
-            padding: 17px 0 0;
-            padding-left: 5%;
-            float: left;
-        }
-        header
-        {
-            position: fixed;
-            z-index: 5;
-            top: 0;
-            left: 0;
-            display: block;
-            min-width: 768px;
-            width: 100%;
-            background: #fff;
-            height: 80px; /*padding: 0 5%;*/
-            box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, .5);
-        }
-        nav
-        {
-            float: right;
-            margin-top: 30px;
-            padding-right: 5%;
-        }
-        nav li
-        {
-            display: inline-block;
-            vertical-align: middle; /*margin-right: 30px;*/
-        }
-        nav a
-        {
-            color: #222 !important;
-            font-size: 15px;
-            padding: 6px 10px; /*margin-left: 20px;*/
-        }
-        .signup_now
-        {
-            font-weight: bold;
-            color: #FF4400 !important;
-        }
-    </style>
-</head>
 <body>
-    <header>
-		<a href="http://tenminutepages.com">
-		<img id="logo" rel="logo" type="image/png" src="images/tmp_logo.png" alt="10minutepages logo" Title="10minutepages">
-	     </a>
 
-		<nav>
-			<ul>
-				<li><strong></strong></li>
-				<li><a href="#pricing" class="login signup_now">Sign Up Now</a></li>
-				<li><a href="http://tenminutepages.com/login" target="_blank" class="login2">Login</a></li>
-				<!-- <li><a href="#features">Features</a></li> -->
-			</ul>
-		</nav>
-	</header>
-    <div id="container">
-        <div id="wrap">
-            <!-- <h2 style="font-size:20pt;">For Conference Attendees Only...</h2> -->
-            <!-- <h2 style="font-size:20pt;">This Special Offer Expires in...<div style="color:red; padding-top:20px;" id="countdown_time"></div></h2> -->
-            <!--  -->
-            <!-- <div style="padding-top:20px;"><img src="../images/fancy_divider.png"/></div> -->
-            <div class="section" style="padding: 0px; text-align: center; margin: 0 auto; width: 980px;
-                height: 551px; overflow: hidden; padding-top: 80px;">
-                <!-- <div style="text-align:left;"><img class="poster" src="http://assets.tenminutepages.com/hero_poster.png" style="position: absolute; margin-top: 20px; z-index: 10000; width: 980px;" /></div> -->
-                <!-- 	<video id="hero_video" class="video-js vjs-default-skin" width="982" height="546" autoplay="true" style="background:white;" poster="http://assets.tenminutepages.com/hero_poster_2.png" controls preload="auto" data-setup="{}">
-						<source type="video/mp4" src="http://tenminutepages.s3.amazonaws.com/VideoSalesLetterUpdated3.mp4">
-					</video>
-				 -->
-                <iframe style="margin-left: -1px;" src="http://fast.wistia.net/embed/iframe/2ofag1f4vq?autoPlay=true&playButton=false&smallPlayButton=false&version=v1&videoHeight=546&videoWidth=982"
-                    allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed"
-                    name="wistia_embed" width="982" height="546"></iframe>
-                <!-- <div id="cta_hero" style="margin-top:-50px; padding:20px; height:560px; display:none; text-align:center;">
-					<img id="hero_pic" src="images/hero_h2_introducing.png" width="700" style="display:none;" />
-					<img id="hero_pic" src="images/hero_h2_the_fastest.png" width="700" style="display:none;" />
-					<img id="hero_pic" src="images/hero_pic.png" width="700" style="display:none;" />					
-				  </div> -->
-            </div>
-            <div id="cta_btn" dly="5" style="text-align: center; display: none;">
-                <a href="#pricing">
-                    <img id="btn" border="0" src="http://assets.tenminutepages.com/v0.2/images/buttons/btn_yellow_addtocart.png" /></a><br />
-                <!-- <span style="font-weight:bold;">$297 for Premium Package, or $497 for the Ultimate Package</span><br/><br/> -->
-            </div>
-            <div class="section">
-                <img class="h2" src="images/h2_idea_to_launch.png" alt='Go from Idea to "Launched" in Minutes, not Months' />
-                <p>
-                    Getting your ideas online should NOT take four months, cost $3,213 and cause corronary
-                    heart failure.<br />
-                    Just choose a great design, paste in your content, drop in a few images, and click
-                    publish.
-                </p>
-                <br />
-                <br />
-                <img class="h2" src="images/h2_complete_funnels.png" />
-                <p>
-                    Here's a sample of just some of the pages you can build with Ten Minute Pages (click
-                    for a larger view).
-                </p>
-                <!--<ul id="does_this">
-					<li class="first">Squeeze Pages</li>
-					<li>Sales Pages</li>
-					<li>Bonus Pages</li>
-					<li>Launch Funnels</li>
-					<li>...and more</li>
-				</ul>-->
-                <div class="image_carousel">
-                    <ul id="carousel">
-                        <li class="item" style="float: left;"><a class="iframe" href="preview.php?page=v02_lp_default">
-                            <img class="content" src="http://www.modifywebsite.com/beta/assets/images/thumbnails/landing/default.png"
-                                hspace="10" /></a>
-                            <div class="template_type">
-                                Squeeze Pages</div>
-                        </li>
-                        <li class="item" style="float: left;"><a class="iframe" href="preview.php?page=v02_sales">
-                            <img class="content" src="http://www.modifywebsite.com/beta/assets/images/thumbnails/pages/sales.png"
-                                hspace="10" /></a>
-                            <div class="template_type">
-                                Sales Pages</div>
-                        </li>
-                        <li class="item" style="float: left;"><a class="iframe" href="preview.php?page=v02_precart">
-                            <img class="content" src="http://www.modifywebsite.com/beta/assets/images/thumbnails/pages/precart.png"
-                                hspace="10" /></a>
-                            <div class="template_type">
-                                Checkout Pages</div>
-                        </li>
-                        <li class="item" style="float: left;"><a class="iframe" href="preview.php?page=v02_launch">
-                            <img class="content" src="http://www.modifywebsite.com/beta/assets/images/thumbnails/pages/launch.png"
-                                hspace="10" /></a>
-                            <div class="template_type">
-                                Product Launch Pages</div>
-                        </li>
-                        <li class="item" style="float: left;"><a class="iframe" href="preview.php?page=v02_ty_email">
-                            <img class="content" src="http://www.modifywebsite.com/beta/assets/images/thumbnails/pages/ty_email.png"
-                                hspace="10" /></a>
-                            <div class="template_type">
-                                Email Thank You Pages</div>
-                        </li>
-                        <li class="item" style="float: left;"><a class="iframe" href="preview.php?page=v02_oto">
-                            <img class="content" src="http://www.modifywebsite.com/beta/assets/images/thumbnails/pages/oto.png"
-                                hspace="10" /></a>
-                            <div class="template_type">
-                                Upsell Pages</div>
-                        </li>
-                        <li class="item" style="float: left;"><a class="iframe" href="preview.php?page=v02_ty_download">
-                            <img class="content" src="http://www.modifywebsite.com/beta/assets/images/thumbnails/pages/ty_download.png"
-                                hspace="10" /></a>
-                            <div class="template_type">
-                                Download Confirmation Pages</div>
-                        </li>
-                        <li class="item" style="float: left;"><a class="iframe" href="preview.php?page=v10_lp_directional">
-                            <img class="content" src="http://www.modifywebsite.com/beta/assets/images/thumbnails/landing/directional.png"
-                                hspace="10" /></a>
-                            <div class="template_type">
-                                Squeeze Pages</div>
-                        </li>
-                        <li class="item" style="float: left;"><a class="iframe" href="preview.php?page=v02_lp_fb">
-                            <img class="content" src="http://www.modifywebsite.com/beta/assets/images/thumbnails/landing/fb.png"
-                                hspace="10" /></a>
-                            <div class="template_type">
-                                Squeeze Pages</div>
-                        </li>
-                        <li class="item" style="float: left;"><a class="iframe" href="preview.php?page=v02_lp_featured">
-                            <img class="content" src="http://www.modifywebsite.com/beta/assets/images/thumbnails/landing/featured.png"
-                                hspace="10" /></a>
-                            <div class="template_type">
-                                Squeeze Pages</div>
-                        </li>
-                        <li class="item" style="float: left;"><a class="iframe" href="preview.php?page=v02_lp_fixed">
-                            <img class="content" src="http://www.modifywebsite.com/beta/assets/images/thumbnails/landing/fixed.png"
-                                hspace="10" /></a>
-                            <div class="template_type">
-                                Squeeze Pages</div>
-                        </li>
-                        <li class="item" style="float: left;"><a class="iframe" href="preview.php?page=v02_lp_foolish">
-                            <img class="content" src="http://www.modifywebsite.com/beta/assets/images/thumbnails/landing/foolish.png"
-                                hspace="10" /></a>
-                            <div class="template_type">
-                                Squeeze Pages</div>
-                        </li>
-                        <li class="item" style="float: left;"><a class="iframe" href="preview.php?page=v02_lp_presidential">
-                            <img class="content" src="http://www.modifywebsite.com/beta/assets/images/thumbnails/landing/presidential.png"
-                                hspace="10" /></a>
-                            <div class="template_type">
-                                Squeeze Pages</div>
-                        </li>
-                        <li class="item" style="float: left;"><a class="iframe" href="preview.php?page=v02_lp_simple">
-                            <img class="content" src="http://www.modifywebsite.com/beta/assets/images/thumbnails/landing/simple.png"
-                                hspace="10" /></a>
-                            <div class="template_type">
-                                Squeeze Pages</div>
-                        </li>
-                        <!-- <li class="item" style="float:left;"><a class="iframe" href="preview.php?page=v02_lp_access">
-							<img class="content" src="http://www.modifywebsite.com/beta/assets/images/thumbnails/landing/access.png" hspace="10" /></a>
-							<div class="template_type">Squeeze Pages</div>
-						</li> -->
-                        <li class="item" style="float: left;"><a class="iframe" href="preview.php?page=v02_lp_full">
-                            <img class="content" src="http://www.modifywebsite.com/beta/assets/images/thumbnails/landing/full.png"
-                                hspace="10" /></a>
-                            <div class="template_type">
-                                Squeeze Pages</div>
-                        </li>
-                    </ul>
-                    <div class="clearfix">
-                    </div>
-                    <a class="prev" id="foo2_prev" href="#"><span>prev</span></a> <a class="next" id="foo2_next"
-                        href="#"><span>next</span></a>
-                </div>
-                <style>
-                    .caroufredsel_wrapper
-                    {
-                        height: 205px !important;
-                    }
-                </style>
-                <div class="clearfix">
-                </div>
-                <br />
-                <br>
-                <br>
-                <img id="compare_video_txt" alt="So just how FAST is Ten Minute Pages?" src="images/h3_how_fast.png"
-                    width="700" /><br />
-                <br />
-                <br />
-                <br>
-                <!-- <img id="compare_video_pic" src="images/compare_video_pic.png" width="950" /> -->
-                <!-- <video id="sixty_second_video" class="video-js vjs-default-skin" controls width="900" height="506" poster="http://assets.tenminutepages.com.s3.amazonaws.com/ItIsFast_Poster.png" preload="auto" data-setup="{}">
-				  <source type="video/mp4" src="http://assets.tenminutepages.com.s3.amazonaws.com/HowFastVideo.mp4">
-				  <source type="video/ogg" src="http://assets.tenminutepages.com.s3.amazonaws.com/HowFastVideo.ogv">
-				</video> -->
-                <iframe src="http://fast.wistia.net/embed/iframe/runmw1nzr6?smallPlayButton=false&version=v1&videoHeight=505&videoWidth=900"
-                    allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed"
-                    name="wistia_embed" width="900" height="505"></iframe>
-            </div>
-            <div class="section">
-                <img src="images/divider.png" />
-                <img style="width: 800px; margin: 40px;" src="images/[TIME] Screen Shot 2013-06-25 at 6.29.25 PM.png"
-                    alt="" />
-                <img src="images/divider.png" />
-            </div>
-            <div class="section">
-                <br />
-                <img class="h2" src="images/h2_breakthrough_visual_editor.png" alt='Breakthrough New, Drag-and-Drop Visual Editor' />
-                <p>
-                    It's like using Microsoft Word or PowerPoint to build your site. What you see is
-                    what you get!<br />
-                    No more dealing with code of <span class="underline">ANY</span> kind (ESPECIALLY
-                    shortcodes).
-                </p>
-                <img id="visual_editor_pic1" src="images/visual_editor_pic1.png" />
-                <img id="visual_editor_pic2" src="images/visual_editor_pic2.png" />
-                <p>
-                    Choose from THOUSANDS of variations, designs, and options (or bring in your own).<br />
-                    Not your typical, cookie cutter designs.
-                </p>
-                <div>
-                    <br />
-                    <img src="images/divider.png" /></div>
-            </div>
-            <a href="#" name="features"></a>
-            <div id="features" class="section">
-                <ul>
-                    <li class="first">
-                        <img class="h2" src="images/h2_build_pages_that_convert.png" alt='Build Pages that Convert' />
-                        <p>
-                            Build Landing (Squeeze) Pages, Sales Pages, Pre-cart Pages, Drip-Fed Launch Funnels,
-                            Bonus Pages, Content Pages, Standby Pages, and more</p>
-                        <img id="feature_pic1" src="images/feature_pic1.png" align="left" />
-                        <p>
-                            Just click the placeholder text and add your content, drop in your pictures, and
-                            click publish!</p>
-                    </li>
-                    <li class="last">
-                        <img class="h2" src="images/h2_for_marketers_by_marketers.png" alt='For Marketers By Marketers' />
-                        <p>
-                            Over 1000 templates and style variations...all designed (and split-tested) by web
-                            conversion experts. In one click, add Pictures, Videos, Audio, an Email Optin Box,
-                            Guarantee Box, Testimonial Box, Delayed Call-to-Action button, and more.</p>
-                        <br />
-                        <img id="feature_pic2" src="images/feature_pic2.png" width="450" align="right" />
-                    </li>
-                </ul>
-                <div class="brk">
-                </div>
-                <div class="divider">
-                </div>
-                <ul>
-                    <li class="first">
-                        <br />
-                        <img class="h2" src="images/h2_grow_email_list.png" alt='Grow your Email List' />
-                        <p>
-                            Effortlessly integrate with your autoresponder service. Copy and paste the form
-                            code and let Ten Minute Pages handle the rest.</p>
-                        <img id="feature_pic3" src="images/feature_pic3.png" />
-                    </li>
-                    <li class="last">
-                        <br />
-                        <img class="h2" src="images/h2_rank_google.png" alt='Rank High on Google' />
-                        <p>
-                            As you work, using the experience from some of the worlds best Search Engine experts,
-                            Ten Minute Pages tell you exactly what to do to improve your rankings on Google,
-                            letting you know when you've hit the mark!</p>
-                        <img id="feature_pic4" src="images/feature_pic4.png" />
-                    </li>
-                </ul>
-                <div class="brk">
-                </div>
-                <div>
-                    <br />
-                    <br>
-                    <br>
-                    <img src="images/divider.png" /></div>
-            </div>
-            <div class="section">
-                <img style="width: 800px; margin-bottom: 40px;" src="images/[EASY] Screen Shot 2013-06-25 at 5.23.55 PM.png"
-                    alt="" />
-                <img style="width: 800px; margin: 40px;" src="images/[EASY] Screen Shot 2013-06-25 at 5.23.38 PM.png"
-                    alt="" />
-                <img style="width: 800px; margin: 40px;" src="images/[EASY] Screen Shot 2013-06-25 at 5.22.45 PM.png"
-                    alt="" />
-                <img src="images/divider.png" />
-            </div>
-            <div class="section">
-                <br />
-                <img class="h2" src="images/h2_picture_editing.png" /><br>
-                <p>
-                    Imagine having the power of a $700+ Adobe Photoshop (but waaaay, easier to use)
-                    built-in</p>
-                <br>
-                <iframe src="http://fast.wistia.net/embed/iframe/jbz9zd6s3a?smallPlayButton=false&version=v1&videoHeight=360&videoWidth=640"
-                    allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed"
-                    name="wistia_embed" width="640" height="360"></iframe>
-                <div>
-                    <br />
-                    <br>
-                    <br>
-                    <img src="images/divider.png" /></div>
-            </div>
-            <div class="section">
-                <br />
-                <img class="h2" src="images/h2_facebook_publish.png" /><br>
-                <p>
-                    Even Publish DIRECTLY to Facebook in One-Click!</p>
-                <br>
-                <iframe src="http://fast.wistia.net/embed/iframe/ugjz6vyzcw?smallPlayButton=false&version=v1&videoHeight=360&videoWidth=640"
-                    allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed"
-                    name="wistia_embed" width="640" height="360"></iframe>
-                <div>
-                    <br />
-                    <br>
-                    <br>
-                    <img src="images/divider.png" /></div>
-            </div>
-            <div class="section">
-                <br />
-                <img class="h2" src="images/h2_mobile.png" /><br>
-                <p>
-                    Dozens of mobile-specific templates available for editing on our brand-new mobile
-                    editor.</p>
-                <br>
-                <iframe src="http://fast.wistia.net/embed/iframe/dz6wb0u7w7?smallPlayButton=false&version=v1&videoHeight=360&videoWidth=640"
-                    allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed"
-                    name="wistia_embed" width="640" height="360"></iframe>
-                <div>
-                    <br />
-                    <br>
-                    <br>
-                    <img src="images/divider.png" /></div>
-            </div>
-            <div class="section">
-                <br />
-                <img class="h2" src="images/h2_video_toolkit.png" /><br>
-                <p>
-                    Drag in a video file, or record directly from your webcam or screen,<br>
-                    and we'll take care of the rest (hosting, encoding, everything).</p>
-                <br>
-                <iframe src="http://fast.wistia.net/embed/iframe/ithc5kt65j?smallPlayButton=false&version=v1&videoHeight=360&videoWidth=640"
-                    allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed"
-                    name="wistia_embed" width="640" height="360"></iframe>
-                <div>
-                    <br />
-                    <br>
-                    <br>
-                    <img src="images/divider.png" /></div>
-            </div>
-            <div class="section">
-                <img style="width: 800px; margin-bottom: 40px;" src="images/[QUIT JOB] Screen Shot 2013-06-25 at 5.22.39 PM.png"
-                    alt="" />
-                <img style="width: 800px; margin: 40px;" src="images/[GAME CHANGER] Screen Shot 2013-06-25 at 6.51.07 PM.png"
-                    alt="" />
-                <img src="images/divider.png" />
-            </div>
-            <div id="inside">
-                <h2>
-                    What's inside Ten Minute Pages</h2>
-                <ul class="first">
-                    <li style="background-image: url('images/easy_button.png')"><strong>Break-through Visual
-                        Editor</strong><br>
-                        If you can type, you can build high-converting websites. Just Choose a design, type
-                        DIRECTLY on it, drop in a few pictures or videos, &amp; click Publish! That's it!</li>
-                    <li style="background-image: url('images/one-click.png')"><strong>One Click Publishing
-                        (Publish to your EXISTING website in seconds)</strong><br>
-                        Click [Publish] and your changes are INSTANTLY published. LIVE, ready for the world
-                        to see!</li>
-                    <li style="background-image: url('images/tools.png')"><strong>Add Video, "Delayed Display"
-                        Buttons, Optin Forms, Guarantee Boxes, Testimonial Sections, &amp; more in seconds</strong>
-                        <!--<br>
-	                  All the best-practice tools and conversion research wrapped in an easy to use, point-and-click package.-->
-                    </li>
-                    <li style="background-image: url('images/wp.png')"><strong>Works With (or without) Wordpress</strong><br />
-                        Use Wordpress? Ten Minute Pages will work right alongside it. Don't use Wordpress?
-                        That's cool too. We don't play favorites.</li>
-                    <li style="background-image: url('images/analytics.png')"><strong>Analytics & Split
-                        Testing</strong><br />
-                        Easily drop in any tracking script or code to track your visitors, split test your
-                        pages to boost your sales</li>
-                    <li style="background-image: url('images/seo.png')"><strong>Built-in Search Engine Optimization</strong><br>
-                        Using the experience of the worlds best Search Engine experts, Ten Minute Pages
-                        automatically optimizes your pages for the Search Engines!</li>
-                </ul>
-                <ul class="second">
-                    <li style="background-image: url('images/page.png')"><strong>Build High Converting Squeeze
-                        Pages, Sales Pages, One-time-Offer Pages, Pre-Cart Pages, Launch Pages, and more.</strong><!--<br>
-	                  One-click access to gorgeous landing pages designed carefully crafted by "conversion experts" to do one-thing...get you more sales!--></li>
-                    <li style="background-image: url('images/facebook.png')"><strong>Social Media Ready</strong><br>
-                        Easily Take advantage of Facebook fan pages, comments, Twitter, Social Bookmarking
-                        sites, and much more.</li>
-                    <li style="background-image: url('images/hosting.png')"><strong>Bring Your Own Hosting
-                        (Or Use Ours)</strong><br />
-                        By default, we'll host all of your pages for you. Already have hosting? Perfect!
-                        Ten Minute Pages can publish your pages via FTP. </li>
-                    <li style="background-image: url('images/mobile.png')"><strong>Mobile Ready &amp; Standards
-                        Compliant</strong><br />
-                        Your sites will have clean and search engine friendly code, are based on the latest
-                        HTML and CSS standards, and are fully Mobile ready. </li>
-                    <li style="background-image: url('images/secure.png')"><strong>Rock-solid security &amp;
-                        version control</strong><br>
-                        We store an unlimited number of backups in "bank-level" secure servers so you can
-                        quickly rewind your site back to any date &amp; time in history.</li>
-                    <li style="background-image: url('images/support.png')"><strong>Round-the-clock Support</strong><br>
-                        If you ever get stuck, you're always one click away from world-class webmasters
-                        happy to help you.</li>
-                </ul>
-                <div class="brk">
-                </div>
-            </div>
-            <br>
-            <br>
-            <div id="testimonial" class="section">
-                <!-- <div class="testimonial">
-					<p class="txt_center"><img class="h2" src="images/h2_product_of_the_year.png" alt='"Product of the Year"'/></p>
-					<img id="testimonial_pic1" align="left" src="http://tenminutepages.s3.amazonaws.com/reese.jpg" width="120" style="padding-right: 20px; margin-top: -45px;" />
-					<p class="txt_left">I really believe <strong>this is the best tool created in the past 10 years.</strong> Now anyone can
-					easily setup any type of marketing page or site fast.  Makes testing much faster and of course makes it much faster to start generating revenue.</p>
-					<p>John Reese, JohnReese.net</p>
-				</div> -->
-                <br>
-                <br>
-                <img src="http://tenminutepages.com/jv/images/testimonial_reese.png" alt="" /><br>
-                <br>
-                <br>
-                <br>
-                <img src="images/testimonial_shaqir-4.png" alt="" /><br>
-                <br>
-                <br>
-                <div class="divider">
-                </div>
-                <!-- <div class="testimonial">
-					<p class="txt_center"><img class="h2" src="images/h2_firing_my_web_guy.png" alt='"Firing My Web Guy"'/></p>
-					<img id="testimonial_pic2" align="right" width="120" src="http://content.screencast.com/users/KyleGraham/folders/Jing/media/f0047163-2b51-4a15-a2a6-273876a93c81/00000155.png" style="padding:0 20px; margin-top:-22px;" />
-					<p class="txt_left">HOLY ****! I love your software! Custom landing pages in less than 2 mins. I could EASILY see my optins TRIPLE using the newest templates in there! I'm firing my $25k per year web guy!!!!!  This Little Genius Tool Will Be Responsible For <strong>MULTIPLE SIX FIGURES For Me This Year</strong>"</p>
-					<p>Shaqir Hussyin, SoloAdsAgency.com</p>
-				</div> -->
-            </div>
-            <div id="guarantee" class="section">
-                <img id="guarantee_pic" align="left" src="images/guarantee_pic.png" />
-                <img class="h2" src="images/h2_guarantee.png" alt='30 day, 100% Money Back Guarantee' /><br />
-                <br>
-                <p>
-                    We're confident you'll fall in love with Ten Minute Pages! So much so, that if over
-                    the course of the next 30 days, you're not absolutely thrilled with Ten Minute Pages
-                    for ANY reason, let us know and we'll give you a full, 100%, no-questions-ask, prompt
-                    refund!</p>
-                <div class="brk">
-                </div>
-                <br />
-                <br />
-                <img src="images/divider.png" />
-            </div>
-            <div id="call_to_action" style="display: none;" class="section">
-                <img class="h2" src="images/h2_call_to_action.png" />
-                <p>
-                    Sign up now to get unlimited access to
-                    <br />
-                    Ten Minute Pages for a ONE TIME payment of just</p>
-                <span style="font-weight: bold;">$297 for Premium Package, or $497 for the Ultimate
-                    Package</span><br />
-                <div style="padding-top: 10px;">
-                    <img src="images/fancy_divider.png" /></div>
-                <p>
-                    <!-- <div style="font-weight:bold; color:#FF0000;">-- HURRY, THIS OFFER EXPIRES MONDAY, JANUARY 21, 2013 --</div>  -->
-                    <!-- <div style="font-weight:bold; color:#FF0000;">-- December ONLY "FREE TRIAL" SPECIAL --</div>  -->
-                    Sign up right now, and you will be up and running in about 60 seconds.
-                </p>
-                <!-- <a href="choicei.php?2"><img id="trial_btn" border="0" src="images/trial_btn_limited.png" /></a>	<br/>		 -->
-                <a href="choicei.php?2">
-                    <img id="btn" border="0" src="http://assets.tenminutepages.com/v0.2/images/buttons/btn_yellow_addtocart.png" /></a><br />
-                <a href="choicei.php?txt"><span style="font-size: 16pt;">Get Started Now</span></a>
-                <br />
-                <br />
-                <!-- <img id="september_offer_txt" alt="Special September Only Offer: Start your trial today and receive a $97 bonus graphics pack free!" src="images/h3_september_offer.png" /> -->
-            </div>
-            <style>
-                #pricing #faq
-                {
-                    background: #eaeaea;
-                    text-align: left;
-                    padding: 20px;
-                    font-family: "minion-pro-1" , "minion-pro-2" , "Times New Roman" , Georgia, serif;
-                    color: #333;
-                    font-size: 16px !important;
-                    line-height: 1.3em !important;
-                }
-                
-                #pricing #faq strong
-                {
-                    color: black;
-                    font-family: 'Lucida Grande' , 'Lucida Grande Unicode' , Helvetica, Verdana, sans-serif;
-                    font-size: 14px !important;
-                    line-height: 1.2em !important;
-                }
-                #pricing TABLE
-                {
-                    border: 1px solid #CCC;
-                }
-                #pricing TABLE td
-                {
-                    padding: 15px;
-                    text-align: left !important;
-                    background: white;
-                }
-                #pricing h1
-                {
-                    text-align: center;
-                    font-size: 26pt !important;
-                    margin: 20px 0 !important;
-                }
-                #pricing h2
-                {
-                    text-align: left !important;
-                    font-family: Helvetica, Arial, sans-serif;
-                }
-                #pricing .page_content_upsell_breakdown_txt h2
-                {
-                    text-align: center !important;
-                }
-                #pricing #quick_test
-                {
-                    padding: 0 10px 10px 10px;
-                }
-                #pricing #quick_test h2
-                {
-                    font-family: 'Hoefler Text' , Constantia, Cambria, Georgia, serif;
-                    color: #3A3A3A;
-                    font-size: 25px;
-                    line-height: 1.2 !important;
-                    font-style: italic;
-                    font-weight: normal;
-                    text-align: center !important;
-                }
-                
-                #pricing p
-                {
-                    margin: 0;
-                    padding: 0;
-                }
-                
-                #pricing #content
-                {
-                    height: 230px;
-                    padding-top: 25px;
-                }
-                
-                #pricing .content_block
-                {
-                    float: left;
-                    width: 170px;
-                    padding: 0 10px;
-                    color: #777777;
-                    font-size: 9pt;
-                    line-height: 12pt;
-                }
-                
-                #pricing .content_vertical_line_right
-                {
-                    border-right: 1px solid #c1daed;
-                }
-                
-                #pricing .content_block_analytics
-                {
-                    float: right;
-                    width: 246px;
-                    margin-right: 30px;
-                }
-                
-                #pricing .content_block_analytics_box
-                {
-                    border: 1px solid #c3d9ff;
-                    position: relative;
-                    top: -75px;
-                }
-                
-                #pricing .content_block_analytics_box_inside
-                {
-                    border: 3px solid white;
-                    background-color: #e8eefa;
-                    text-align: center;
-                    padding: 15px;
-                }
-                
-                
-                #pricing .content_launch_section
-                {
-                    margin: 35px auto;
-                    padding: 5px;
-                    width: 600px;
-                    text-align: center;
-                    background-color: #ffffcd;
-                    display: none;
-                }
-                
-                #pricing #page_content
-                {
-                }
-                
-                #pricing .page_content_left
-                {
-                    float: left;
-                    padding-top: 25px;
-                    width: 555px;
-                }
-                
-                #pricing .page_content_leftb
-                {
-                    float: left;
-                    width: 675px;
-                }
-                #pricing .page_content_header
-                {
-                    font-size: 13pt;
-                    font-weight: bold;
-                }
-                
-                #pricing .page_content_text
-                {
-                    color: #777777;
-                    padding: 20px 0;
-                }
-                #pricing .page_content_section_brk
-                {
-                    padding: 10px 0;
-                }
-                #pricing .page_content_form
-                {
-                }
-                #pricing .page_content_singleline_div
-                {
-                    padding: 20px 0;
-                }
-                #pricing .page_content_upsell_header
-                {
-                    text-align: center;
-                    padding: 0 0 60px;
-                }
-                
-                #pricing .page_content_upsell_breakdown
-                {
-                    /*border:2px solid #3185c5;*/
-                    height: 525px;
-                    width: 680px;
-                    margin: 0 auto;
-                }
-                #pricing .page_content_upsell_breakdown_block
-                {
-                    float: left;
-                    text-align: center;
-                    width: 210px;
-                    border: 2px solid #3185c5;
-                    margin-left: -2px;
-                }
-                #pricing .page_content_upsell_breakdown_block_center
-                {
-                    float: left;
-                    text-align: center;
-                    width: 240px;
-                    position: relative;
-                    top: -65px;
-                    border: 2px solid #3185c5;
-                    background-color: white;
-                    margin-left: -2px;
-                    box-shadow: 0 0 6px #888888;
-                }
-                #pricing .page_content_upsell_breakdown_txt
-                {
-                    font-size: 11pt;
-                    font-weight: bold;
-                    border-bottom: 1px dotted #b2b2b2;
-                    padding: 15px 0;
-                    margin: 0 5px;
-                }
-                
-                #pricing .smll
-                {
-                    font-size: 10pt;
-                    padding: 10px 0;
-                }
-                
-                #pricing .page_content_upsell_breakdown_price
-                {
-                    padding: 5px 0;
-                    color: #333;
-                    font-weight: bold;
-                }
-                
-                #pricing .txthighlight
-                {
-                    color: #f40;
-                }
-                #pricing .txtstrike
-                {
-                    text-decoration: line-through;
-                }
-                
-                #pricing .txtgreen
-                {
-                    color: green;
-                    font-weight: bold;
-                    font-size: 11pt;
-                }
-                
-                #pricing .page_content_right
-                {
-                    float: right;
-                    padding-top: 25px;
-                    background-image: url(images/tms_page_vert_line_right.png);
-                    background-repeat: no-repeat;
-                    width: 285px;
-                }
-                
-                
-                
-                #pricing .page_content_rightb
-                {
-                    float: right;
-                    padding-top: 25px;
-                    background-image: url(images/tms_page_vert_line_right.png);
-                    background-repeat: no-repeat;
-                    width: 210px;
-                }
-                
-                
-                
-                #pricing #helper_text
-                {
-                    position: relative;
-                    left: 690px;
-                    top: 460px;
-                }
-                
-                
-                
-                #pricing TD
-                {
-                    height: 40px;
-                }
-                
-                #pricing h2
-                {
-                    font-weight: bold;
-                }
-                
-                
-                #footer-1 a
-                {
-                    font-size: 12px;
-                    color: #000;
-                }
-                
-                #footer-1 a:hover
-                {
-                    font-size: 12px;
-                    text-decoration: none;
-                    color: #0000FF;
-                }
-            </style>
-            <a href="#" name="pricing"></a>
-            <div id="pricing">
-                <div style="min-height: 1000px;">
-                    <div class="section first-section">
-                        <br />
-                        <h1>
-                            Ready to Get Started?</h1>
-                        <br />
-                        <p>
-                            Sign up now to get unlimited access to
-                            <br />
-                            Ten Minute Pages for a simple, ONE TIME payment</p>
-                        <!-- <img src="images/order_progress.png" /><br /> -->
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <!-- <div class="page_content_upsell_breakdown_section" style="width: 670px; margin: 0 auto;"> -->
-                        <div class="page_content_upsell_breakdown">
-                            <div class="page_content_upsell_breakdown_block" style="margin-top: 10px;">
-                                <div class="page_content_upsell_breakdown_txt" style="background-color: white;">
-                                    <h2>
-                                        Starter</h2>
-                                    <p style="color: #333">
-                                        1 Payment of $95<br />
-                                        <span class="txthighlight" style='font-size: 8pt;'>&nbsp;</span></p>
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt smll crsr" style="background-color: white;">
-                                    Use on <span class="txthighlight">One</span> Personal Site
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt smll crsr" style="background-color: white;">
-                                    <strong><span class="txthighlight">Instant</span> Setup</strong>
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt smll crsr" style="background-color: white;">
-                                    <strong><span class="txthighlight">Built-In</span> Picture Editing</strong>
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt smll crsr" style="background-color: white;">
-                                    <strong><span class="txthighlight">Video</span> Power Tools</strong>
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt smll crsr" style="background-color: white;">
-                                    <strong><span class="txthighlight">FREE LITE</span> Hosting</strong>
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt smll" style="background-color: white;">
-                                    <div style="padding: 10px 0;">
-                                        <p>
-                                            A Full Year of <span class="txthighlight">Fanatical</span></p>
-                                        <p>
-                                            Customer Support<br />
-                                        </p>
-                                    </div>
-                                </div>
-                                <div style="background-color: #FFC; padding: 10px;">
-                                    <a href="http://tenminutepages.com/starter.php">
-                                        <img src="images/get_started_btn_95.png" width="130" border="0" /></a>
-                                </div>
-                            </div>
-                            <div class="page_content_upsell_breakdown_block">
-                                <div class="page_content_upsell_breakdown_txt" style="background-color: white;">
-                                    <h2>
-                                        Premium</h2>
-                                    <p style="color: #333">
-                                        1 Payment of $297<br />
-                                        <span class="txthighlight" style='font-size: 8pt;'>&nbsp;</span></p>
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt smll crsr" style="background-color: white;">
-                                    Use on <span class="txthighlight">Unlimited</span> Personal Sites
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt smll crsr" style="background-color: white;">
-                                    <strong><span class="txthighlight">Instant</span> Setup</strong>
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt smll crsr" style="background-color: white;">
-                                    <strong><span class="txthighlight">Built-In</span> Picture Editing</strong>
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt smll crsr" style="background-color: white;">
-                                    <strong><span class="txthighlight">Video</span> Power Tools</strong>
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt smll crsr" style="background-color: white;">
-                                    <strong><span class="txthighlight">FREE LITE</span> Hosting</strong>
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt smll" style="background-color: white;">
-                                    <div style="padding: 10px 0;">
-                                        <p>
-                                            A Full Year of <span class="txthighlight">Fanatical</span></p>
-                                        <p>
-                                            Customer Support<br />
-                                        </p>
-                                    </div>
-                                </div>
-                                <div style="background-color: #FFC; padding: 10px;">
-                                    <a href="http://tenminutepages.com/premium.php">
-                                        <img src="images/get_started_btn_297.png" width="140" border="0" /></a>
-                                </div>
-                                <div class="ie" style="position: absolute; margin-left: -120px\9; width: 210px; text-align: center;">
-                                    <a href="http://tenminutepages.com/premiumplan.php" style="position: relative; top: 10px;
-                                        font-size: 9pt; color: #888888;">or 2 payments of $177</a>
-                                </div>
-                            </div>
-                            <div class="page_content_upsell_breakdown_block_center">
-                                <div class="page_content_upsell_breakdown_txt" style="background-color: white;">
-                                    <h2>
-                                        Ultimate</h2>
-                                    <p style="color: #333">
-                                        1 Payment of $497<br />
-                                        <span class="txthighlight" style='font-size: 8pt;'>&nbsp;</span></p>
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt crsr" style="background-color: white;">
-                                    <span class="txthighlight">Unlimited</span> Client Sites
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt crsr" style="background-color: white;">
-                                    <strong><span class="txthighlight">Instant</span> Setup</strong>
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt crsr" style="background-color: white;">
-                                    <strong><span class="txthighlight">Built-In</span> Picture Editing</strong>
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt crsr" style="background-color: white;">
-                                    <strong><span class="txthighlight">Video</span> Power Tools</strong>
-                                    <p>
-                                        <strong><span class="txthighlight">Ulitmate</span> Graphics Pack v1</strong></p>
-                                    <p>
-                                        <strong><span class="txthighlight">Facebook</span> Power Tools v1</strong></p>
-                                    <p>
-                                        <strong><span class="txthighlight">Webinar</span> Power Tools v1</strong></p>
-                                    <p>
-                                        <strong><span class="txthighlight">Conversion</span> Toolkit v1</strong></p>
-                                    <p>
-                                        <strong><span class="txthighlight">Simple</span> Memberships<br />
-                                            &amp; <span class="txthighlight">Evergreen</span> Promotions v1</strong></p>
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt smll crsr" style="background-color: white;">
-                                    <strong><span class="txthighlight">FREE LITE</span> Hosting</strong>
-                                </div>
-                                <div class="page_content_upsell_breakdown_txt" style="background-color: white;">
-                                    <div style="padding: 10px 0;">
-                                        A Full Year of <span class="txthighlight">Fanatical</span><br />
-                                        Customer Support
-                                    </div>
-                                </div>
-                                <div style="background-color: #FFC; padding: 10px;">
-                                    <a href="http://tenminutepages.com/ultimate.php">
-                                        <img src="images/get_started_btn_497.png" alt="" border="0" /></a>
-                                </div>
-                                <div class="ie" style="position: absolute; margin-left: -120px\9; width: 240px; text-align: center;">
-                                    <a href="http://tenminutepages.com/ultimateplan.php" style="position: relative; top: 10px;
-                                        font-size: 9pt; color: #888888;">or 3 payments of $197</a>
-                                </div>
-                            </div>
-                            <div class="brk">
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <br />
-                </div>
-                <!-- </div> -->
-            </div>
-            <div id="footer">
-                Copyright &copy; 2014. All Rights Reserved<br />
-                <a href="http://tenminutepages.com">This site was built using Ten Minute Pages</a>
-                <br>
-                <br>
-                <div id="footer-1">
-                    <a href="http://tenminutepages.com/TOS.php">Terms of Service </a><a href="http://tenminutepages.com/contact-us.php">
-                        Contact Us</a> <a href="http://tenminutepages.com/jv/">Become an Affiliate</a>
-                </div>
-                <img src="http://tenminutepages.com/images/American-Express-icon.png" height="42"
-                    width="42">
-                <img src="http://tenminutepages.com/images/Discover-icon.png" height="42" width="42">
-                <img src="http://tenminutepages.com/images/Master-Card-Blue-icon.png" height="42"
-                    width="42">
-                <img src="http://tenminutepages.com/images/Visa-icon.png" height="42" width="42">
-            </div>
-        </div>
+
+    <!--<div style='font-family:Calibri;font-size:15px'>
+        --- This is an automated email, do not reply. For any further questions, please contact our office: <span style='color:#0000FF;'>lior@dglaw.co.il</span> ---
     </div>
-    <script src="//fast.wistia.com/static/iframe-api-v1.js"></script>
-    <script type="text/javascript">
+
+    <div style='font-family:Arial;font-size:18px'>
+
+        Dear: {0} <br />.
+        Passport number: {1} <br /><br />
+
+        Thanks for sending the documents for your working visa application.<br />
+        We'll check the documents and advise if we have any comments.<br /><br />
+
+        The visa application will be filed when the required forms are ready.
+
+    </div>
 
 
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-33249286-1']);
-        _gaq.push(['_setCampSourceKey', 'utm_source']);
-        _gaq.push(['_setCampMediumKey', 'utm_medium']);
-        _gaq.push(['_setCampContentKey', 'utm_content']);
-        _gaq.push(['_setCampTermKey', 'utm_keyword']);
-        _gaq.push(['_setCampNameKey', 'utm_campaign']);
-        _gaq.push(['_trackPageview']);
+    <br />
+    <br />-->
 
-        (function () {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
 
-    </script>
-    <!-- Start of Woopra Code -->
-    <script type="text/javascript">
-        function woopraReady(tracker) {
-            tracker.setDomain('tenminutepages.com');
-            tracker.setIdleTimeout(300000);
-            tracker.track();
-            return false;
-        }
-        (function () {
-            var wsc = document.createElement('script');
-            wsc.src = document.location.protocol + '//static.woopra.com/js/woopra.js';
-            wsc.type = 'text/javascript';
-            wsc.async = true;
-            var ssc = document.getElementsByTagName('script')[0];
-            ssc.parentNode.insertBefore(wsc, ssc);
-        })();
-    </script>
-    <!-- End of Woopra Code -->
-    <script type="text/javascript">
-        var _sf_async_config = { uid: 39365, domain: "tenminutepages.com" };
-        (function () {
-            function loadChartbeat() {
-                window._sf_endpt = (new Date()).getTime();
-                var e = document.createElement('script');
-                e.setAttribute('language', 'javascript');
-                e.setAttribute('type', 'text/javascript');
-                e.setAttribute('src',
-	       (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") +
-	       "js/chartbeat.js");
-                document.body.appendChild(e);
-            }
-            var oldonload = window.onload;
-            window.onload = (typeof window.onload != 'function') ?
-	     loadChartbeat : function () { oldonload(); loadChartbeat(); };
-        })();
 
-    </script>
-    <!-- End Chartbeat Code -->
-    <!-- Start Open Web Analytics Tracker -->
-    <script type="text/javascript">
-	//<![CDATA[
-        var owa_baseUrl = 'http://tenminutepages.com/owa/';
-        var owa_cmds = owa_cmds || [];
-        owa_cmds.push(['setSiteId', '4398becbaf5cd30352f78e6f5cfb0a94']);
-        owa_cmds.push(['trackPageView']);
-        owa_cmds.push(['trackClicks']);
-        owa_cmds.push(['trackDomStream']);
+    <div>
+        
+        Kind regards.<br />
+        Michal<br />
+        <span style='color:#0000FF'>michal@dg-immigration.com</span> <br />
+        <br />
+    </div>
+    <table class='' border='0' cellspacing='10' cellpadding='10' style='border-collapse: collapse;'>
 
-        (function () {
-            var _owa = document.createElement('script'); _owa.type = 'text/javascript'; _owa.async = true;
-            owa_baseUrl = ('https:' == document.location.protocol ? window.owa_baseSecUrl || owa_baseUrl.replace(/http:/, 'https:') : owa_baseUrl);
-            _owa.src = owa_baseUrl + 'modules/base/js/owa.tracker-combined-min.js';
-            var _owa_s = document.getElementsByTagName('script')[0]; _owa_s.parentNode.insertBefore(_owa, _owa_s);
-        } ());
-	//]]>
-    </script>
-    <!-- End Open Web Analytics Code -->
-    <script type="text/javascript">
-        document.write(unescape("%3Cscript src='//www.snapengage.com/snapabug.js' type='text/javascript'%3E%3C/script%3E"));</script>
-    <script type="text/javascript">
-        SnapABug.addButton("56de9bbc-df6f-4c18-a3ff-9dc92886883d", "1", "75%");
-    </script>
-    <!-- Perfect Audience Retargeting -->
-    <script type="text/javascript">
-        (function () {
-            window._pa = window._pa || {};
-            // _pa.orderId = "myCustomer@email.com"; // OPTIONAL: attach user email or order ID to conversions
-            // _pa.revenue = "19.99"; // OPTIONAL: attach dynamic purchase values to conversions
-            var pa = document.createElement('script'); pa.type = 'text/javascript'; pa.async = true;
-            pa.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + "//tag.perfectaudience.com/serve/51b26fa4e3948f0012000018.js";
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pa, s);
-        })();
-    </script>
-    <!-- Start of ExitSplash.com Code -->
-    <script language="javascript">
-        var exitsplashmessage = '***************************************\n\n W A I T   B E F O R E   Y O U   G O !\n\n  CLICK THE ****CANCEL**** BUTTON RIGHT NOW\n     TO STAY ON THE CURRENT PAGE.\n\n I HAVE SOMETHING VERY SPECIAL FOR YOU!\n\nJoin me on a special live web presentation where I reveal the Ultimate Squeeze Page and how I turned that into a 6 figure business in 4 months. \n\n***************************************';
-        var exitsplashpage = 'http://tenminutepages.com/WebinarExit.html';
-    </script>
-    <script language="javascript" src="http://tenminutepages.com/exitsplash.php?tc=3399cc&uh=none&ad=none&sh=no&hv=no&bh=22&fs=12&lf=Arial&at=Powered%20by%20ExitSplash"></script>
-    <!-- End of ExitSplash.com Code -->
+
+        <tr>
+            <td rowspan='5' style='width:150px;' valign='top'>
+                <img alt='' src='http://dgtracking.co.il/images/dgtrack.png' style="height:145px" />
+                <img style='position:absolute; top:120px;margin-left:20px;' alt='' src='http://dgtracking.co.il/images/line1.png' />
+            </td>
+
+        </tr>
+
+        <tr>
+
+
+
+            <td valign='top' style='height: 10.1pt;width:300px'>
+                <p style='font-family:Georgia;font-weight:bold;font-size:20px;color:#004571'>
+                    Michal Shmuely,
+                    <br />
+                    Immigration Manager
+                </p>
+            </td>
+
+            <td rowspan='4' valign='top' style='width:240px;'>
+                <img style='position:absolute;top:120px' alt='' src='http://dgtracking.co.il/images/line1.png' />
+                <img style='margin-left:20px;border:solid 1px red' alt='' src='http://dgtracking.co.il/images/movil.png'  />
+            </td>
+
+
+        </tr>
+        <tr style='height: 2.25pt'>
+            <td>
+                <p style='font-family:Georgia;font-style:italic;font-size:15px;'>
+                    Dardik Gross &amp; Co.Law Firm
+                </p>
+            </td>
+        </tr>
+        <tr style='height: 2.25pt'>
+            <td>
+                <p style='font-family:Arial;font-size:13px;'>
+                    14 Abba Hillel Rd., Ramat Gan, Israel 52506
+                </p>
+            </td>
+        </tr>
+        <tr style='height: 2.25pt'>
+
+
+
+            <td>
+                <p>
+
+
+                    <table border="0" cellspacing='0' cellpadding='0' style='font-family:Arial;font-size:12px;'>
+                        <tr>
+                            <td style="padding-right:15px">
+                                <span><color style='color:#004571'> Tel:</color> +972 3 6122624</span>
+                            </td>
+                            <td>
+                               <img src='http://dgtracking.co.il/images/line2.png'  />
+                            </td>
+                            <td style="padding-left:15px">
+                                <span style='color:#0000FF;'> info@dglaw.co.il</span> 
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td style="padding-right:15px">
+                                <span><color style='color:#004571'> Fax:</color> +972 3 6122587</span>
+
+                            </td>
+
+                            <td>
+                             
+                            </td>
+                            <td style="padding-left:15px">
+                                <span><a href='https://www.dglaw.co.il'>www.dglaw.co.il</a></span>
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+
+                   
+
+                   
+                  
+
+                </p>
+            </td>
+
+
+
+        </tr>
+        <tr style='height: 6.5pt'>
+            <td valign='top' style='' colspan='4'>
+                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
+                    <span style='font-size: 7.0pt; font-family: Arial,sans-serif; color: #5F5F5F'>
+                        The information
+                        in this e-mail is intended only for the person or entity to<span class='GramE'>whom</span>
+                        it is addressed and may contain confidential material.<br /> If you are not the intended
+                        recipient, please notify the sender immediately (tel.
+                    </span><a href='tel:%2B972%283%29612-2624'
+                              target='_blank'>
+                        <span style='font-size: 7.0pt; font-family: Arial,sans-serif; color: blue'>
+                            +972(3)612-2624
+                        </span>
+                    </a><span style='font-size: 7.0pt; font-family: Arial,sans-serif;
+                                    color: #5F5F5F'>
+                        ) and do not disclose the contents to any other person,<br /> use it for
+                        any purpose, or store or copy the information in any medium.Any views expressed
+                        within this e-mail, which do not record an advice<br /> under the terms of an engagement
+                        letter previously agreed in writing, do not constitute an opinion and/or reflect
+                        the views of the firm.
+                    </span>
+
+
+
+                </p>
+
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

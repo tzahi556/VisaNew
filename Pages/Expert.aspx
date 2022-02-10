@@ -370,16 +370,7 @@
                     }
                 });
 
-            //        	$("#ddlCompany").dropkick({
-            //	        	change: function(value,label) {
-            //		        	
-            //		        	setTimeout(function() {
-            //		        	
-            //		        		__doPostBack('ddlCompany','');
-            //			        	
-            //		        	}, 0);
-            //	        	}
-            //        	});
+           
 
             $("#btnNew").button();
             $("#btnDelete").button();
@@ -474,55 +465,6 @@
                 $("#dvArchiveProgress").hide();
 
             }, 100);
-
-            //******************************************************************************8
-            <%--$("#dvIncomingProgress").show();
-        
-            setTimeout(function() {
-            
-	            try
-	            {
-
-               // if($("#<%=grdIncoming.ClientID%> td").text().indexOf("No Expert Found!") < 0) {
-	            	var listHeight = getListHeight();
-                    $("#<%=grdIncoming.ClientID%>").dataTable({
-		            	"bJQueryUI": true,
-		            	"bPaginate": false,
-		            	"bFilter": false,
-		            	"bInfo": false,
-		            	"aaSorting":[],
-						"aoColumns": [
-							null,
-							{ "sSortDataType": "dom-indicator", "sType": "numeric" },
-							null,
-							null,
-							{ "sSortDataType": "dom-date" },
-							{ "sSortDataType": "dom-date" },
-                            { "sSortDataType": "dom-date" },
-							{ "sSortDataType": "dom-date" },
-							{ "sSortDataType": "dom-date" },
-							{ "sSortDataType": "dom-date" },
-
-							
-                            <% if (RoleId == "1") { %>
-		
-								null
-															
-							<% } %>
-						],
-		            	"sScrollY": "" + (listHeight + 5) + "px",
-		            });
-		        }
-                //}
-		        catch(err) {}
-	            
-	            $("#dvIncomingProgress").hide();
-	            
-			}, 100);--%>
-
-            //**********************************************************************************
-
-
 
 
             $("#dvDocsProgress").show();
@@ -813,8 +755,10 @@
             <asp:ScriptManager ID="ScriptManager1" runat="server">
             </asp:ScriptManager>
             <div id="topBar" class="dvNoRoundAndBg">
-                <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Always">
                     <ContentTemplate>
+
+                       <%-- <asp:LinkButton ID="btnSearchePanel" OnClick="ddlFamily_SelectedChange" runat="server">asasasas</asp:LinkButton>--%>
                         <table width="100%" border="0">
                             <tr>
                                 <td align="left">

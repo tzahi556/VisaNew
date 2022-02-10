@@ -44,6 +44,8 @@
 
             $("select").dropkick();
 
+            $("#txtLink").val("http://dgtracking.co.il/RegExpert/Register.aspx?CompanyId=" + <%=this.CompanyId%>);
+
         });
 
 
@@ -61,8 +63,28 @@
 
         function OpenLink() {
 
-            $("#txtLink").val("http://dgtracking.co.il/RegExpert/Register.aspx?CompanyId=" + <%=this.CompanyId%>);
+            
+            CopyToClipboard();
 
+        }
+
+        function CopyToClipboard() {
+            /* Get the text field */
+            var copyText = document.getElementById("txtLink");
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+            /* Copy the text inside the text field */
+            navigator.clipboard.writeText(copyText.value);
+
+           // document.execCommand('paste');
+
+            /* Alert the copied text */
+           // alert("Copied the text: " + copyText.value);
+
+            parent.ShowMessage('Copied the clipboard', '1');
         }
 
 
@@ -164,6 +186,11 @@
                         <td align="left">
                             <asp:TextBox ID="txtContactManJob" runat="server"></asp:TextBox>
                         </td>
+                          <td align="left">Send form email:
+                        </td>
+                        <td align="left">
+                            <asp:TextBox ID="txtSendFormEmail" runat="server"></asp:TextBox>
+                        </td>
                     </tr>
                     <tr>
                         <td align="left">Contact Person Email:
@@ -176,6 +203,18 @@
                         <td align="left">
                             <asp:TextBox ID="txtContactManPhone" runat="server"></asp:TextBox>
                         </td>
+
+                         <td align="left">
+                           
+                          Active email:
+                        </td>
+                        <td align="left">
+                          
+                            <asp:CheckBox ID="chSendFormEmail" runat="server" />
+                          
+                        </td>
+
+
                     </tr>
                 </table>
             </div>
@@ -245,14 +284,16 @@
                
             </div>
               <div style="padding-top: 9px; margin-right: 5px">
-                    <span class="blueButton">
+                   
+                <input type="text" id="txtLink" style="width:70%" readonly />
+                   <span class="blueButton">
                     <button id="btnGenerate" type="button" runat="server" onclick="OpenLink();"
                         validationgroup="up" style="width: 150px">
                         <img src="../App_Themes/Theme1/Images/save1.jpg" width="16" height="16" style="display: none" />
-                        Generate Link
+                        Copy Link
                     </button>
                 </span>
-                  <input type="text" id="txtLink" style="width:70%" readonly />
+
               </div>
 
 

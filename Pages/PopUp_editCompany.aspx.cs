@@ -72,6 +72,8 @@ public partial class Pages_PopUp_editCustomer : System.Web.UI.Page
             txtPassportCountry.Text = row["PassportCountry"].ToString();
             txtIsraelID.Text = row["IsraelID"].ToString();
 
+            txtSendFormEmail.Text = row["Sendformemail"].ToString();
+            chSendFormEmail.Checked = bool.Parse(row["IsSendformemail"].ToString());
 
 
         }
@@ -86,7 +88,7 @@ public partial class Pages_PopUp_editCustomer : System.Web.UI.Page
             txtEmail.Text, txtContactMan.Text, txtContactManEmail.Text, txtContactManPhone.Text,
               txtAddress.Text, chIsExp.Checked, chActive.Checked, chIsEmail.Checked, txtContactManJob.Text, txtAuthorizedSigner.Text,
               txtAuthorizedSignerJob.Text, txtAuthorizedSignerPassport.Text, txtWork.Text, txtCountry.Text, txtInteriorReg.Text, ddlCompany.SelectedValue
-           ,txtPassportCountry.Text,txtIsraelID.Text );
+           ,txtPassportCountry.Text,txtIsraelID.Text, txtSendFormEmail.Text, chSendFormEmail.Checked);
 
         //if (CompanyId == "-1")
         //{

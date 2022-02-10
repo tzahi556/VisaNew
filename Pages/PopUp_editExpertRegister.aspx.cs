@@ -135,7 +135,9 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
             ddlCompany.SelectedValue = row["CompanyId"].ToString();
 
 
-
+            txtStayIsraelStartDate.Text = row["StayIsraelStartDate"].ToString();
+            txtStayIsraelEndDate.Text = row["StayIsraelEndDate"].ToString();
+            txtCommentExpert.Text = row["Comment"].ToString();
 
 
             //string savePath = "~\\ExpertsUpload\\" + txtPassport.Text + "\\";
@@ -246,7 +248,7 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
                          );
 
 
-        string divContent = "<table id='tblUploadFiles'   width='100%'><tr><th></th><th>Send</th> <th></th> <th>Is Upload</th> <th>File Name</th> <th>Is Readable</th> <th>Remark</th> </tr>";
+        string divContent = "<table id='tblUploadFiles' width='100%'><tr><th></th><th>Send</th> <th></th> <th>Uploaded Docs</th> <th>File Name</th> <th>Check Docs</th> <th>Remark</th> </tr>";
 
         string imgVV = "<img src='../App_Themes/Theme1/Images/vv.png'/>";
         string imgXX = "<img src='../App_Themes/Theme1/Images/xx.png'/>";
@@ -349,7 +351,7 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
 
     public void SendEmail_Click(object sender, EventArgs e)
     {
-        string divContent = "<table id='tblUploadFiles' style='width: 100%; border-collapse: collapse;'><tr><th></th><th>Upload Name</th><th>Is Upload</th> <th>File Name</th> <th>Is Readable</th> <th>Remark</th> </tr>";
+        string divContent = "<table id='tblUploadFiles' style='width: 100%; border-collapse: collapse;'><tr><th></th><th>Upload Name</th> <th>File Name</th> <th>Check Docs</th> <th>Remarks</th> </tr>";
 
         string imgVV = "<img src='http://dgtracking.co.il/App_Themes/Theme1/Images/vv.png'/>";
         string imgXX = "<img src='http://dgtracking.co.il/App_Themes/Theme1/Images/xx.png'/>";
@@ -394,7 +396,7 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
 
             divContent += "<tr><td>" + SeqId + "</td>";
             divContent += "<td>" + UploadName + "</td>";
-            divContent += "<td style='text-align:center'>" + ((IsUpload) ? imgVV : imgXX) + "</td>";
+          //  divContent += "<td style='text-align:center'>" + ((IsUpload) ? imgVV : imgXX) + "</td>";
             divContent += "<td>" + FileName + "</td>";
             divContent += "<td style='text-align:center'>" + ((IsReadableBool && IsUpload) ? imgVV : ((IsUpload) ? imgXX : "")) + "</td>";
             if (!string.IsNullOrEmpty(Id))
@@ -407,12 +409,52 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
 
         string bodyFiles = divContent + "</table>";
 
-        string Subject = " Dg Law Documents - " + txtName.Text + " " + txtSurname.Text;
-
-        string Body = "<b>Hello Dear</b>  <br /><br />  <b>First Name:</b>" + txtName.Text + " <br /> <b>Surename:</b>" + txtSurname.Text
-             + "<br/><b> Passport:</b> " + txtPassport.Text + " <br/><br/>";
+     
+        string Subject = txtSurname.Text + " " + txtName.Text + " - your Documents status.";
+      
+        
+        //string Body = "<b>Hello Dear</b>  <br /><br />  <b>First Name:</b>" + txtName.Text + " <br /> <b>Surename:</b>" + txtSurname.Text
+        //     + "<br/><b> Passport:</b> " + txtPassport.Text + " <br/><br/>";
        
-            Body += "<br /><b> Please Check Files Error and Send back:</b><br/>" + bodyFiles;
+        //    Body += "<br /><b> Please Check Files Error and Send back:</b><br/>" + bodyFiles;
+
+
+
+
+        string Body = @"
+    
+ <div style='font-family:Calibri;font-size:14px'>
+       <b> --- This is an automated email, do not reply. For any further questions, please contact our office: <span style='color:#0000FF;'>michal@dg-immigration.com</span> ---</b>
+   <br /><br />
+   </div>
+
+    <div style='font-family:Arial;font-size:15px'>
+
+        Dear: <b>{0}.</b> <br />
+        Passport number: <b>{1}</b> <br /><br />
+
+        We checked the documents that you sent and we have the following remarks:<br/><br/>
+
+    </div>" + bodyFiles + @"
+      <br/>
+     <div style='font-family:Arial;font-size:15px'>
+
+      Please resend these documents through our system. <br/><br/>
+
+      Once you are ready to resend the above documents, please  click on the following link upload the revised document and submit. <br/>
+
+        {2}<br/><br/>
+      The system will identify you by entering your passport number and your name.<br/><br/>
+
+       <span style='color:red;font-weight:bold;'> *Please note that delay in submitting all required documents may cause delay in applying your permit application.  </span>
+    </div>
+    
+     "
+    ;
+
+
+
+        Body = string.Format(Body, txtSurname.Text + " " + txtName.Text, txtPassport.Text, "https://dgtracking.co.il/RegExpert/Register.aspx?CompanyId=" + CompanyId);
 
 
 
@@ -525,7 +567,10 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
         "0",
         txtDateBirth.Text,
         ExpertRegId,
-        txtComment.Text
+        txtComment.Text,
+        txtStayIsraelStartDate.Text,
+        txtStayIsraelEndDate.Text,
+        txtCommentExpert.Text
         );
 
         string SoupExpertRegisterId = InsertIntoDB(txtSoupFamilyname.Text,
@@ -546,6 +591,9 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
           "1",
           txtSoupDateofBirth.Text,
           HiddenFieldSoup.Value,
+          "",
+          "",
+          "",
           ""
           );
 
@@ -588,7 +636,11 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
                                                 "2",
                                                 txtChildDateofBirth.Text,
                                                 hdnFiled.Value,
-                                                ""
+                                                "",
+                                                "",
+                                                  "",
+                                                  ""
+
 
                                                 );
 
@@ -634,7 +686,7 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
 
     private string InsertIntoDB(string Surname, string Name, string CompanyId, string Email, string Phone, string Job,
        string Passport, string PassportIssueDate, string PassportExpDate, string ParentId, string StreetAndHouse, string Town,
-       string Country, string Maidenname, string Fathersname, string IsFamaly, string DateofBirth, string ExpertFamId, string Comment)
+       string Country, string Maidenname, string Fathersname, string IsFamaly, string DateofBirth, string ExpertFamId, string Comment,string StayIsraelStartDate, string StayIsraelEndDate, string CommentExpert)
     {
         DataTable ExpertRegister = Dal.ExeSp("SetExpertRegister",
          Surname,
@@ -656,6 +708,9 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
          GetAsDate(DateofBirth),
          ExpertFamId,
          Comment,
+         GetAsDate(StayIsraelStartDate),
+         GetAsDate(StayIsraelEndDate),
+         CommentExpert,
          true
          );
 
@@ -700,6 +755,13 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
 
         }
 
+        string Sendformemail = "";
+        DataTable CompanyMail = Dal.GetDataTable("Select * from Company where IsSendformemail=1 and Sendformemail is not null and CompanyId=" + CompanyId);
+        if (CompanyMail.Rows.Count > 0)
+        {
+            Sendformemail = CompanyMail.Rows[0]["Sendformemail"].ToString();
+
+        }
 
 
 
@@ -736,7 +798,11 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
             actMSG.To.Add(officeMails);
         }
 
-
+        // הוספת שליחה לבן אדם של החברה
+        if (!string.IsNullOrEmpty(Sendformemail))
+        {
+            actMSG.To.Add(Sendformemail);
+        }
 
         actMSG.From = new MailAddress("dglawmails@dgtracking.co.il");
 
@@ -801,133 +867,135 @@ public partial class Pages_PopUp_editExpertRegister : System.Web.UI.Page
 
         sb.Append(@"
 
-    <div><br><br><br>Best Regards,<br><br></div>
-    
+<html>
+<body>
 
 
-    <table class='' border='0' cellspacing='0' cellpadding='0' style='width: 100%; border-collapse: collapse;'>
-       
-       
-       <tr>
-        <td rowspan='5'>
-          <img alt='' src='http://dgtracking.co.il/images/dg.png' />
-       
-        </td>
-       
-       </tr>
-       
+   <br/>
+
+    <div style='font-family:Arial;font-size:14px'>
+        Kind regards.<br/>
+        Michal<br/>
+        <span style='color:#0000FF'>michal@dg-immigration.com</span> <br/>
+        <br />
+    </div>
+    <table class='' border='0' cellspacing='10' cellpadding='10' style='border-collapse: collapse;'>
+
+
         <tr>
-            <td valign='top' style='height: 30.1pt'>
-                <p class='' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal;
-                    font-weight: bold; font-size: 12.0pt; font-family: Georgia,serif; color: #365F91'>
-                    Kobi (Yaakov) Neeman , Adv.
-                    <br />
-                    Dardik Gross &amp; Co. Law Firm
-                </p>
-            </td>
-        </tr>
-        <tr style='height: 2.25pt'>
-            <td>
-                &nbsp;
-            </td>
-        </tr>
-        <tr>
-            <td style='font-size: 9.0pt; font-family: Arial,sans-serif; color: #5F5F5F;'>
-                Abba Hillel Silver Rd 14 &nbsp; &nbsp; &nbsp; &nbsp; Tel: <span style='color: blue'>
-                    <u>+972 3 6122624</u></span> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <a href='http://www.dglaw.co.il/'
-                        target='_blank'><span style='font-size: 9.0pt; font-family: Arial,sans-serif; color: #5F5F5F;
-                            text-decoration: none; text-underline: none'>www.dglaw.co.il</span></a>
-                <br />
-                Ramat Gan, Israel 52506 &nbsp; &nbsp; &nbsp; Fax: <span style='color: blue'><u>+972
-                    3 6122587 </u></span>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <a href='mailto:neeman@dglaw.co.il'
-                        target='_blank'><span style='font-size: 9.0pt; font-family: Arial,sans-serif; color: #365F91;
-                            text-decoration: none; text-underline: none'>neeman@dglaw.co.il</span></a>
-            </td>
-        </tr>
-        <!--  <tr>
-            <td valign='top' style='padding: 0cm 5.4pt 0cm 5.4pt; height: 34.25pt'>
-                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
-                    <span style='font-size: 9.0pt; font-family: Arial,sans-serif; color: #5F5F5F'>Abba Hillel
-                        Silver Rd 14</span><span style='font-size: 12.0pt; font-family: Times New Roman,serif;'></span></p>
-                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
-                    <span style='font-size: 9.0pt; font-family: Arial,sans-serif; color: #5F5F5F'>Ramat
-                        <span>Gan</span>, Israel 52506</span><span style='font-size: 12.0pt; font-family: Times New Roman,serif;'></span></p>
-            </td>
-            <td valign='top' style='width: 150.1pt; height: 34.25pt'>
-                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
-                    <span style='font-size: 9.0pt; font-family: Arial,sans-serif; color: #5F5F5F'>Tel:
-                    </span><a href='tel:%2B972%203%206122624' target='_blank'><span style='font-size: 9.0pt;
-                        font-family: Arial,sans-serif; color: blue'>+972 3 6122624</span></a><span style='font-size: 9.0pt;
-                            font-family: Arial,sans-serif; color: #5F5F5F'> </span><span style='font-size: 12.0pt;
-                                font-family: Times New Roman,serif;'></span>
-                </p>
-                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
-                    <span style='font-size: 9.0pt; font-family: Arial,sans-serif; color: #5F5F5F'>Fax:
-                    </span><a href='tel:%2B972%203%206122587' target='_blank'><span style='font-size: 9.0pt;
-                        font-family: Arial,sans-serif; color: blue'>+972 3 6122587</span></a><span style='font-size: 9.0pt;
-                            font-family: Arial,sans-serif; color: #5F5F5F'> </span><span style='font-size: 12.0pt;
-                                font-family: Times New Roman,serif;'></span>
-                </p>
-            </td>
-            <td colspan='2' valign='top' style='width: 131.65pt;
-                height: 34.25pt'>
-                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
-                    <a href='http://www.dglaw.co.il/' target='_blank'><span style='font-size: 9.0pt;
-                        font-family: Arial,sans-serif; color: #5F5F5F; text-decoration: none; text-underline: none'>
-                        www.dglaw.co.il</span></a><span style='font-size: 9.0pt; font-family: Arial,sans-serif;
-                            color: #5F5F5F'> </span><span style='font-size: 12.0pt; font-family: Times New Roman,serif;'>
-                            </span>
-                </p>
-                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
-                    <a href='mailto:neeman@dglaw.co.il' target='_blank'><span style='font-size: 9.0pt;
-                        font-family: Arial,sans-serif; color: #365F91; text-decoration: none; text-underline: none'>
-                        neeman@dglaw.co.il</span></a><span style='font-size: 9.0pt; font-family: Arial,sans-serif;
-                            color: #365F91'> </span><span style='font-size: 12.0pt; font-family: Times New Roman,serif;'>
-                            </span>
-                </p>
-            </td>
-            <td valign='top' style='width: 28.15pt; height: 34.25pt'>
-                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
-                    <span style='font-size: 12.0pt; font-family: Times New Roman,serif;'>&nbsp;</span></p>
-            </td>
-            <td valign='top' style='width: 35.75pt; height: 34.25pt'>
-                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
-                    <span style='font-size: 12.0pt; font-family: Times New Roman,serif;'>&nbsp;</span></p>
-            </td>
-            <td style='width: 16.1pt; padding: 0cm 0cm 0cm 0cm; height: 34.25pt'>
-                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
-                    <span style='font-size: 12.0pt; font-family: Times New Roman,serif;'>&nbsp;</span></p>
-            </td>
-        </tr>-->
-        <tr style='height: 6.5pt'>
-            <td valign='top' style=''>
-                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
-                    <span style='font-size: 7.0pt; font-family: Arial,sans-serif; color: #5F5F5F'>The information
-                        in this e-mail is intended only for the person or entity to <span class='GramE'>whom</span>
-                        it is addressed and may contain confidential material.<br /> If you are not the intended
-                        recipient, please notify the sender immediately (tel. </span><a href='tel:%2B972%283%29612-2624'
-                            target='_blank'><span style='font-size: 7.0pt; font-family: Arial,sans-serif; color: blue'>
-                                +972(3)612-2624</span></a><span style='font-size: 7.0pt; font-family: Arial,sans-serif;
-                                    color: #5F5F5F'>) and do not disclose the contents to any other person,<br /> use it for
-                                    any purpose, or store or copy the information in any medium. Any views expressed
-                                    within this e-mail, which do not record an advice<br /> under the terms of an engagement
-                                    letter previously agreed in writing, do not constitute an opinion and/or reflect
-                                    the views of the firm. </span><span style='font-size: 12.0pt; font-family: Times New Roman,serif;'>
-                                    </span><br /><br />
-                                     <span style='font-size: 8.0pt; font-family: Arial,sans-serif; color: #365F91;margin-left: 36.0pt;'>Please
-                        consider the environment. Do you really need to print this email?</span><span style='font-size: 12.0pt;
-                            font-family: Times New Roman,serif;'></span>
-
-                </p>
+            <td rowspan='5' valign='top' style='width:150px;'>
+             
+                <img  alt= '' src= 'http://dgtracking.co.il/images/dgtrack.png' style='height:145px' />
+                <img style='position:absolute; top:120px;margin-left:20px;' alt= '' src= 'http://dgtracking.co.il/images/line1.png' />
                
+            </td>
+
+        </tr>
+
+        <tr>
+
+
+
+            <td valign='top' style='width:300px'>
+                <p style = 'font-family:Georgia;font-weight:bold;font-size:20px;color:#004571;margin:0px' >
+                    Michal Shmuely,
+                    <br />
+                    Immigration Manager
+                </p>
+            </td>
+
+            <td rowspan='4' valign= 'top' style= 'width:240px;' >
+                <img style='position:absolute; top:120px' alt= '' src= 'http://dgtracking.co.il/images/line1.png' />
+                <img style='margin-left:20px;' alt= '' src= 'http://dgtracking.co.il/images/movil.png' />
+            </td>
+
+
+        </tr>
+        <tr>
+            <td>
+                <p style= 'font-family:Georgia;font-style:italic;font-size:15px;margin:0px'>
+                    Dardik Gross &amp; Co.Law Firm
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p style= 'font-family:Arial;font-size:13px;margin:0px'>
+                    14 Abba Hillel Rd., Ramat Gan, Israel 52506
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td valign='top'>
+                <p style= 'font-family:Arial;font-size:11px;margin:0px'>
+                              <table border='0' cellspacing='0' cellpadding='0' style='font-family:Arial;font-size:12px;'>
+                        <tr>
+                            <td style='padding-right:15px'>
+                                <span><color style='color:#004571'> Tel:</color> +972 3 6122624</span>
+                            </td>
+                            <td>
+                               <img src='http://dgtracking.co.il/images/line2.png'  />
+                            </td>
+                            <td style='padding-left:15px'>
+                                <span style='color:#0000FF;'> info@dglaw.co.il</span> 
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td style='padding-right:15px'>
+                                <span><color style='color:#004571'> Fax:</color> +972 3 6122587</span>
+
+                            </td>
+
+                            <td>
+                             
+                            </td>
+                            <td style='padding-left:15px'>
+                                <span><a href='https://www.dglaw.co.il'>www.dglaw.co.il</a></span>
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </p>
+            </td>
+
+
+
+        </tr>
+        <tr style = 'height: 6.5pt' >
+            <td valign='top' style='' colspan='4'>
+                <p class='MsoNormal' style='margin-bottom: 0cm; margin-bottom: .0001pt; line-height: normal'>
+                    <span style = 'font-size: 7.0pt; font-family: Arial,sans-serif; color: #5F5F5F' >
+                        The information
+                        in this e-mail is intended only for the person or entity to<span class='GramE'>whom</span>
+                        it is addressed and may contain confidential material.<br /> If you are not the intended
+                        recipient, please notify the sender immediately (tel.
+                    </span><a href = 'tel:%2B972%283%29612-2624'
+                              target= '_blank'>
+                        <span style= 'font-size: 7.0pt; font-family: Arial,sans-serif; color: blue'>
+                            +972(3)612-2624
+                        </span>
+                    </a><span style = 'font-size: 7.0pt; font-family: Arial,sans-serif;
+                                    color: #5F5F5F'>
+                        ) and do not disclose the contents to any other person,<br /> use it for
+                        any purpose, or store or copy the information in any medium.Any views expressed
+                        within this e-mail, which do not record an advice<br /> under the terms of an engagement
+                        letter previously agreed in writing, do not constitute an opinion and/or reflect
+                        the views of the firm.
+                    </span>
+
+
+
+                </p>
+
             </td>
         </tr>
     </table>
 </body>
-</html>
-
-
-              ");
+</html>");
 
 
         return sb.ToString();
